@@ -1,0 +1,148 @@
+deck:
+  spec_version: '1.2'
+  state: VISUAL_READY
+  mode: source_based
+  objective:
+    background: 役員会で解約率改善の優先施策を決める
+    audience: executive
+    decision_goal: オンボーディング改善への投資可否
+    slide_count: 1
+    output_mode: design
+  brand:
+    primary_color: null
+    font_family: null
+    source: user_or_default
+  governing_message: 解約増は価格より初期利用のつまずきに集中しており、オンボーディング改善を優先すべきだ
+  decisions:
+  - id: D1
+    question: オンボーディング改善へ投資するか
+    required_decision: 承認
+    decision_criteria:
+    - 解約率改善余地
+    - 実装期間
+    - 投資回収
+    status: proposed
+    related_slides:
+    - S03
+  evidence:
+  - id: E001
+    content: 解約率が8%から12%へ上昇
+    type: metric
+    status: confirmed
+    source:
+      label: 月次KPI
+      location: null
+    numeric:
+      value: 12
+      display: 12%
+      unit: '%'
+      period: 2026-04
+      calculation_basis: null
+    usable_as: proof
+  - id: E002
+    content: 初月未利用者の解約率が高い
+    type: fact
+    status: confirmed
+    source:
+      label: 利用ログ分析
+      location: null
+    numeric:
+      value: null
+      display: null
+      unit: null
+      period: null
+      calculation_basis: null
+    usable_as: proof
+  slides:
+  - id: S01
+    false: 1
+    role: summary
+    question: 何を決めるべきか
+    judgment: オンボーディング改善を優先
+    supporting_evidence:
+    - E001
+    - E002
+    head:
+      text: 解約増は価格より初期利用のつまずきに集中しており、オンボーディング改善を優先すべきだ
+      sentence_pattern: origin
+      claim_strength: moderate
+      line_preference: one
+    proof_requirements:
+    - id: P01
+      clause: 初期利用のつまずきに集中
+      evidence_ids:
+      - E002
+      body_element_ids:
+      - B01
+    - id: P02
+      clause: オンボーディング改善を優先すべき
+      evidence_ids:
+      - E001
+      - E002
+      body_element_ids:
+      - B02
+    storyline:
+      parent_claim: null
+      aggregation_to_parent: null
+      relation_to_previous: opening
+      slice_axis: null
+      decision_ids:
+      - D1
+    visual:
+      intent: decide
+      candidates:
+      - 2
+      selected_pattern: 2
+      selection_reason: 決定と根拠を冒頭で予告するため
+      rejected: []
+      body_elements:
+      - id: B01
+        type: table
+        purpose: 解約増の根拠
+        evidence_ids:
+        - E001
+        - E002
+        proof_requirement_ids:
+        - P01
+        spec: {}
+      - id: B02
+        type: decision_box
+        purpose: 求める決定
+        evidence_ids:
+        - E001
+        - E002
+        proof_requirement_ids:
+        - P02
+        spec: {}
+    render:
+      status: not_rendered
+      page_size: null
+      notes: []
+      design_contract:
+        density: analytical
+        primary_focus: head
+        emphasis_targets:
+        - B01
+        comparison_scale_group: null
+        geometry_key: analytical_default
+        semantic_redundancy: []
+        notes: []
+  qa:
+    status: not_run
+    issues: []
+  design:
+    system: uchita_consulting_design
+    system_version: '1.0'
+    theme_profile: null
+    user_constraints: []
+    semantic_encoding:
+      actual: solid
+      forecast: dashed
+      planned: outline
+      completed: filled
+      estimate_marker: †
+    global_geometry:
+      grid_columns: 12
+      fixed_head_area: true
+      fixed_footer_area: true
+    exceptions: []

@@ -1,0 +1,342 @@
+deck:
+  spec_version: '1.2'
+  state: VISUAL_READY
+  mode: research_briefing
+  objective:
+    background: 経営会議で新テーマへの投資方針を決める
+    theme: サンプル市場
+    audience: executive
+    decision_goal: 投資優先度と初年度アクションを決定
+    key_questions:
+    - 市場は拡大するか
+    - どこに投資するか
+    - 何を今始めるか
+    slide_count: 3
+    output_mode: design
+  research:
+    required: true
+    status: complete
+    source_policy: primary_first
+    questions:
+    - id: RQ01
+      question: 市場は拡大するか
+      decision_relevance: 投資タイミング
+      status: answered
+      evidence_ids:
+      - E001
+      - E002
+  template:
+    id: executive_briefing_11
+    application: adaptive
+    skipped_roles:
+    - definition
+    - adoption
+    - barriers
+    - operating_model
+    - external_comparison
+    - governance
+    notes:
+    - 3枚デモのため圧縮
+  brand:
+    primary_color: '#0C3B2E'
+    font_family: null
+    source: theme
+  governing_message: 市場拡大は続く見込みであり、初年度は高確度領域へ投資を集中すべきだ
+  decisions:
+  - id: D1
+    question: 市場参入を進めるか
+    required_decision: 承認
+    decision_criteria:
+    - 市場成長
+    - 収益性
+    status: proposed
+    related_slides: [S01, S03]
+  - id: D2
+    question: 初年度の重点領域はどこか
+    required_decision: 選択
+    decision_criteria: [効果, 実現容易性]
+    status: proposed
+    related_slides: [S02, S03]
+  - id: D3
+    question: 即時着手する施策は何か
+    required_decision: 承認
+    decision_criteria: [着手可能性, 責任者]
+    status: proposed
+    related_slides: [S03]
+  evidence:
+  - id: E001
+    content: 市場規模は2026年に100
+    type: metric
+    status: confirmed
+    source:
+      label: 公的統計
+      organization: Example Agency
+      title: Example Market Statistics
+      year: 2026
+      url: https://example.com/statistics
+      source_tier: tier1_primary_official
+      page_or_section: Table 1
+    numeric:
+      value: 100
+      display: '100'
+      unit: index
+      period: '2026'
+      is_estimate: false
+      series_kind: actual
+    usable_as: proof
+  - id: E002
+    content: 市場規模は2029年に145まで拡大する予測
+    type: metric
+    status: confirmed
+    source:
+      label: 公開予測
+      organization: Example Research Institute
+      title: Example Market Outlook
+      year: 2026
+      url: https://example.com/outlook
+      source_tier: tier2_primary_research
+      page_or_section: Forecast
+      comparability_note: E001と同一市場定義
+    numeric:
+      value: 145
+      display: '145'
+      unit: index
+      period: '2029'
+      is_estimate: false
+      series_kind: forecast
+    usable_as: proof
+  - id: E003
+    content: 重点施策の初年度効果は15と試算
+    type: metric
+    status: confirmed
+    source:
+      label: 社内試算
+    numeric:
+      value: 15
+      display: 15†
+      unit: index
+      period: Year 1
+      calculation_basis: 起点100 + 効果20 - 移行コスト5
+      is_estimate: true
+      estimate_method: 社内モデル
+      estimate_marker: †
+      series_kind: estimate
+    usable_as: proof
+  slides:
+  - id: S01
+    role: summary
+    template_role: executive_summary
+    question: 市場参入を進めるべきか
+    judgment: 成長継続を前提に参入を進める
+    supporting_evidence: [E001, E002]
+    research_question_ids: [RQ01]
+    head:
+      text: 市場拡大は今後も続く見込みであり、高確度領域への参入を進めるべきだ
+      sentence_pattern: causal
+      claim_strength: moderate
+      line_preference: one
+    proof_requirements:
+    - id: P01
+      clause: 市場拡大は今後も続く見込み
+      evidence_ids: [E001, E002]
+      body_element_ids: [B01]
+    - id: P02
+      clause: 高確度領域への参入を進めるべき
+      evidence_ids: [E001, E002]
+      body_element_ids: [B02]
+    storyline:
+      relation_to_previous: opening
+      decision_ids: [D1, D2, D3]
+    visual:
+      intent: decide
+      candidates: [2, 5]
+      selected_pattern: 2
+      selection_reason: 結論・論点・主要根拠を冒頭で予告するため
+      rejected:
+      - pattern: 5
+        reason: 時系列だけではDecisionを回収できない
+      callouts:
+      - id: C01
+        kind: forecast_boundary
+        text: Forecast
+        proof_requirement_ids: [P01]
+        evidence_ids: [E002]
+        target_body_element_id: B01
+      forecast_present: true
+      forecast_encoding:
+        actual: solid
+        forecast: dashed
+        boundary_label: Forecast
+      body_elements:
+      - id: B01
+        type: chart
+        purpose: 市場の実績と予測を示す
+        evidence_ids: [E001, E002]
+        proof_requirement_ids: [P01]
+        data_bindings:
+        - {label: '2026', evidence_id: E001, field: numeric.value}
+        - {label: '2029', evidence_id: E002, field: numeric.value}
+        spec: {chart_kind: line}
+      - id: B02
+        type: decision_box
+        purpose: 求める決定を予告する
+        evidence_ids: [E001, E002]
+        proof_requirement_ids: [P02]
+        data_bindings: []
+        spec: {}
+    source_note:
+      evidence_ids: [E001, E002]
+      display_text: 'Source: Example Agency, Example Market Statistics, 2026; Example Research Institute, Example Market Outlook, 2026'
+      estimate_disclaimer: false
+    render:
+      status: not_rendered
+      design_contract:
+        density: analytical
+        primary_focus: head
+        emphasis_targets: [C01]
+        geometry_key: analytical_default
+        semantic_redundancy: [line_style, boundary_label]
+  - id: S02
+    role: analysis
+    template_role: impact
+    question: 初年度効果はどの程度か
+    judgment: 移行コストを差し引いても効果は残る
+    supporting_evidence: [E003]
+    head:
+      text: 移行コストを差し引いても初年度効果は残る水準にあり、高確度施策への投資に値する
+      sentence_pattern: evaluation
+      claim_strength: moderate
+      line_preference: one
+    proof_requirements:
+    - id: P03
+      clause: 移行コストを差し引いても初年度効果は残る
+      evidence_ids: [E003]
+      body_element_ids: [B03]
+    - id: P04
+      clause: 高確度施策に投資を集中すべき
+      evidence_ids: [E003]
+      body_element_ids: [B03]
+    storyline:
+      parent_claim: 高確度領域へ投資を集中すべき
+      aggregation_to_parent: 効果の定量根拠
+      relation_to_previous: because
+      slice_axis: 投資効果
+      decision_ids: [D2]
+    visual:
+      intent: decompose
+      candidates: [7]
+      selected_pattern: 7
+      selection_reason: 起点から効果とコストを分解して終点を検算できるため
+      callouts:
+      - id: C02
+        kind: endpoint
+        text: 115†
+        proof_requirement_ids: [P03]
+        evidence_ids: [E003]
+        target_body_element_id: B03
+      forecast_present: false
+      body_elements:
+      - id: B03
+        type: chart
+        purpose: 初年度効果を寄与分解する
+        evidence_ids: [E003]
+        proof_requirement_ids: [P03, P04]
+        data_bindings:
+        - {label: 初年度効果, evidence_id: E003, field: numeric.value}
+        spec:
+          chart_kind: bridge
+          bridge:
+            start: 100
+            contributions: [20, -5]
+            end: 115
+            tolerance: 0.0001
+    source_note:
+      evidence_ids: [E003]
+      display_text: 'Source: 社内試算　†：推計値を含む'
+      estimate_disclaimer: true
+    render:
+      status: not_rendered
+      design_contract:
+        density: analytical
+        primary_focus: head
+        emphasis_targets: [C02]
+        geometry_key: analytical_default
+        semantic_redundancy: []
+  - id: S03
+    role: closing
+    template_role: roadmap_decision_closure
+    question: 何を決め、何を始めるか
+    judgment: 参入と重点投資を承認し初年度施策を開始
+    supporting_evidence: [E001, E002, E003]
+    research_question_ids: [RQ01]
+    head:
+      text: 市場成長と初年度効果が見込めるため、参入承認と重点施策の即時着手が必要だ
+      sentence_pattern: causal
+      claim_strength: moderate
+      line_preference: one
+    proof_requirements:
+    - id: P05
+      clause: 市場成長と初年度効果が見込める
+      evidence_ids: [E001, E002, E003]
+      body_element_ids: [B04]
+    - id: P06
+      clause: 参入承認と重点施策の即時着手が必要
+      evidence_ids: [E001, E002, E003]
+      body_element_ids: [B05]
+    storyline:
+      relation_to_previous: closing
+      decision_ids: [D1, D2, D3]
+    visual:
+      intent: decide
+      candidates: [3]
+      selected_pattern: 3
+      selection_reason: Decision ID、直近アクション、判断基準を同時に回収できるため
+      body_elements:
+      - id: B04
+        type: table
+        purpose: 判断根拠を回収する
+        evidence_ids: [E001, E002, E003]
+        proof_requirement_ids: [P05]
+        data_bindings:
+        - {label: 2026市場, evidence_id: E001, field: numeric.value}
+        - {label: 2029予測, evidence_id: E002, field: numeric.value}
+        - {label: 初年度効果, evidence_id: E003, field: numeric.value}
+        spec: {}
+      - id: B05
+        type: decision_box
+        purpose: 3つのDecision IDを回収する
+        evidence_ids: [E001, E002, E003]
+        proof_requirement_ids: [P06]
+        data_bindings: []
+        spec: {}
+    source_note:
+      evidence_ids: [E001, E002, E003]
+      display_text: 'Source: Example Agency, Example Market Statistics, 2026; Example Research Institute, Example Market Outlook, 2026; 社内試算　†：推計値を含む'
+      estimate_disclaimer: true
+    render:
+      status: not_rendered
+      design_contract:
+        density: analytical
+        primary_focus: decision
+        emphasis_targets: [B04]
+        geometry_key: closing_decision
+        semantic_redundancy: []
+  qa:
+    status: not_run
+    issues: []
+  design:
+    system: uchita_consulting_design
+    system_version: '1.0'
+    theme_profile: forest_green_briefing
+    user_constraints: []
+    semantic_encoding:
+      actual: solid
+      forecast: dashed
+      planned: outline
+      completed: filled
+      estimate_marker: †
+    global_geometry:
+      grid_columns: 12
+      fixed_head_area: true
+      fixed_footer_area: true
+    exceptions: []

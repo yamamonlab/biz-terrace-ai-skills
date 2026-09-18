@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/uchita/deckspec.schema.json",
+  "title": "Uchita DeckSpec 1.2",
+  "type": "object",
+  "required": ["deck"],
+  "properties": {
+    "deck": {
+      "type": "object",
+      "required": ["spec_version", "state", "objective", "evidence", "slides", "qa"],
+      "properties": {
+        "spec_version": {"enum": ["1.0", "1.1", "1.2"]},
+        "state": {"enum": ["RAW", "EVIDENCE_READY", "MESSAGE_READY", "STORY_READY", "VISUAL_READY", "RENDERED", "QA_PASSED"]},
+        "mode": {"enum": ["source_based", "research_briefing"]},
+        "objective": {"type": "object"},
+        "research": {"type": "object"},
+        "template": {"type": "object"},
+        "brand": {"type": "object"},
+        "design": {
+          "type": "object",
+          "properties": {
+            "system": {"type": ["string", "null"]},
+            "system_version": {"type": ["string", "null"]},
+            "theme_profile": {"type": ["string", "null"]},
+            "user_constraints": {"type": "array"},
+            "semantic_encoding": {"type": "object"},
+            "global_geometry": {"type": "object"},
+            "exceptions": {"type": "array"}
+          },
+          "additionalProperties": true
+        },
+        "governing_message": {"type": ["string", "null"]},
+        "decisions": {"type": "array"},
+        "evidence": {"type": "array"},
+        "slides": {"type": "array"},
+        "qa": {"type": "object"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
