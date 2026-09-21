@@ -1,0 +1,30 @@
+{
+  "skill": "cognitive-view",
+  "canonical": true,
+  "canonical_repository": "yamamonlab/biz-terrace-ai-skills",
+  "canonical_path": "skills/cognitive-view",
+  "canonical_since": "cognitive-view-v1.0.0",
+  "author": "Itsuki Yamakado (yamamonlab)",
+  "community": "Biz-Terrace.ai",
+  "origin": {
+    "repository": "yamamonlab/yamamon-lab",
+    "source_commit": "fb6f99ebcae7363272a65d1979f43c407b21c428",
+    "source_path": "skills/cognitive-view",
+    "note": "Developed privately before OSS publication. The public repository becomes canonical from the first public-canonical release."
+  },
+  "third_party": [
+    {
+      "project": "diagram-design",
+      "author": "Cathryn Lavery",
+      "repository": "https://github.com/cathrynlavery/diagram-design",
+      "license": "MIT",
+      "scope": "references/diagram/"
+    }
+  ],
+  "release_policy": {
+    "version_source": "git tag",
+    "tag_pattern": "cognitive-view-vX.Y.Z",
+    "validated": "deterministic checks passed",
+    "evaluated": "representative model-output comparison completed"
+  }
+}
