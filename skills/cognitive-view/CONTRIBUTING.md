@@ -24,7 +24,7 @@ Do not mark a change **EVALUATED** unless a model-output comparison was actually
 
 - Keep `main` releasable.
 - Prefer small, reviewable changes.
-- Run `node scripts/validate.mjs` before opening a PR.
+- Run `node skills/cognitive-view/scripts/validate.mjs` from the repository root before opening a PR.
 - Do not add external runtime dependencies unless the capability cannot reasonably remain self-contained.
 - Do not add sample-specific rules to the core contract merely to improve one fixture.
 - Do not weaken information-retention or source-grounding rules to make outputs look cleaner.
