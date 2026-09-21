@@ -1,21 +1,48 @@
-# 配布版の更新
+# 公開Skillの保守
 
-このリポジトリは公開用の配布先です。設計手法の正本は作者のyamamon-lab内の同名Skillにあり、ここへの公開は正本の移動・削除を意味しません。内部版の名前・description・routing・Skill配置先は配布作業では変更しません。
+このリポジトリは Biz-Terrace.ai で共有する公開Skillの保守場所です。
 
-## 今回の配布境界
+Skillごとに `PROVENANCE.json` で正本の所在を宣言します。すべてのSkillを同じ方式で管理しません。
 
-内部Skillのコミット済み版から、概念設計・制作指示・QAを取り出しました。ローカルで作業中の変更、会話ログ、実例画像、認証情報、内部CLI、runtime設定は含めていません。
+## 2つの運用モード
 
-`agents/`は役割別の読み物です。利用者のグローバルagent設定に登録する必要はありません。一つのAIが順番に読み、各段階を実行できます。
+### Public canonical
 
-## 次の更新時
+`"canonical": true` のSkillは、この公開リポジトリが正本です。
 
-1. 正本の採用コミットを確定します。未コミットの作業を自動で取り込みません。
-2. `PROVENANCE.json`の元コミットと新コミットのSkill差分を確認します。公開リポジトリへ内部リポジトリのGit履歴を移さないでください。
-3. 設計手法の改善は正本で確認したうえで配布版へ反映します。利用者からの提案も、共通の手法に関わる場合は正本への反映候補にします。README・導入案内など配布だけの変更はここで管理します。
-4. ファイルを許可リストで選び、内部パス・未公開情報・他Skillへの必須依存が残らないことを確認します。元ディレクトリの全コピーや自動公開はしません。
-5. 相対リンクがすべて存在し、同梱外のCLIなしで方向性とProduction Briefを作れるか確認します。`references/evaluation-cases.md`を使って判断境界もレビューします。
-6. 出典コミット・ファイルハッシュ・配布版の差分・版番号を更新し、レビューして公開します。ハッシュはファイルの来歴確認用で、設計品質やモデルの呼び出し率の証明ではありません。
-7. 未ログインで、サイトのリンク→GitHubのSkill本文→参照ファイルを開けることを確認します。新しい公開項目はこの確認後にサイトへ掲載します。
+- 変更はこのリポジトリのPRで行います。
+- private repository側に必要な場合は、公開タグまたはcommit SHAから同期します。
+- イベント・教材・production consumerは `main` ではなくtagまたはSHAをpinします。
+- Cognitive View はこのモードで運用します。
 
-ハーネスの発見率を改善する作業と、配布版を更新する作業は分けます。発見率を測る場合は、代表依頼・紛らわしい依頼・対象外依頼を同じモデル条件で比較します。この配布作業では内部版の発見率評価やruntime再設定は行っていません。
+### Public distribution / mirror
+
+`"canonical": false` のSkillは、別の正本から公開可能な範囲を同期します。
+
+- 元の正本コミットを `PROVENANCE.json` に記録します。
+- private repositoryのGit履歴、認証情報、内部runtime設定は公開しません。
+- 公開だけのREADME・導入案内はこのリポジトリで管理できます。
+- 既存の Japanese PPTX Skills / event thumbnail Skill は、移行するまでこのモードを維持します。
+
+## Cognitive View の更新
+
+1. `skills/cognitive-view/` を編集するbranchを作ります。
+2. `node skills/cognitive-view/scripts/validate.mjs` を実行します。
+3. Behavior変更では、複数ジャンルの代表入力でモデル出力を比較します。
+4. deterministic checksだけなら **VALIDATED**、モデル出力比較まで行った場合だけ **EVALUATED** と記録します。
+5. PRをmainへmergeします。
+6. リリース時は `cognitive-view-vX.Y.Z` tagを付けます。
+7. consumer側はtagまたはmerge commit SHAへ更新します。
+
+## 公開前チェック
+
+- 相対リンクが存在する
+- `SKILL.md` 単体ではなく必要なreferencesを含む
+- APIキー・認証情報・個人情報・非公開業務データがない
+- third-party noticeとlicenseが保全されている
+- サンプル固有のルールをcore contractへ混ぜていない
+- UNDERSTAND / DECIDE の境界を弱めていない
+
+## 提案の取り込み
+
+公開canonical SkillへのIssue/PRは、このリポジトリで直接レビューします。mirror Skillへの共通手法の提案は、まずそのSkillの正本へ反映するかを判断してから公開版へ同期します。

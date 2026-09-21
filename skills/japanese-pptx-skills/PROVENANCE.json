@@ -6,35 +6,122 @@
   "repository_path": "skills/japanese-pptx-skills",
   "source": "conversation-built portable package",
   "files": [
-    {"path":"CHANGELOG.md","sha256":"b9638505919d58d51654535b9b98588f4da9f03da5a7a886bf8578c0c55eae5a"},
-    {"path":"DESIGN.md","sha256":"7b9b267548c62ae8e8a225fa6daf39e67782cea27ff3f406c026aa6310dcc4f0"},
-    {"path":"README.md","sha256":"e21f44899d44b2d5f0534f405c41f07ef9adc5965e98ca13aa896f314211d053"},
-    {"path":"SKILL.md","sha256":"f36ebfa0d1723915769550a8cb64329405cf00d378b27fdea4699075e5e310f1"},
-    {"path":"deckspec.schema.json","sha256":"2e82e6c66ba761c725923c9c5abd9fdfe879abf6b5c07b3e10bcec6fd6a073e3"},
-    {"path":"examples/README.md","sha256":"552665341eeabd23eceb92820bea6a2f2d3cc0e1cc9d65a2884c0232ad255eae"},
-    {"path":"references/00-evidence.md","sha256":"10cc7acace100f18cce5ebbc28824663e7bb945eacc47c6aea20c14007f62db7"},
-    {"path":"references/00b-research-mode.md","sha256":"cb126a9ba9b5d944bd4c038a9d3b67508dacb02b04cbe0263e5b51a65a38cc1a"},
-    {"path":"references/01-head-message.md","sha256":"437a27c7e090b61790f219e49d49490a77f09274e03bab68e2b517bd9d9529cf"},
-    {"path":"references/02-storyline.md","sha256":"ac006a57371c3ded58a8311b2666343e81715cb7a9548b13892d8ba6e8ab6017"},
-    {"path":"references/03-visual-router.md","sha256":"919d81c986de3c38127ad1e561b33b20762fcccd8c7ef94375a06ab1f87149f6"},
-    {"path":"references/04-render-rules.md","sha256":"c01252ffbbdb06e62dd1496664ed700db104715a4bfe5cbc07d453b73e45bab6"},
-    {"path":"references/05-qa.md","sha256":"68bf1dd7e78388b40d1f1c433def77e11e7e82eded3f1c6b58978ee11ba3c801"},
-    {"path":"references/brand-defaults.md","sha256":"1f54a7f4cf8309bc5efed3bb89bdb12da2618fa7a4857043f43ae3ff347e93de"},
-    {"path":"references/patterns/change.md","sha256":"ee68af8a2e5dd66ba0f60b6171b8e0171a9be5a1cd4430c1bd2a395b6ad0d76f"},
-    {"path":"references/patterns/compare.md","sha256":"75bb79b75b9e2c074942555e069bb8d3ade601cc3a67399a576c0160d3389f7e"},
-    {"path":"references/patterns/decide.md","sha256":"503452839d580867833c31fb2c850f6c1d450b16bcd44c70c92f1b7722371624"},
-    {"path":"references/patterns/decompose.md","sha256":"f36df2ed63f6153929ad571ef1f0426d955c0f9eb44f8a5dccb9971ef54bee04"},
-    {"path":"references/patterns/relationship.md","sha256":"df38cf3a25d31ddeb1fa1aee0e05a530d5ab30d80b9a29e1492f52e88030e149"},
-    {"path":"references/patterns/structure.md","sha256":"50b07302d728444707428bf87aba468e87d097fd8d03bf4bdc126a9155766810"},
-    {"path":"references/patterns/timeline.md","sha256":"7377f49494bf470501c3a96f5f4cfc22b906b4d7500381f660cb1083dbe5c09e"},
-    {"path":"references/schemas.md","sha256":"862302f7d6a3de5045900babcf2b5252b219242820b2ad6aa5a321640617d75e"},
-    {"path":"references/templates/executive-briefing-11.md","sha256":"eda71c3878cff368076868b805cb603a2999dc0eaa394943970a65b021c0722e"},
-    {"path":"references/themes/forest-green-briefing.md","sha256":"cafdaf4ff3053ad201e64f159a567a4827f697ff70782b27c4ff583a2c9f7e1d"},
-    {"path":"samples/deckspec.example.yaml","sha256":"4caedb6446375d77027bfe21adcfdb8126f1b8e43e259742d63bfdb60186790e"},
-    {"path":"samples/research-briefing.example.yaml","sha256":"61826511e4f12a2db453621397cf0af078d1cc410ec613ed77c2b9a035eab5ba"},
-    {"path":"scripts/inspect_render.py","sha256":"7e59b9c4896a40759f07bd7692cabab46be1e9dbbb405456f594206a1f378209"},
-    {"path":"scripts/measure_text.py","sha256":"38247d0d91f3d3d8368f6e72b8cd1bdb63f6e0d013aea6e6b8acefb71548c87d"},
-    {"path":"scripts/validate_spec.py","sha256":"2a62e13a9367d82c2cf9bf83892e3a5fb330ffe8f53cdfc6c2e93e6bc0975874"}
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "b9638505919d58d51654535b9b98588f4da9f03da5a7a886bf8578c0c55eae5a"
+    },
+    {
+      "path": "DESIGN.md",
+      "sha256": "7b9b267548c62ae8e8a225fa6daf39e67782cea27ff3f406c026aa6310dcc4f0"
+    },
+    {
+      "path": "README.md",
+      "sha256": "e21f44899d44b2d5f0534f405c41f07ef9adc5965e98ca13aa896f314211d053"
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "f36ebfa0d1723915769550a8cb64329405cf00d378b27fdea4699075e5e310f1"
+    },
+    {
+      "path": "deckspec.schema.json",
+      "sha256": "2e82e6c66ba761c725923c9c5abd9fdfe879abf6b5c07b3e10bcec6fd6a073e3"
+    },
+    {
+      "path": "examples/README.md",
+      "sha256": "552665341eeabd23eceb92820bea6a2f2d3cc0e1cc9d65a2884c0232ad255eae"
+    },
+    {
+      "path": "references/00-evidence.md",
+      "sha256": "10cc7acace100f18cce5ebbc28824663e7bb945eacc47c6aea20c14007f62db7"
+    },
+    {
+      "path": "references/00b-research-mode.md",
+      "sha256": "cb126a9ba9b5d944bd4c038a9d3b67508dacb02b04cbe0263e5b51a65a38cc1a"
+    },
+    {
+      "path": "references/01-head-message.md",
+      "sha256": "437a27c7e090b61790f219e49d49490a77f09274e03bab68e2b517bd9d9529cf"
+    },
+    {
+      "path": "references/02-storyline.md",
+      "sha256": "ac006a57371c3ded58a8311b2666343e81715cb7a9548b13892d8ba6e8ab6017"
+    },
+    {
+      "path": "references/03-visual-router.md",
+      "sha256": "919d81c986de3c38127ad1e561b33b20762fcccd8c7ef94375a06ab1f87149f6"
+    },
+    {
+      "path": "references/04-render-rules.md",
+      "sha256": "c01252ffbbdb06e62dd1496664ed700db104715a4bfe5cbc07d453b73e45bab6"
+    },
+    {
+      "path": "references/05-qa.md",
+      "sha256": "68bf1dd7e78388b40d1f1c433def77e11e7e82eded3f1c6b58978ee11ba3c801"
+    },
+    {
+      "path": "references/brand-defaults.md",
+      "sha256": "1f54a7f4cf8309bc5efed3bb89bdb12da2618fa7a4857043f43ae3ff347e93de"
+    },
+    {
+      "path": "references/patterns/change.md",
+      "sha256": "ee68af8a2e5dd66ba0f60b6171b8e0171a9be5a1cd4430c1bd2a395b6ad0d76f"
+    },
+    {
+      "path": "references/patterns/compare.md",
+      "sha256": "75bb79b75b9e2c074942555e069bb8d3ade601cc3a67399a576c0160d3389f7e"
+    },
+    {
+      "path": "references/patterns/decide.md",
+      "sha256": "503452839d580867833c31fb2c850f6c1d450b16bcd44c70c92f1b7722371624"
+    },
+    {
+      "path": "references/patterns/decompose.md",
+      "sha256": "f36df2ed63f6153929ad571ef1f0426d955c0f9eb44f8a5dccb9971ef54bee04"
+    },
+    {
+      "path": "references/patterns/relationship.md",
+      "sha256": "df38cf3a25d31ddeb1fa1aee0e05a530d5ab30d80b9a29e1492f52e88030e149"
+    },
+    {
+      "path": "references/patterns/structure.md",
+      "sha256": "50b07302d728444707428bf87aba468e87d097fd8d03bf4bdc126a9155766810"
+    },
+    {
+      "path": "references/patterns/timeline.md",
+      "sha256": "7377f49494bf470501c3a96f5f4cfc22b906b4d7500381f660cb1083dbe5c09e"
+    },
+    {
+      "path": "references/schemas.md",
+      "sha256": "862302f7d6a3de5045900babcf2b5252b219242820b2ad6aa5a321640617d75e"
+    },
+    {
+      "path": "references/templates/executive-briefing-11.md",
+      "sha256": "eda71c3878cff368076868b805cb603a2999dc0eaa394943970a65b021c0722e"
+    },
+    {
+      "path": "references/themes/forest-green-briefing.md",
+      "sha256": "cafdaf4ff3053ad201e64f159a567a4827f697ff70782b27c4ff583a2c9f7e1d"
+    },
+    {
+      "path": "samples/deckspec.example.yaml",
+      "sha256": "4caedb6446375d77027bfe21adcfdb8126f1b8e43e259742d63bfdb60186790e"
+    },
+    {
+      "path": "samples/research-briefing.example.yaml",
+      "sha256": "61826511e4f12a2db453621397cf0af078d1cc410ec613ed77c2b9a035eab5ba"
+    },
+    {
+      "path": "scripts/inspect_render.py",
+      "sha256": "7e59b9c4896a40759f07bd7692cabab46be1e9dbbb405456f594206a1f378209"
+    },
+    {
+      "path": "scripts/measure_text.py",
+      "sha256": "38247d0d91f3d3d8368f6e72b8cd1bdb63f6e0d013aea6e6b8acefb71548c87d"
+    },
+    {
+      "path": "scripts/validate_spec.py",
+      "sha256": "2a62e13a9367d82c2cf9bf83892e3a5fb330ffe8f53cdfc6c2e93e6bc0975874"
+    }
   ],
   "excluded": [
     "private credentials",
@@ -44,5 +131,8 @@
   ],
   "notes": [
     "Public name adapted from internal package name; workflow, design system, references, samples, and QA scripts retained."
-  ]
+  ],
+  "canonical": false,
+  "canonical_repository": null,
+  "provenance_mode": "public-distribution"
 }

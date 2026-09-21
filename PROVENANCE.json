@@ -1,78 +1,21 @@
 {
-  "distribution": "biz-terrace-ai-skills",
-  "version": "0.1.0",
-  "released_on": "2026-09-12",
-  "author": "Itsuki Yamakado (yamamonlab)",
-  "community": "Biz-Terrace.ai",
-  "source": {
-    "repository": "yamamon-lab",
-    "commit": "ae6ac0b42e049b122eb7a93f37e03a601f1623f1",
-    "path": "skills/zg-event-thumbnail-design",
-    "access": "maintainer source; consumers do not need access",
-    "selection": "committed snapshot only; working-tree changes excluded"
-  },
-  "files": [
-    {
-      "path": "skills/zg-event-thumbnail-design/SKILL.md",
-      "source_sha256": "b8f6f42df32807f7fa6e0d0decc287f10300ed8f332fb1550a96655944c2c036",
-      "distribution_sha256": "da74d7cabdfdbea3916546bee04eed930439bfb80fb2c1fdf3e2da2b9bbfa3f8",
-      "mode": "portable-adaptation"
+  "repository": "yamamonlab/biz-terrace-ai-skills",
+  "policy": "Each skill declares canonical status in its own PROVENANCE.json.",
+  "skills": {
+    "cognitive-view": {
+      "path": "skills/cognitive-view",
+      "canonical": true,
+      "provenance": "skills/cognitive-view/PROVENANCE.json"
     },
-    {
-      "path": "skills/zg-event-thumbnail-design/agents/art-director.md",
-      "source_sha256": "ae120fab8636a85807f302c23fa51e3b04f3fa6a02ccf702a9379c855335656d",
-      "distribution_sha256": "ae120fab8636a85807f302c23fa51e3b04f3fa6a02ccf702a9379c855335656d",
-      "mode": "unchanged"
+    "japanese-pptx-skills": {
+      "path": "skills/japanese-pptx-skills",
+      "canonical": false,
+      "provenance": "skills/japanese-pptx-skills/PROVENANCE.json"
     },
-    {
-      "path": "skills/zg-event-thumbnail-design/agents/concept-strategist.md",
-      "source_sha256": "7b31fd88f7714d3b6d48ee014a622f452e19ffed753c0dbb68056e223cd29553",
-      "distribution_sha256": "7b31fd88f7714d3b6d48ee014a622f452e19ffed753c0dbb68056e223cd29553",
-      "mode": "unchanged"
-    },
-    {
-      "path": "skills/zg-event-thumbnail-design/agents/thumbnail-qa.md",
-      "source_sha256": "ecac4a6315621a4fabc1156f20f3666c093911bca40645b65d2b68f71e4a226f",
-      "distribution_sha256": "ecac4a6315621a4fabc1156f20f3666c093911bca40645b65d2b68f71e4a226f",
-      "mode": "unchanged"
-    },
-    {
-      "path": "skills/zg-event-thumbnail-design/references/concept-direction-template.md",
-      "source_sha256": "c3ab5b5a8fa9d5578dcd0b26c7d9e97c005f904863605a27641cf4c94e7e3f52",
-      "distribution_sha256": "c3ab5b5a8fa9d5578dcd0b26c7d9e97c005f904863605a27641cf4c94e7e3f52",
-      "mode": "unchanged"
-    },
-    {
-      "path": "skills/zg-event-thumbnail-design/references/evaluation-cases.md",
-      "source_sha256": "85ca741b25677c1f1be3d3b56efe3f28f4a517cf301c54749f532812d02d5a4a",
-      "distribution_sha256": "9063b00a60c3a7c064b690b2ec939aa36027cf7a5cc3f25601e9f74fb764db9e",
-      "mode": "portable-adaptation"
-    },
-    {
-      "path": "skills/zg-event-thumbnail-design/references/production-brief.md",
-      "source_sha256": "453b2b362fe344439119d5e4be521eb0c94a1389c373668413aa123768f6005d",
-      "distribution_sha256": "84e9268e4064f224a921c339756777727797bc35eed70e4881af2c8c09e1d050",
-      "mode": "portable-adaptation"
-    },
-    {
-      "path": "skills/zg-event-thumbnail-design/references/qa-checklist.md",
-      "source_sha256": "a2f3c6bffe8dd728e3379f9929d47106c380a8f94a4c626c618c37e54e058f43",
-      "distribution_sha256": "58045a17f94294f8d9e972a0f0d6980cce6befc828474ab52bff70c160aaef7a",
-      "mode": "portable-adaptation"
+    "zg-event-thumbnail-design": {
+      "path": "skills/zg-event-thumbnail-design",
+      "canonical": false,
+      "provenance": "skills/zg-event-thumbnail-design/PROVENANCE.json"
     }
-  ],
-  "excluded": [
-    "scripts/style-library.mjs",
-    "references/style-reference-contract.md",
-    "references/skill-topology.yaml",
-    "image generation runtime",
-    "personal configuration, credentials, event images and conversation logs"
-  ],
-  "adaptations": [
-    "Portable entry point and production/QA records replace image-gen CLI and artifact-root requirements.",
-    "Keep Concept/Selection/Production/QA gates and role resources.",
-    "Add explicit no-image-tool and unverified-artifact states.",
-    "Standalone title/reference and multi-selection guidance is made explicit; not a runtime projection."
-  ],
-  "canonical_runtime_changes": "none"
+  }
 }
