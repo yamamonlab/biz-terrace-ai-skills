@@ -74,5 +74,8 @@
     "Add explicit no-image-tool and unverified-artifact states.",
     "Standalone title/reference and multi-selection guidance is made explicit; not a runtime projection."
   ],
-  "canonical_runtime_changes": "none"
+  "canonical_runtime_changes": "none",
+  "canonical": false,
+  "canonical_repository": null,
+  "provenance_mode": "public-distribution"
 }
