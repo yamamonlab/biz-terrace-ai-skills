@@ -20,7 +20,7 @@ Use semantic versioning:
 ## Release procedure
 
 1. Merge changes to `main` through a pull request.
-2. Confirm `node scripts/validate.mjs` passes in CI.
+2. Confirm `node skills/cognitive-view/scripts/validate.mjs` passes in CI.
 3. For behavior changes, run representative model-output evaluation and record the result.
 4. Update `CHANGELOG.md`.
 5. Create an annotated release tag such as `cognitive-view-v1.0.0`.
