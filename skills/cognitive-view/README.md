@@ -52,7 +52,7 @@ Try it with `examples/sample-document.md`.
 Run:
 
 ```bash
-node scripts/validate.mjs
+node skills/cognitive-view/scripts/validate.mjs
 ```
 
 A commit that passes deterministic checks is **VALIDATED**. Model-output comparison is a separate, non-deterministic activity and should be recorded as **EVALUATED** only when it has actually been performed.
