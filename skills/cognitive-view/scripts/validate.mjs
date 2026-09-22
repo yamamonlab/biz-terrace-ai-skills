@@ -21,6 +21,7 @@ const required = [
   'references/genre-map.md',
   'references/decide-contract.md',
   'references/eval-protocol.md',
+  'references/representation-budget.md',
   'references/diagram/grammar.md',
   'references/diagram/type-bar.md',
   'references/diagram/type-flowchart.md',
@@ -50,6 +51,7 @@ const grammar = read('references/diagram/grammar.md');
 const rubric = read('references/quality-rubric.md');
 const foundations = read('references/foundations.md');
 const decide = read('references/decide-contract.md');
+const budget = read('references/representation-budget.md');
 
 const mustContain = [
   [skill, '原文に重要数値があれば2〜4枚、最大4枚', 'SKILL metric cards must remain conditional'],
@@ -68,6 +70,11 @@ const mustContain = [
   [foundations, 'intrinsic', 'foundations must keep the intrinsic/extraneous load distinction'],
   [foundations, 'Shneiderman1996eyes.pdf', 'foundations must cite the information-seeking mantra source'],
   [decide, '原文にないスコア・点数・重み付け', 'DECIDE contract must forbid invented scores'],
+  [rubric, '視覚エンコーディング率', 'rubric must keep the visual-encoding primary metric'],
+  [budget, '視覚エンコーディングではない', 'budget must state why lists are not visual encoding'],
+  [budget, 'prose_sentences', 'budget must require the pre-registered prose for each diagram'],
+  [skill, 'Representation Budget', 'SKILL must run the budget before writing HTML'],
+  [output, '同じ記号を違う意味に使わない', 'output contract must fix the status-symbol vocabulary'],
 ];
 
 for (const [text, needle, message] of mustContain) {
@@ -88,7 +95,7 @@ for (const [text, needle, message] of mustNotContain) {
 }
 
 const localRefPattern = /`(references\/[A-Za-z0-9_./*-]+\.md)`/g;
-for (const source of [skill, output, grammar, rubric, foundations, decide, read('references/genre-map.md'), read('references/eval-protocol.md'), read('README.md')]) {
+for (const source of [skill, output, grammar, rubric, foundations, decide, budget, read('references/genre-map.md'), read('references/eval-protocol.md'), read('README.md')]) {
   for (const match of source.matchAll(localRefPattern)) {
     const rel = match[1];
     if (rel.includes('*')) continue;

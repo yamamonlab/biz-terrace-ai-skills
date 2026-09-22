@@ -78,6 +78,7 @@ figcaption { color: var(--text-muted); font-size: 0.85rem; margin-top: 10px; tex
 table { border-collapse: collapse; width: 100%; min-width: 500px; font-size: 0.88rem; text-align: left; }
 th { background: #f1f5f9; color: var(--text-secondary); font-weight: 600; padding: 10px 14px; border-bottom: 1px solid var(--border); }
 td { padding: 12px 14px; border-bottom: 1px solid var(--border-light); vertical-align: top; color: var(--text-primary); }
+.st { white-space: nowrap; font-weight: 700; }   /* ステータス記号と語を折り返しで分断しない */
 tr:last-child td { border-bottom: none; }
 
 /* 詳細折りたたみ */
@@ -250,6 +251,55 @@ details > div { padding: 14px 16px; font-size: 0.86rem; color: var(--text-second
 完了・未着手などの進捗と、事実・推測・未確認などの確からしさは別の軸。状態列だけで区別できなければ、セルや注記に「未確認」「担当者の見込み」等を明記する。撤回された値や原文の意見も、訂正・発言者を併記して残す。意見は出力自身の推奨として採用しない。
 
 比較以外の情報をテンプレートの表へ押し込まない。食い違いは本文中の1ブロックへ集約し、主張A／主張B／出どころ／原文にある確認手段を対置する。
+
+## 状態記号の語彙（固定）
+
+表のステータス列で使う記号は次に固定する。**形が状態の種類を持ち、色は補助**（色は印刷と色覚条件で落ちる）。
+
+| 記号 | 状態 | 色 |
+|---|---|---|
+| `●` | 確定・完了 | `var(--success)` |
+| `▲` | 懸念・停滞・指摘あり | `var(--warning)` |
+| `■` | 未確認（根拠が弱い、裏取り前） | `var(--warning)` |
+| `○` | 未着手 | `var(--text-muted)` |
+| `×` | 不可・却下 | `var(--danger)` |
+
+**同じ記号を違う意味に使わない。** 実測された失敗: `●` を「国内保管だが法務未確認」と「社内サーバー設置で確定」の両方に使い、形が区別を担わなくなった。前者は `■`（未確認）が正しい。
+
+記号だけを置かず、必ず短い語を添える（`● 最終調整` / `■ 国内保管（契約書は法務未確認）`）。
+
+**記号と語を折り返しで分断しない。** ステータス列は幅が狭くなりやすく、`▲` と語が別行に落ちると記号が意味を失う。次を CSS に入れ、ステータスの `<span>` に当てる。
+
+```css
+.st { white-space: nowrap; font-weight: 700; }
+```
+
+```html
+<td data-label="状態"><span class="st" style="color:var(--warning);">▲ 可否が未決</span></td>
+```
+
+## メトリクスカードの並び順
+
+5秒層のカードは **comprehension_goal に効く順** に並べる。原文の登場順でも、数値の大小順でもない。
+
+1. その資料の状態を決めている数値（それが崩れると他が無意味になるもの）
+2. 規模・件数
+3. 経緯上の数値
+
+実測された失敗: 想定人数の定義ズレ（費用比較そのものを無効化する）が4枚目に置かれ、判断に効かない経緯の数値が先に来た。
+
+## 描画しての自己レビュー
+
+**出力前に1回、実際に描画して見る。** `references/quality-rubric.md` の軸8（視覚エンコーディング）と軸9（リズム）は、マークアップの検査では判定できない。
+
+実行できる環境では次を測る。
+
+- 1024px 幅でのページ全長（`document.documentElement.scrollHeight`）
+- 320 / 768 / 1024 幅での横 overflow の有無
+- 5秒層と最初の `<h2>` が 900px 以内に入るか
+- 装置の並び（同一装置の連続がないか）
+
+描画できない環境では、装置の並びを上から書き出す作業だけは必ず行う。**「箱組みへの退行」は、並びを書き出すと文字だけで検出できる。**
 
 ## 狭幅・印刷・検索の扱い
 
