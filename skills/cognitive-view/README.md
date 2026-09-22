@@ -17,9 +17,13 @@ The default mode is **UNDERSTAND**: it does not invent recommendations, prioriti
 ## Repository layout
 
 - `SKILL.md` — primary behavior contract.
-- `references/output-contract.md` — HTML rendering contract.
-- `references/quality-rubric.md` — evaluation criteria.
+- `references/output-contract.md` — HTML rendering contract (layout, narrow-width tables, print, search).
+- `references/quality-rubric.md` — scoring criteria. The single source of truth for pass/fail.
 - `references/capability-spec.md` — capability boundaries and success metrics.
+- `references/foundations.md` — why each rule exists: rule → principle → source. Read before changing or removing a rule.
+- `references/genre-map.md` — input genre → question headings for the structure layer.
+- `references/decide-contract.md` — what may and may not be added in `DECIDE` mode.
+- `references/eval-protocol.md` — how comprehension speed is measured; the VALIDATED / EVALUATED boundary.
 - `references/diagram/` — self-contained diagram grammar and SVG templates.
 - `examples/` — fictional inputs for trying the Skill.
 - `scripts/validate.mjs` — deterministic contract checks.

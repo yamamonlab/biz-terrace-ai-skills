@@ -18,7 +18,11 @@ Changes that affect routing, evidence handling, information retention, diagram s
 4. expected behavior after the change;
 5. whether model-output evaluation was performed.
 
-Do not mark a change **EVALUATED** unless a model-output comparison was actually run.
+Do not mark a change **EVALUATED** unless a model-output comparison was actually run. The procedure, the pass conditions, and the reporting format are in `references/eval-protocol.md`.
+
+### Removing or relaxing a rule
+
+`references/foundations.md` records which rules rest on published findings about how people read, and which are operational judgement. Remove operational rules first. To remove or weaken a rule backed by a principle, include the A/B comparison described in `references/eval-protocol.md` §5 showing that comprehension does not degrade without it.
 
 ## Pull request rules
 

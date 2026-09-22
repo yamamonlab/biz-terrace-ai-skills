@@ -59,7 +59,7 @@ h2 { font-size: 1.15rem; font-weight: 700; margin: 32px 0 16px; color: var(--tex
 /* 5秒層: エグゼクティブ・メトリクスカード */
 .cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 24px; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
-.card-label { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
+.card-label { font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px; }
 .card-val { font-size: 1.35rem; font-weight: 800; color: var(--text-primary); line-height: 1.2; margin-bottom: 4px; }
 .card-desc { font-size: 0.85rem; color: var(--text-secondary); margin: 0; }
 
@@ -84,6 +84,25 @@ tr:last-child td { border-bottom: none; }
 details { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 10px; }
 summary { padding: 12px 16px; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); cursor: pointer; }
 details > div { padding: 14px 16px; font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6; border-top: 1px solid var(--border-light); background: #fafbfc; }
+
+/* 狭幅: 比較表を行ごとのカードへ落とす。横スクロールで読ませない */
+@media (max-width: 600px) {
+  table { min-width: 0; }
+  thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  tr { display: block; border-bottom: 1px solid var(--border); padding: 8px 0; }
+  tr:last-child { border-bottom: none; }
+  td { display: grid; grid-template-columns: 7.5em 1fr; gap: 10px; border-bottom: none; padding: 6px 14px; }
+  td::before { content: attr(data-label); font-weight: 600; color: var(--text-secondary); }
+}
+
+/* 印刷: 詳細層を開いて出す。閉じたまま印刷すると情報が落ちる */
+@media print {
+  body { background: #ffffff; padding: 0; }
+  ::details-content { content-visibility: visible; }
+  details { break-inside: avoid; border-color: var(--border); }
+  figure, .card, tr { break-inside: avoid; }
+  .scroll-x { overflow-x: visible; }
+}
 ```
 
 ## 全体骨格
@@ -123,7 +142,8 @@ details > div { padding: 14px 16px; font-size: 0.86rem; color: var(--text-second
         <tr><th>{{ 項目 }}</th><th>{{ 状態 / ステータス }}</th><th>{{ 影響 / 示唆 }}</th></tr>
       </thead>
       <tbody>
-        <tr><td>...</td><td>...</td><td>...</td></tr>
+        <!-- 各 td に data-label で列名を持たせる（狭幅でヘッダーを隠すため） -->
+        <tr><td data-label="{{ 項目 }}">...</td><td data-label="{{ 状態 / ステータス }}">...</td><td data-label="{{ 影響 / 示唆 }}">...</td></tr>
       </tbody>
     </table>
   </div>
@@ -174,16 +194,16 @@ details > div { padding: 14px 16px; font-size: 0.86rem; color: var(--text-second
     </thead>
     <tbody>
       <tr>
-        <td><strong>案件A</strong></td>
-        <td><span style="color:var(--success);font-weight:700;">● 最終調整</span></td>
-        <td>1,500万円</td>
-        <td>法務確認待ち（9/25予定）</td>
+        <td data-label="対象"><strong>案件A</strong></td>
+        <td data-label="ステータス"><span style="color:var(--success);font-weight:700;">● 最終調整</span></td>
+        <td data-label="重要数値">1,500万円</td>
+        <td data-label="次のアクション">法務確認待ち（9/25予定）</td>
       </tr>
       <tr>
-        <td><strong>案件B</strong></td>
-        <td><span style="color:var(--warning);font-weight:700;">▲ 停滞中</span></td>
-        <td>800万円</td>
-        <td>先方決裁者不在（次回アポ未定）</td>
+        <td data-label="対象"><strong>案件B</strong></td>
+        <td data-label="ステータス"><span style="color:var(--warning);font-weight:700;">▲ 停滞中</span></td>
+        <td data-label="重要数値">800万円</td>
+        <td data-label="次のアクション">先方決裁者不在（次回アポ未定）</td>
       </tr>
     </tbody>
   </table>
@@ -231,6 +251,33 @@ details > div { padding: 14px 16px; font-size: 0.86rem; color: var(--text-second
 
 比較以外の情報をテンプレートの表へ押し込まない。食い違いは本文中の1ブロックへ集約し、主張A／主張B／出どころ／原文にある確認手段を対置する。
 
+## 狭幅・印刷・検索の扱い
+
+本 Skill は「情報を削らない」と約束するので、**画面以外の経路でも情報が落ちないこと**まで契約に含める。
+
+### 狭幅（〜600px）
+
+比較表は主力表現なので、狭幅で横スクロールさせない。`@media (max-width: 600px)` で行ごとのカードへ落とす。**このとき各 `<td>` に `data-label` 属性で列名を持たせる**（持たせないと、ヘッダーを隠した時に何の値か分からなくなる）。
+
+```html
+<tr>
+  <td data-label="対象"><strong>案件A</strong></td>
+  <td data-label="ステータス"><span style="color:var(--success);font-weight:700;">● 最終調整</span></td>
+  <td data-label="重要数値">1,500万円</td>
+  <td data-label="次のアクション">法務確認待ち（9/25予定）</td>
+</tr>
+```
+
+### 印刷
+
+閉じた `<details>` は印刷に出ない。`<script>` を使わずに開くため、`@media print` で `::details-content { content-visibility: visible; }` を指定する。
+
+**既知の制限**: `::details-content` は 2025年9月以降の主要ブラウザで利用できるが、それ以前のバージョンでは効かず、詳細層が印刷されない。印刷を前提とする用途では、**詳細層に置いてよいのは原文引用と経緯の細部だけ**という規定（畳んでよいものの範囲）を守ることが、そのまま保険になる。
+
+### 検索（Ctrl+F）
+
+Chromium 系は find-in-page で `<details>` を自動展開するが、これは全ブラウザ共通の挙動ではない。**詳細層の中身は検索で必ず見つかる、と仮定しない。** `<summary>` に中身が分かる見出しを置く規定は、この制約への対応でもある。
+
 ## 禁止事項
 
 - `<link rel="stylesheet">` / `<script src>` / `<script>` / CSS `@import` / `url(http…)`
@@ -240,3 +287,5 @@ details > div { padding: 14px 16px; font-size: 0.86rem; color: var(--text-second
 - CJK を SVG `<path>` でストローク描画すること（必ず `<text>` を使用）
 - 詳細層を既定で開いた状態にすること
 - 表・図・箇条書きへ変換済みの塊を `<details>` に再収納すること（変換した意味を捨てるため）
+- 比較表を狭幅で横スクロールさせたまま出すこと（`data-label` とカード落としの CSS を必ず入れる）
+- `@media print` を省くこと（閉じた詳細層が印刷で落ち、「情報を削らない」に反するため）

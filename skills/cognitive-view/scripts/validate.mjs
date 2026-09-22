@@ -17,6 +17,10 @@ const required = [
   'references/capability-spec.md',
   'references/output-contract.md',
   'references/quality-rubric.md',
+  'references/foundations.md',
+  'references/genre-map.md',
+  'references/decide-contract.md',
+  'references/eval-protocol.md',
   'references/diagram/grammar.md',
   'references/diagram/type-bar.md',
   'references/diagram/type-flowchart.md',
@@ -44,6 +48,8 @@ const skill = read('SKILL.md');
 const output = read('references/output-contract.md');
 const grammar = read('references/diagram/grammar.md');
 const rubric = read('references/quality-rubric.md');
+const foundations = read('references/foundations.md');
+const decide = read('references/decide-contract.md');
 
 const mustContain = [
   [skill, '原文に重要数値があれば2〜4枚、最大4枚', 'SKILL metric cards must remain conditional'],
@@ -55,6 +61,13 @@ const mustContain = [
   [output, '<desc>{{ 一文説明 }}</desc>', 'output skeleton SVG must include description'],
   [grammar, 'var(--text-primary)', 'diagram grammar must use current HTML tokens'],
   [rubric, '情報保持率 95% 以上', 'rubric must retain information-preservation gate'],
+  [output, '@media print', 'output contract must keep the print rule that reveals the detail layer'],
+  [output, '::details-content', 'print rule must reveal collapsed detail content'],
+  [output, 'data-label', 'comparison tables must carry column labels for the narrow-width fallback'],
+  [output, '@media (max-width: 600px)', 'output contract must keep the narrow-width table fallback'],
+  [foundations, 'intrinsic', 'foundations must keep the intrinsic/extraneous load distinction'],
+  [foundations, 'Shneiderman1996eyes.pdf', 'foundations must cite the information-seeking mantra source'],
+  [decide, '原文にないスコア・点数・重み付け', 'DECIDE contract must forbid invented scores'],
 ];
 
 for (const [text, needle, message] of mustContain) {
@@ -67,6 +80,7 @@ const mustNotContain = [
   [skill, '各主張から原文の該当箇所へ辿れるようにする', 'per-claim evidence-link contract reintroduced'],
   [output, '当月目標達成ラインに到達見込み', 'ungrounded forecast example reintroduced'],
   [grammar, 'var(--ink)', 'obsolete diagram CSS token reintroduced'],
+  [skill, '情報保持率 95% 以上 かつ 表現変換率 80% 以上', 'rubric pass conditions must not be duplicated in SKILL.md'],
 ];
 
 for (const [text, needle, message] of mustNotContain) {
@@ -74,7 +88,7 @@ for (const [text, needle, message] of mustNotContain) {
 }
 
 const localRefPattern = /`(references\/[A-Za-z0-9_./*-]+\.md)`/g;
-for (const source of [skill, output, grammar, rubric]) {
+for (const source of [skill, output, grammar, rubric, foundations, decide, read('references/genre-map.md'), read('references/eval-protocol.md'), read('README.md')]) {
   for (const match of source.matchAll(localRefPattern)) {
     const rel = match[1];
     if (rel.includes('*')) continue;
