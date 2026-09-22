@@ -9,7 +9,7 @@ Visual Router が図を選んだ塊を描くための文法。**この Skill は
 | 塊が持つ関係 | 型 | ファイル |
 |---|---|---|
 | 依存・因果（連鎖・循環・分岐） | 流れ図 | `type-flowchart.md` |
-| 時系列（間隔・並行・逆順・分岐が意味を持つ） | Timeline | `type-timeline.md` |
+| 時系列（**時点4つ以上**、または経過期間が論点） | Timeline | `type-timeline.md` |
 | 複数主体が順に引き継ぐ手順 | Process | `type-process.md` |
 | 状態と遷移（イベントで移る） | State | `type-state.md` |
 | 2軸上の位置づけ | Quadrant | `type-quadrant.md` |

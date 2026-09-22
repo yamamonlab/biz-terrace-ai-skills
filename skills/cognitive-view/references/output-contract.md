@@ -79,6 +79,7 @@ table { border-collapse: collapse; width: 100%; min-width: 500px; font-size: 0.8
 th { background: #f1f5f9; color: var(--text-secondary); font-weight: 600; padding: 10px 14px; border-bottom: 1px solid var(--border); }
 td { padding: 12px 14px; border-bottom: 1px solid var(--border-light); vertical-align: top; color: var(--text-primary); }
 .st { white-space: nowrap; font-weight: 700; }   /* ステータス記号と語を折り返しで分断しない */
+.num { white-space: nowrap; }   /* 数値と単位を折り返しで分断しない（「720万」と「円」が別行に落ちる） */
 tr:last-child td { border-bottom: none; }
 
 /* 詳細折りたたみ */
@@ -252,6 +253,18 @@ details > div { padding: 14px 16px; font-size: 0.86rem; color: var(--text-second
 
 比較以外の情報をテンプレートの表へ押し込まない。食い違いは本文中の1ブロックへ集約し、主張A／主張B／出どころ／原文にある確認手段を対置する。
 
+## 表のセル予算
+
+**1セル30字以内。** 超える内容は、列を分けるか、詳細層へ送るか、セル内を短い箇条書きにする。
+
+**30字超のセルが表全体の10%を超えたら、その表は構造装置（Tier B）に数えない。** 行列位置でエンコードしているのではなく、グリッドに散文を入れているだけなので、`references/representation-budget.md` の下限の分子から外す。
+
+実測された失敗: 44セル中、30字超が5セル（11.4%）、最大46字。「法務より『契約書の雛形を扱う部署では使えない』」のような1文まるごとのセルが混ざると、視線が行列ではなく文を追い始める。
+
+- 見出し行のラベルは短く（「制約・指摘」より「制約」）
+- 長い引用は詳細層へ送り、セルには結論だけを置く
+- どうしても長い時は列を分ける（「機能」と「制約」を1列に混ぜない）
+
 ## 状態記号の語彙（固定）
 
 表のステータス列で使う記号は次に固定する。**形が状態の種類を持ち、色は補助**（色は印刷と色覚条件で落ちる）。
@@ -272,7 +285,10 @@ details > div { padding: 14px 16px; font-size: 0.86rem; color: var(--text-second
 
 ```css
 .st { white-space: nowrap; font-weight: 700; }
+.num { white-space: nowrap; }
 ```
+
+数値と単位も同様に分断しない。`<span class="num">年およそ720万円</span>` のように包む。
 
 ```html
 <td data-label="状態"><span class="st" style="color:var(--warning);">▲ 可否が未決</span></td>
@@ -295,6 +311,8 @@ details > div { padding: 14px 16px; font-size: 0.86rem; color: var(--text-second
 実行できる環境では次を測る。
 
 - 1024px 幅でのページ全長（`document.documentElement.scrollHeight`）
+- **装置ごとの占有面積**（`getBoundingClientRect().height` の合計）と、読む系の面積比
+- **30字を超える `<td>` の割合**（表ごと）
 - 320 / 768 / 1024 幅での横 overflow の有無
 - 5秒層と最初の `<h2>` が 900px 以内に入るか
 - 装置の並び（同一装置の連続がないか）

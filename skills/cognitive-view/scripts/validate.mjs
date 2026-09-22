@@ -70,8 +70,12 @@ const mustContain = [
   [foundations, 'intrinsic', 'foundations must keep the intrinsic/extraneous load distinction'],
   [foundations, 'Shneiderman1996eyes.pdf', 'foundations must cite the information-seeking mantra source'],
   [decide, '原文にないスコア・点数・重み付け', 'DECIDE contract must forbid invented scores'],
-  [rubric, '視覚エンコーディング率', 'rubric must keep the visual-encoding primary metric'],
-  [budget, '視覚エンコーディングではない', 'budget must state why lists are not visual encoding'],
+  [rubric, 'Tier A', 'rubric must keep the tiered visual-encoding metric'],
+  [rubric, '読む系', 'rubric must measure the reading-device area share'],
+  [budget, '時間', 'budget must require a time-axis diagram candidate'],
+  [output, '1セル30字以内', 'output contract must keep the table cell budget'],
+  [skill, '時点が4つ以上', 'router must default a 4+ point timeline to a diagram'],
+  [budget, 'Tier C', 'budget must keep lists out of the visual-encoding numerator'],
   [budget, 'prose_sentences', 'budget must require the pre-registered prose for each diagram'],
   [skill, 'Representation Budget', 'SKILL must run the budget before writing HTML'],
   [output, '同じ記号を違う意味に使わない', 'output contract must fix the status-symbol vocabulary'],
@@ -88,6 +92,7 @@ const mustNotContain = [
   [output, '当月目標達成ラインに到達見込み', 'ungrounded forecast example reintroduced'],
   [grammar, 'var(--ink)', 'obsolete diagram CSS token reintroduced'],
   [skill, '情報保持率 95% 以上 かつ 表現変換率 80% 以上', 'rubric pass conditions must not be duplicated in SKILL.md'],
+  [skill, '各時点1情報', 'the retired per-point timeline exemption must not return'],
 ];
 
 for (const [text, needle, message] of mustNotContain) {
