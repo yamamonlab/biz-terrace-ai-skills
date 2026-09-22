@@ -31,8 +31,11 @@ Skillごとに `PROVENANCE.json` で正本の所在を宣言します。すべ�
 3. Behavior変更では、複数ジャンルの代表入力でモデル出力を比較します。
 4. deterministic checksだけなら **VALIDATED**、モデル出力比較まで行った場合だけ **EVALUATED** と記録します。
 5. PRをmainへmergeします。
-6. リリース時は `cognitive-view-vX.Y.Z` tagを付けます。
+6. リリース時は `skills/cognitive-view/RELEASE_NOTES/cognitive-view-vX.Y.Z.md` を追加し、
+   `cognitive-view-vX.Y.Z` tagを付けます。tag pushで `Release Cognitive View` workflowが
+   validationを再実行し、そのnotesでReleaseを公開します。
 7. consumer側はtagまたはmerge commit SHAへ更新します。
+8. `main` の保護設定は `docs/BRANCH_PROTECTION.md` に定義しています。
 
 ## 公開前チェック
 
