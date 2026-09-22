@@ -80,6 +80,12 @@ th { background: #f1f5f9; color: var(--text-secondary); font-weight: 600; paddin
 td { padding: 12px 14px; border-bottom: 1px solid var(--border-light); vertical-align: top; color: var(--text-primary); }
 .st { white-space: nowrap; font-weight: 700; }   /* ステータス記号と語を折り返しで分断しない */
 .num { white-space: nowrap; }   /* 数値と単位を折り返しで分断しない（「720万」と「円」が別行に落ちる） */
+
+/* Sparkbar: 表の数値列に大小を重ねる。表は行列位置をエンコードするが大小はエンコードしない */
+.sb { margin-top: 6px; height: 6px; background: var(--border-light); border-radius: 2px; overflow: hidden; }
+.sb > i { display: block; height: 100%; background: var(--text-muted); }
+.sb.is-focus > i { background: var(--primary); }
+.sb.is-none { border: 1px dashed var(--border); background: transparent; }
 tr:last-child td { border-bottom: none; }
 
 /* 詳細折りたたみ */
@@ -265,6 +271,30 @@ details > div { padding: 14px 16px; font-size: 0.86rem; color: var(--text-second
 - 長い引用は詳細層へ送り、セルには結論だけを置く
 - どうしても長い時は列を分ける（「機能」と「制約」を1列に混ぜない）
 
+## 表の数値列には sparkbar を重ねる
+
+**表は「どの対象のどの軸か」を行列位置でエンコードするが、値の大小はエンコードしない。** 実測された失敗: 「年およそ720万円」と「1,100円」が同じ文字サイズで並び、桁が3つ違うことが読み取れなかった。
+
+同じ単位の数値列が2つ以上並ぶなら、セル内に sparkbar を置く。規則は `references/chart/type-sparkbar.md`。
+
+- バーは**数値の下**。数値を消さない（正確な値と概観の両方を残す）
+- 幅は**列内の最大値を100%**として比例。**0 起点**
+- accent は列内で1本だけ
+- **欠測は破線の空トラック**にし、「原文に記述なし」と書く。**0 幅のバーにしない**（「無料」と誤読される）
+
+```html
+<td data-label="月額">
+  <span class="num">2,400円</span>
+  <div class="sb is-focus" role="img" aria-label="月額 2,400円。この列の最大値"><i style="width:100%"></i></div>
+</td>
+<td data-label="月額">
+  <span class="num">原文に記述なし</span>
+  <div class="sb is-none" role="img" aria-label="原文に記述なし"></div>
+</td>
+```
+
+`aria-label` に値と比率を書く。バーは視覚チャネルの追加であって、値の置き換えではない。
+
 ## 状態記号の語彙（固定）
 
 表のステータス列で使う記号は次に固定する。**形が状態の種類を持ち、色は補助**（色は印刷と色覚条件で落ちる）。
@@ -357,3 +387,5 @@ Chromium 系は find-in-page で `<details>` を自動展開するが、これ�
 - 表・図・箇条書きへ変換済みの塊を `<details>` に再収納すること（変換した意味を捨てるため）
 - 比較表を狭幅で横スクロールさせたまま出すこと（`data-label` とカード落としの CSS を必ず入れる）
 - `@media print` を省くこと（閉じた詳細層が印刷で落ち、「情報を削らない」に反するため）
+- 「原文に記述なし」を 0 としてチャートに描くこと（欠測は破線の空スロット）
+- 同じ単位の数値列が並ぶ表に、sparkbar もチャートも置かないこと

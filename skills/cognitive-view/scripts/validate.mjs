@@ -22,6 +22,11 @@ const required = [
   'references/decide-contract.md',
   'references/eval-protocol.md',
   'references/representation-budget.md',
+  'references/chart/grammar.md',
+  'references/chart/type-sparkbar.md',
+  'references/chart/type-line.md',
+  'references/chart/type-part.md',
+  'references/chart/type-range.md',
   'references/diagram/grammar.md',
   'references/diagram/type-bar.md',
   'references/diagram/type-flowchart.md',
@@ -52,6 +57,7 @@ const rubric = read('references/quality-rubric.md');
 const foundations = read('references/foundations.md');
 const decide = read('references/decide-contract.md');
 const budget = read('references/representation-budget.md');
+const chart = read('references/chart/grammar.md');
 
 const mustContain = [
   [skill, '原文に重要数値があれば2〜4枚、最大4枚', 'SKILL metric cards must remain conditional'],
@@ -75,6 +81,11 @@ const mustContain = [
   [budget, '時間', 'budget must require a time-axis diagram candidate'],
   [output, '1セル30字以内', 'output contract must keep the table cell budget'],
   [skill, '時点が4つ以上', 'router must default a 4+ point timeline to a diagram'],
+  [skill, 'Chart Router', 'SKILL must route numbers through a separate chart gate'],
+  [chart, '3文テストと node/edge 予算を適用しない', 'chart grammar must exempt charts from the diagram gate'],
+  [chart, '0 と「記述なし」を同じ見た目にしない', 'chart grammar must forbid drawing missing values as zero'],
+  [output, 'sparkbar', 'output contract must require sparkbars on numeric table columns'],
+  [rubric, 'チャートには3文テストを掛けない', 'rubric must not apply the three-sentence test to charts'],
   [budget, 'Tier C', 'budget must keep lists out of the visual-encoding numerator'],
   [budget, 'prose_sentences', 'budget must require the pre-registered prose for each diagram'],
   [skill, 'Representation Budget', 'SKILL must run the budget before writing HTML'],
