@@ -18,7 +18,11 @@ Changes that affect routing, evidence handling, information retention, diagram s
 4. expected behavior after the change;
 5. whether model-output evaluation was performed.
 
-Do not mark a change **EVALUATED** unless a model-output comparison was actually run.
+Do not mark a change **EVALUATED** unless a model-output comparison was actually run. The procedure, the pass conditions, and the reporting format are in `docs/eval-protocol.md`. Evaluations must include a weak model; fidelity failures appear there first.
+
+### Adding or removing a rule
+
+`docs/design.md` records why each part of the contract exists and the failures it answers. Add a rule only for a failure that was actually observed. To remove or weaken a fidelity rule, run the comparison in `docs/eval-protocol.md` and show that fabrication does not increase.
 
 ## Pull request rules
 
@@ -27,6 +31,7 @@ Do not mark a change **EVALUATED** unless a model-output comparison was actually
 - Run `node skills/cognitive-view/scripts/validate.mjs` from the repository root before opening a PR.
 - Do not add external runtime dependencies unless the capability cannot reasonably remain self-contained.
 - Do not add sample-specific rules to the core contract merely to improve one fixture.
+- Never put example content (names, numbers, sentences) into `references/components.md` or `SKILL.md`; models copy it.
 - Do not weaken information-retention or source-grounding rules to make outputs look cleaner.
 - Preserve attribution for material derived from third-party projects.
 
