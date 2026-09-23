@@ -18,7 +18,7 @@
       "author": "Cathryn Lavery",
       "repository": "https://github.com/cathrynlavery/diagram-design",
       "license": "MIT",
-      "scope": "references/diagram/"
+      "scope": "design conventions in references/components.md (chart/diagram rules descended from the former references/diagram/)"
     }
   ],
   "release_policy": {

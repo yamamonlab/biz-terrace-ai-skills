@@ -2,38 +2,44 @@
 
 All notable changes to Cognitive View will be documented here.
 
-The Skill uses semantic versioning with `cognitive-view-vX.Y.Z` Git tags as the version source of truth.
+The Skill uses semantic versioning with `cognitive-view-vX.Y.Z` Git tags as the version source of truth. Release notes for tagged versions are in `RELEASE_NOTES/`.
 
-## Unreleased
+## Unreleased — intended as `cognitive-view-v2.0.0` (breaking)
 
-### Added
+Status: see the bottom of this entry (VALIDATED / EVALUATED).
 
-- `references/foundations.md` — maps each rule to the principle it rests on (Shneiderman's information-seeking mantra, Sweller's intrinsic/extraneous load, Mayer's coherence / signaling / spatial-contiguity principles), with the rationale for the diagram complexity budget and the order in which rules may be removed.
-- `references/eval-protocol.md` — a comprehension-reach test that measures what the rubric cannot: whether a reader actually gets there fast. Defines the VALIDATED / EVALUATED boundary and the A/B procedure required before removing a principle-backed rule.
-- `references/genre-map.md` — input genre to question-heading mapping, so the default headings are no longer assumed to fit every document. Raises the information-preservation target to 98% for policy and procedure documents.
-- `references/decide-contract.md` — the previously undefined `DECIDE` mode now has a skeleton, an explicit list of what must not be added (scores, confidence values, invented options), and its own scoring axis.
-- `references/chart/` — charts are now routed and gated separately from diagrams: `grammar.md` (numeric test, chart complexity budget, how to draw missing and uncertain values), `type-sparkbar.md`, `type-line.md`, `type-part.md`, `type-range.md`. The Skill had seven relational diagram types and a single bar type, and the three-sentence test — calibrated for "this structure is hard to describe" — rejected every chart, because a comparison of three numbers is always describable in one sentence. Measured consequence: 7.2M yen and 1,100 yen sat in adjacent table cells at the same type size with nothing encoding the three-order-of-magnitude gap.
-- Sparkbars on numeric table columns. A table encodes which object and which axis by row and column position; it does not encode magnitude. The bar sits under the value rather than replacing it, scales from the column maximum at a zero baseline, and renders a missing value as a dashed empty track rather than a zero-width bar.
-- `references/representation-budget.md` — the budget written before any HTML: device rhythm (no two identical devices in a row), a **floor** for visual encoding (cards / tables / diagrams / alerts must cover 30% of related chunks), and the pre-registered prose that the three-sentence test is actually measured against. Until now the Skill only had ceilings, so an output made entirely of boxed bullet lists scored full marks.
-- Visual-encoding rate as a third primary metric, plus rubric axes 8 (visual encoding) and 9 (rhythm). Lists are non-prose but encode only order, so representation-conversion rate alone cannot see a page that has degraded into boxed text.
-- A fixed status-symbol vocabulary (● confirmed / ▲ concern / ■ unverified / ○ not started / × rejected) with one meaning per shape, and a no-wrap rule so a symbol is never split from its word.
-- Metric-card ordering rule: cards are ordered by what the comprehension goal needs, not by the source order.
-- A render-and-look self-review step before output, since axes 8 and 9 cannot be judged from markup.
-- Print and narrow-width rules in the output contract: `@media print` reveals the detail layer via `::details-content`, and comparison tables fall back to per-row cards below 600px instead of scrolling horizontally.
-- OSS repository documentation and deterministic validation scaffolding.
-- Explicit release distinction between VALIDATED and EVALUATED, now defined operationally in `references/eval-protocol.md`.
+### Why this is a rewrite
+
+On 2026-09-23 the released contract (`78ce777`) was run the way event participants would run it — nine generations across three model strengths and two load paths, against criteria registered before generation. Layout held in every run. Fidelity did not: outputs from weaker models added a computed amount that the source never states, relabelled a per-user monthly fee as yearly, invented a year and an owner, and one mid-strength run copied "the four steps form a loop" verbatim from a diagram template whose worked example used the same fictional company as the sample input. The strongest model produced no such errors. See `docs/design.md`.
+
+v2 therefore reorganises the Skill around fidelity first and presentation second.
 
 ### Changed
 
-- `SKILL.md` no longer restates the rubric's pass conditions and 7 axes. Scoring lives in `references/quality-rubric.md` only; the Skill keeps the immediate-fail gates and a self-check that points at the rubric.
-- Charts are exempt from the three-sentence test and the node/edge budget; they use the numeric test (three or more values in one unit, a gap in magnitude or a trend/composition/range that matters, and a bearing on the comprehension goal) with their own budget (series ≤3, categories ≤8, accent ≤1, legends allowed).
-- Rubric axis 5 now scores diagrams and charts separately, and scores 1 or below when a numeric column carries no sparkbar, or 0 when a missing value is drawn as zero.
-- Pass condition is now: information retention 95%+, representation conversion 80%+, **visual encoding 30%+**, 9 axes 15/18+, zero immediate fails. Two immediate fails were added: degradation into boxed text (three or more related chunks with no visual device) and shipping a diagram without its pre-registered prose.
-- The DECIDE axis is renumbered 10 to make room for axes 8 and 9.
-- Metric card labels use `--text-secondary` at 0.85rem (previously the smallest, lightest text on the page sat in the 5-second layer).
+- **A fact ledger is now the first step.** Before any HTML, every fact in the source is listed with a type and a verbatim quote. Every visible element carries `data-f` pointing at ledger ids, and the ledger ships at the end of the output as the detail layer's evidence. Pasting the whole source into `<details>` is no longer the detail layer.
+- **Six concrete prohibitions** replace the general "do not add information": no arithmetic, no unit changes, no unstated owners/dates/years, no unstated causality or loops (parallel reasons stay parallel), no unstated evaluative words, no dropping who said what.
+- **One routing table with an explicit order** (quantity → time → comparison → stated causality → disagreement → open items → list → sentence) replaces the router, representation budget, chart grammar and diagram grammar, which disagreed with each other.
+- **Components contain only `{{…}}` skeletons.** No component carries domain content, so there is nothing to copy.
+- **Timeline, flow and bar charts are HTML/CSS**, so they wrap on narrow screens instead of shrinking SVG text to ~4px at 360px. SVG remains for line charts.
+- **Animation** is allowed for sequence, trend and stated causality only: CSS only, plays once, total ≤3s, and defined inside `prefers-reduced-motion: no-preference` so the static final state is what print, previews and reduced-motion users see.
+- The reply is one HTML code block with at most two lines around it. Self-scores, briefs and ledgers are not printed in the chat reply, which kept outputs from being truncated on free tiers.
+- Runtime files are two: `SKILL.md` and `references/components.md` (about a ninth of the previous runtime size).
 
-### Notes
+### Added
 
-Collapsed detail content is not printed on browsers released before `::details-content` shipped (2025-09), and find-in-page auto-expansion of `<details>` is Chromium-specific. Both limits are now stated in the output contract rather than assumed away.
+- `scripts/check-output.mjs` — checks a generated HTML file against its source: self-containment, completeness, closed details, ledger quotes that must exist verbatim in the source, visible numbers that do not appear in the source, years absent from the source, evaluative words absent from the source, `data-f` coverage, and animation rules. It flags every fabrication found in the 2026-09-23 run.
+- `examples/sample-operations-report.md` — a second fictional input from a different domain, with a monthly series, a per-site comparison, a stated causal chain, two parallel causes, a disagreement, an open item with a stated owner and one without, and a missing value.
+- `docs/design.md` — why v2 has this shape, with the evidence and the corrected citations (Mayer & Fiorella 2014; the 5-second / 30–90-second timings are this Skill's operating targets, not Shneiderman's).
 
-The first public-canonical release is planned as `cognitive-view-v1.0.0` in `yamamonlab/biz-terrace-ai-skills`. The initial implementation history remains private; this public repository becomes canonical from that release onward.
+### Removed
+
+- `references/output-contract.md`, `quality-rubric.md`, `capability-spec.md`, `genre-map.md`, `decide-contract.md`, `representation-budget.md`, `foundations.md`, `references/chart/`, `references/diagram/`. Their surviving rules are in `SKILL.md` or `references/components.md`; the rationale is in `docs/design.md`.
+- The three-tier device vocabulary and area-share metrics. They could not be computed in a chat AI and rewarded wrapping lists in cards.
+
+### Moved
+
+- `references/eval-protocol.md` → `docs/eval-protocol.md`, rewritten to measure fidelity first and to require weak models in every evaluation.
+
+### Status
+
+VALIDATED (`scripts/validate.mjs`). EVALUATED status is recorded below once the model-output comparison in `docs/eval-protocol.md` has been run.

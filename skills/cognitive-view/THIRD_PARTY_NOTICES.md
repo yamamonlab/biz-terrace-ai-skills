@@ -2,14 +2,14 @@
 
 ## diagram-design
 
-Files under `references/diagram/` include material derived from:
+Some diagram and chart conventions in `references/components.md` (direct labels, a single focal accent, zero baselines, restrained palettes) descend from material that was previously kept under `references/diagram/` and derived from:
 
 - Project: `diagram-design`
 - Author: Cathryn Lavery
 - Source: https://github.com/cathrynlavery/diagram-design
 - License: MIT
 
-The derived files are maintained locally so Cognitive View remains self-contained. They are not treated as a live upstream dependency.
+The components were rewritten for v2 and are not a copy of the upstream templates. Attribution is kept because the conventions descend from them. They are not treated as a live upstream dependency.
 
 Original license notice:
 
