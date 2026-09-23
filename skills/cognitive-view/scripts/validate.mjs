@@ -15,7 +15,7 @@ const read = (p) => {
 const required = [
   'SKILL.md', 'README.md', 'LICENSE', 'PROVENANCE.json', 'THIRD_PARTY_NOTICES.md', 'CONTRIBUTING.md',
   'SECURITY.md', 'RELEASING.md', 'CHANGELOG.md',
-  'references/components.md',
+  'references/components.md', 'references/diagrams.md',
   'scripts/check-output.mjs', 'scripts/fixtures/source.md', 'scripts/fixtures/good.html', 'scripts/fixtures/bad.html',
   'examples/sample-document.md', 'examples/sample-operations-report.md',
   'docs/design.md', 'docs/eval-protocol.md',
@@ -24,11 +24,15 @@ for (const p of required) read(p);
 
 const skill = read('SKILL.md');
 const comp = read('references/components.md');
+const diag = read('references/diagrams.md');
 
 // 1. 実行時に読むファイルの重さ（チャットAIに渡す2本）
 const kb = (s) => Buffer.byteLength(s) / 1024;
 if (kb(skill) > 16) errors.push(`SKILL.md is ${kb(skill).toFixed(1)}KB (budget 16KB)`);
 if (kb(comp) > 30) errors.push(`components.md is ${kb(comp).toFixed(1)}KB (budget 30KB)`);
+if (kb(diag) > 18) errors.push(`diagrams.md is ${kb(diag).toFixed(1)}KB (budget 18KB)`);
+for (const m of diag.matchAll(/<svg viewBox="0 0 (\d+) (\d+)"/g)) if (m[1] !== '880') errors.push(`diagrams.md example is ${m[1]} wide (must be 880)`);
+if (/<script/i.test(diag)) errors.push('diagrams.md contains <script>');
 
 // 2. 忠実さの規則が核にある
 for (const must of ['原文にないものを足さない', '計算しない', '単位を変えない', '担当・期限・日付・年号', '因果・循環・順序', '推奨・優先順位・評価語', '発言者を消さない', '地の文で推測しない', '事実台帳', 'data-f']) {
@@ -48,7 +52,7 @@ if (/<script/i.test(comp.replace(/`[^`\n]*`/g, ""))) errors.push('components.md 
 
 // 4. 題材の混入: 例の固有名・数値が、実行時ファイルに入っていない（モデルが写すため）
 const examples = ['examples/sample-document.md', 'examples/sample-operations-report.md'].map(read).join('\n');
-const runtime = { 'SKILL.md': skill, 'references/components.md': comp };
+const runtime = { 'SKILL.md': skill, 'references/components.md': comp, 'references/diagrams.md': diag };
 const properNouns = new Set([
   ...(examples.match(/[ァ-ヶー]{2,}社/g) || []),
   ...(examples.match(/[東西南北][ァ-ヶー一-龥]{0,3}センター/g) || []),
@@ -62,7 +66,7 @@ for (const [name, text] of Object.entries(runtime)) {
 }
 
 // 5. 参照先が実在し、削除したファイルを指していない
-const docs = ['SKILL.md', 'README.md', 'CONTRIBUTING.md', 'references/components.md', 'examples/README.md', 'docs/design.md', 'docs/eval-protocol.md', 'scripts/fixtures/README.md'];
+const docs = ['SKILL.md', 'README.md', 'CONTRIBUTING.md', 'references/components.md', 'references/diagrams.md', 'examples/README.md', 'docs/design.md', 'docs/eval-protocol.md', 'scripts/fixtures/README.md'];
 const removed = /references\/(output-contract|quality-rubric|capability-spec|genre-map|decide-contract|representation-budget|foundations|eval-protocol|chart\/|diagram\/)/;
 for (const d of docs) {
   const t = read(d);

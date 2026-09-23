@@ -21,7 +21,7 @@
 :root{--bg:#fff;--ink:#1a1c20;--sub:#454a54;--mute:#6f7582;--line:#e3e6eb;--soft:#f5f6f8;--accent:#1d5fbf;--tint:#dce8fa;--warn:#a85a0a;--warnbg:#fdf6ec;--bad:#b42318;--ok:#1f7a4d;--bar:#8fb0e3;--none:#c9ced8;--card:#fff}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.95 "Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;letter-spacing:.02em;-webkit-font-smoothing:antialiased}
-main{max-width:880px;margin:0 auto;padding:40px 20px 72px}
+main{max-width:928px;margin:0 auto;padding:48px 24px 80px}
 .col{max-width:680px;margin:0 auto}
 .kicker{font-size:.78rem;font-weight:700;letter-spacing:.12em;color:var(--accent);margin:0 0 10px}
 h1{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-size:1.8rem;line-height:1.45;margin:0 0 18px;letter-spacing:.01em}
@@ -165,7 +165,7 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 
 ## FIG — 図表の枠
 
-図表（`TABLE` `BAR` `LINE` `TIMELINE` `FLOW` `CONFLICT`）は、この枠で包む。上に「何の図か」、下に「この図から読み取れること」を1文。読み取りは原文の範囲で書く。
+図表（`TABLE` `BAR` `LINE` `TIMELINE` `FLOW` `DEPEND` `CONFLICT`）は、この枠で包む。**PCで読む前提**なので、図の枠は本文の列（680px）の外に出し、`main` の幅（最大880px）いっぱいに置く（`<figure class="fig">` を `section.col` の外、`main` の直下に置く）。上に「何の図か」、下に「この図から読み取れること」を1文。読み取りは原文の範囲で書く。
 
 ```html
 <figure class="fig" data-f="{{F}}">
@@ -175,7 +175,8 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 </figure>
 ```
 ```css
-.fig{margin:30px 0 34px}
+.fig{margin:36px 0 40px}
+.fig svg{display:block;width:100%;height:auto;font-family:inherit}
 .fig-t{font-size:.9rem;font-weight:700;margin:0 0 10px}
 .fig-t::before{content:"";display:inline-block;width:.6em;height:.6em;background:var(--accent);margin-right:.5em;border-radius:2px}
 .fig-r{font-size:.9rem;color:var(--sub);margin:10px 0 0}
@@ -295,7 +296,7 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 .bar-v{font-size:.9rem;font-weight:700}
 ```
 
-**2時点を1つの図で比べる時**（例の形: 前の時点を棒、後の時点を◆）: 同じ単位の値が項目ごとに2つある時だけ。凡例を図の下に1行。後の時点が原文に無い項目は ◆ を置かず、「{{時点}} 記載なし」と書く。項目の補足（件数など、原文にある値）は項目名の下に小さく書く。
+**2時点を1つの図で比べる時**（SVG版は `references/diagrams.md` §10）（例の形: 前の時点を棒、後の時点を◆）: 同じ単位の値が項目ごとに2つある時だけ。凡例を図の下に1行。後の時点が原文に無い項目は ◆ を置かず、「{{時点}} 記載なし」と書く。項目の補足（件数など、原文にある値）は項目名の下に小さく書く。
 
 ```html
 <div class="bar-row"><span class="bar-k">{{項目}}<small>{{補足の値}}</small></span><span class="bar-t"><i style="--w:{{前の%}}%"></i><em class="mk" style="--x:{{後の%}}%" title="{{後の時点}}"></em></span><span class="bar-v num">{{前の値}} → {{後の値}}</span></div>
@@ -313,6 +314,8 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 ---
 
 ## LINE — 折れ線（推移）
+
+出来事を重ねる時は `references/diagrams.md` §9 の幅880版を使う。
 
 **同じ単位の値が時点に沿って4つ以上** ある時。系列は3本まで。原文が「速報」「見込み」とする値は、その点までの線を点線（`stroke-dasharray="6 5"`）にし、値の横に「速報」などと原文の言葉を書く。軸は0から。各点に値を直接書く。`viewBox` の幅は600、文字は14以上（縮んでも読めるように）。点の座標は自分で比率計算してよいが、計算した値を画面の文字にしない。
 
@@ -346,7 +349,7 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 
 ## TIMELINE — 時系列
 
-時点が3つ以上の時。HTMLで組むので狭い画面では縦に並ぶ。各点は「時点・出来事・誰が」。**原文にない年号・日付を足さない。** 未来の予定は `.future`（点線）で、原文に書かれている時だけ。
+**既定は `references/diagrams.md` §8 の SVG。** 下のHTML版は、出来事の文が長く SVG に収まらない時だけ使う。時点が3つ以上の時。各点は「時点・出来事・誰が」。**原文にない年号・日付を足さない。** 未来の予定は `.future`（点線）で、原文に書かれている時だけ。
 
 ```html
 <ol class="tl" data-f="{{F}}">
@@ -376,6 +379,8 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 ---
 
 ## FLOW — 流れ図（因果・手順）
+
+**既定は `references/diagrams.md` §6 の SVG**（直角の線・合流点・対策の破線）。下のHTML版は段が1列に並ぶだけの単純な連鎖の時に使ってよい。
 
 **原文が書いている** つながりだけを矢印にする。原文が理由を並べている時は、1本の連鎖にせず **分岐** で描く（`.fork`）。原文が「戻る」と言っていない限り、最後から最初へ戻る矢印を描かない。段は9つまで。
 
@@ -443,6 +448,8 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 ---
 
 ## DEPEND — 依存図（何が決まれば何が動くか）
+
+**既定は `references/diagrams.md` §7 の SVG。**
 
 原文が「〜が確認できないと〜が決まらない」「前提が違うと〜が崩れる」と **つながりを書いている** 未確定の前提がある時。左に未確定の前提（破線）、右にそれを待っている判断。原文に書かれていないつながりは引かない。前提と判断は各5つまで。
 
