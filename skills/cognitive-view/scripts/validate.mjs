@@ -28,7 +28,7 @@ const comp = read('references/components.md');
 // 1. 実行時に読むファイルの重さ（チャットAIに渡す2本）
 const kb = (s) => Buffer.byteLength(s) / 1024;
 if (kb(skill) > 16) errors.push(`SKILL.md is ${kb(skill).toFixed(1)}KB (budget 16KB)`);
-if (kb(comp) > 24) errors.push(`components.md is ${kb(comp).toFixed(1)}KB (budget 24KB)`);
+if (kb(comp) > 30) errors.push(`components.md is ${kb(comp).toFixed(1)}KB (budget 30KB)`);
 
 // 2. 忠実さの規則が核にある
 for (const must of ['原文にないものを足さない', '計算しない', '単位を変えない', '担当・期限・日付・年号', '因果・循環・順序', '推奨・優先順位・評価語', '発言者を消さない', '地の文で推測しない', '事実台帳', 'data-f']) {
@@ -36,7 +36,7 @@ for (const must of ['原文にないものを足さない', '計算しない', '
 }
 
 // 3. 部品がそろい、アニメーションの決まりが守られている
-for (const id of ['PAGE', 'POINTS', 'QUOTE', 'NOTE', 'FIG', 'CARD', 'TABLE', 'SPARK', 'BAR', 'LINE', 'TIMELINE', 'FLOW', 'CONFLICT', 'OPEN', 'LEDGER', 'ANIMATION']) {
+for (const id of ['PAGE', 'POINTS', 'QUOTE', 'NOTE', 'FIG', 'BIG', 'CARD', 'TABLE', 'SPARK', 'BAR', 'LINE', 'TIMELINE', 'FLOW', 'DEPEND', 'CONFLICT', 'OPEN', 'LEDGER', 'ANIMATION']) {
   if (!new RegExp(`^## ${id}\\b`, 'm').test(comp)) errors.push(`components.md is missing component ${id}`);
   if (!skill.includes(id) && !['PAGE', 'CARD'].includes(id)) errors.push(`SKILL.md never routes to component ${id}`);
 }

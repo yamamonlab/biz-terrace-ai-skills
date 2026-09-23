@@ -73,6 +73,7 @@ else {
 const body = html
   .replace(/<style[\s\S]*?<\/style>/gi, ' ')
   .replace(/<span class="no">[\s\S]*?<\/span>/gi, ' ')
+  .replace(/<text[^>]*class="tick"[^>]*>[\s\S]*?<\/text>/gi, ' ')
   .replace(/<details[^>]*class="[^"]*ledger[^"]*"[^>]*>[\s\S]*?<\/details>/i, ' ')
   .replace(/<svg[\s\S]*?<\/svg>/gi, (svg) => (svg.match(/<text[^>]*>[\s\S]*?<\/text>/gi) || []).join(' '));
 const visible = zen(stripTags(body));
@@ -103,6 +104,10 @@ for (const w of ['推奨', 'おすすめ', '最有力', '第一候補', '優先�
 }
 
 // ---- 7b. 書き手の推測・計算した差（原文に無いもの）----
+for (const w of ['倍増', '倍に', '半減', '急増', '急減', '激増', '激減']) {
+  const i = visible.indexOf(w);
+  if (i >= 0 && !source.includes(w)) errors.push(`計算した倍率の言い方（原文に無い）: 「${visible.slice(Math.max(0, i - 20), i + 10)}」`);
+}
 for (const w of ['考えられ', 'と思われ', 'だろう', '可能性があ', 'を招いて', 'に違いない', 'と推測']) {
   const i = visible.indexOf(w);
   if (i >= 0 && !source.includes(w)) errors.push(`地の文の推測（原文に無い）: 「${visible.slice(Math.max(0, i - 24), i + 12)}」`);

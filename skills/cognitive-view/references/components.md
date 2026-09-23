@@ -2,7 +2,7 @@
 
 `SKILL.md` の手順4で使う。**ここにあるのは形だけ。** `{{…}}` を事実台帳の内容で埋める。見本の言葉・数値を中身に使わない。部品にない装飾（影・グラデーション・アイコン・絵文字）を足さない。
 
-部品一覧: `PAGE` `POINTS` `QUOTE` `NOTE` `FIG` `CARD` `TABLE` `SPARK` `BAR` `LINE` `TIMELINE` `FLOW` `CONFLICT` `OPEN` `LEDGER` `ANIMATION`
+部品一覧: `PAGE` `POINTS` `QUOTE` `NOTE` `FIG` `BIG` `CARD` `TABLE` `SPARK` `BAR` `LINE` `TIMELINE` `FLOW` `DEPEND` `CONFLICT` `OPEN` `LEDGER` `ANIMATION`
 
 ---
 
@@ -24,9 +24,9 @@ body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.95 "Hiragino San
 main{max-width:880px;margin:0 auto;padding:40px 20px 72px}
 .col{max-width:680px;margin:0 auto}
 .kicker{font-size:.78rem;font-weight:700;letter-spacing:.12em;color:var(--accent);margin:0 0 10px}
-h1{font-size:1.75rem;line-height:1.45;margin:0 0 18px;letter-spacing:.01em}
+h1{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-size:1.8rem;line-height:1.45;margin:0 0 18px;letter-spacing:.01em}
 .lede{font-size:1.06rem;color:var(--sub);margin:0 0 26px}
-h2{font-size:1.3rem;line-height:1.5;margin:60px 0 18px;display:flex;gap:.6em;align-items:baseline}
+h2{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-size:1.35rem;line-height:1.5;margin:60px 0 18px;display:flex;gap:.6em;align-items:baseline}
 h2 .no{font-size:.9rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
 h3{font-size:1.05rem;margin:28px 0 8px}
 p{margin:0 0 1.3em}
@@ -80,6 +80,20 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 </body>
 </html>
 ```
+
+見出し（`h1` `h2`）は明朝、本文はゴシック。
+
+**線と色の約束（全部の図で同じにする）:**
+
+| 見た目 | 意味 |
+|---|---|
+| 実線・塗り | 原文が事実として書いている |
+| 破線・白抜き | 未確認・速報・予定・効果が確かめられていない |
+| 強調色（`--accent`） | その図の中心の1か所だけ |
+
+破線を使った図には、図の下に凡例を1行（`p.legend`）付ける。
+
+**図を置く前の確認（図ごとに頭の中で）:** この図で伝える1文は何か／どの関係（数量・時間・比較・因果・対立・未確定）を形にするか／ラベルを隠しても、線・位置・大きさで関係が読めるか（読めないなら、図ではなく本文か表にする）。隣り合う図が同じ形の繰り返しになっていないか。
 
 文字組みの使い分け（これ以外の装飾は足さない）:
 
@@ -281,6 +295,21 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 .bar-v{font-size:.9rem;font-weight:700}
 ```
 
+**2時点を1つの図で比べる時**（例の形: 前の時点を棒、後の時点を◆）: 同じ単位の値が項目ごとに2つある時だけ。凡例を図の下に1行。後の時点が原文に無い項目は ◆ を置かず、「{{時点}} 記載なし」と書く。項目の補足（件数など、原文にある値）は項目名の下に小さく書く。
+
+```html
+<div class="bar-row"><span class="bar-k">{{項目}}<small>{{補足の値}}</small></span><span class="bar-t"><i style="--w:{{前の%}}%"></i><em class="mk" style="--x:{{後の%}}%" title="{{後の時点}}"></em></span><span class="bar-v num">{{前の値}} → {{後の値}}</span></div>
+<p class="legend"><span class="lg-bar"></span>{{前の時点}}　<span class="lg-mk">◆</span>{{後の時点}}</p>
+```
+```css
+.bar-k small{display:block;font-size:.72rem;color:var(--mute);font-weight:400}
+.bar-t{position:relative}
+.bar-t .mk{position:absolute;left:var(--x);top:50%;width:11px;height:11px;background:var(--ink);transform:translate(-50%,-50%) rotate(45deg)}
+.legend{font-size:.78rem;color:var(--mute);margin:8px 0 0}
+.lg-bar{display:inline-block;width:18px;height:8px;background:var(--bar);margin-right:4px;vertical-align:middle}
+.lg-mk{margin-right:4px;color:var(--ink)}
+```
+
 ---
 
 ## LINE — 折れ線（推移）
@@ -300,6 +329,17 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
   </svg>
 </figure>
 ```
+
+**出来事を推移に重ねる（推移と原因を1枚で読ませる）:** 原文が **時点を書いている** 出来事だけ。期間なら薄い網掛け、時点なら縦の破線と短いラベル（10字以内、原文の言葉）。3つまで。出来事と推移の因果を、線の形で言い切らない（「移行後に上がった」は描けるが「移行のせいで上がった」は原文にある時だけ本文で書く）。この形を使ったら、同じ出来事で別に `TIMELINE` を作らない。
+
+```html
+    <rect x="{{開始x}}" y="20" width="{{幅}}" height="200" fill="#1d5fbf" opacity=".06"/>
+    <text x="{{開始x+6}}" y="36" font-size="13" fill="#454a54">{{期間の出来事}}</text>
+    <line x1="{{x}}" y1="20" x2="{{x}}" y2="220" stroke="#6f7582" stroke-dasharray="4 4"/>
+    <text x="{{x+6}}" y="52" font-size="13" fill="#454a54">{{時点の出来事}}</text>
+```
+
+目盛り線を引く時は、目盛りの数字に `class="tick"` を付ける（照合で目盛りは数値の主張として扱わない）。
 
 ---
 
@@ -371,6 +411,74 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
   .arrow{flex:0 0 22px;width:2px;height:22px;align-self:center}
   .arrow::after{right:-5px;top:auto;bottom:-6px;border:6px solid transparent;border-top:8px solid var(--mute)}
 }
+```
+
+**合流（独立した原因が、それぞれの経路を通って1つの結果に至る時）:** `.fork` の各段に小さな連鎖を入れる。原因ごとの段数が違ってよい。
+
+```html
+<div class="fork">
+  <div class="chain"><span class="tag">{{原因1}}</span><div class="node">{{段}}</div><div class="arrow" aria-hidden="true"></div><div class="node">{{段}}</div></div>
+  <div class="chain"><span class="tag">{{原因2}}</span><div class="node">{{段}}</div></div>
+</div>
+```
+
+**対策・介入（原文に書かれた手当て）:** 効く相手の段のすぐ下に破線の枠で置き、効果が原文で確認されていなければそう書く。
+```html
+<div class="node act">{{対策。原文の言葉}}<span class="src">{{時点}}・{{効果: 原文の言い方（例: 確認されていない）}}</span></div>
+```
+
+**括弧の注記（図全体に掛かる但し書き）:** 原文が「分けて測れていない」「比較できない」などと言っている時。
+```html
+<p class="brace">{{但し書き。原文の言葉}}</p>
+```
+```css
+.chain{display:flex;align-items:center;gap:0;flex-wrap:wrap}
+.chain .tag{flex:0 0 100%;font-size:.72rem;color:var(--mute);margin-bottom:2px}
+.node.act{border-style:dashed;background:var(--card);font-size:.84rem}
+.brace{font-size:.82rem;color:var(--sub);border-left:2px solid var(--mute);padding-left:10px;margin:10px 0 0}
+```
+
+---
+
+## DEPEND — 依存図（何が決まれば何が動くか）
+
+原文が「〜が確認できないと〜が決まらない」「前提が違うと〜が崩れる」と **つながりを書いている** 未確定の前提がある時。左に未確定の前提（破線）、右にそれを待っている判断。原文に書かれていないつながりは引かない。前提と判断は各5つまで。
+
+```html
+<div class="dep" data-f="{{F}}">
+  <div class="dep-col">
+    <p class="dep-h">まだ確かめられていないこと</p>
+    <div class="node open-n">{{前提1}}<span class="src">根拠: {{原文の言い方（例: 口頭説明のみ）}}</span></div>
+    <div class="node open-n">{{前提2}}</div>
+  </div>
+  <div class="arrow" aria-hidden="true"></div>
+  <div class="dep-col">
+    <p class="dep-h">それを待っている判断</p>
+    <div class="node end">{{判断}}<span class="src">{{原文にある見通し（例: 次々回が目標）}}</span></div>
+  </div>
+</div>
+```
+```css
+.dep{display:flex;align-items:center;gap:0}
+.dep-col{flex:1;display:grid;gap:8px}
+.dep-h{font-size:.75rem;font-weight:700;color:var(--mute);margin:0}
+.node.open-n{border-style:dashed}
+@media (max-width:600px){.dep{flex-direction:column;align-items:stretch}.dep .arrow{align-self:center;width:2px;height:22px}}
+```
+
+---
+
+## BIG — 息継ぎ（数値か引用を1つだけ大きく）
+
+図表が続いた後や章の切れ目に、原文の数値1つ（または短い引用1つ）と1文だけを置いて、読む速さに緩急をつける。記事全体で1〜2か所まで。
+
+```html
+<div class="big" data-f="{{F}}"><b class="big-v">{{原文どおりの値と単位}}</b><p>{{その値が何かを1文。原文の範囲で}}</p></div>
+```
+```css
+.big{margin:36px 0;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center}
+.big-v{display:block;font-size:2.2rem;line-height:1.3;color:var(--accent);font-variant-numeric:tabular-nums}
+.big p{margin:6px 0 0;color:var(--sub);font-size:.95rem}
 ```
 
 ---
