@@ -29,7 +29,7 @@ h3{font-size:1rem;margin:20px 0 8px}
 .box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
 .src{font-size:.78rem;color:var(--mute)}
 .num{font-variant-numeric:tabular-nums;white-space:nowrap}
-.st{white-space:nowrap;font-weight:700}
+.st{font-weight:700;overflow-wrap:anywhere}
 .st-ok{color:var(--ok)}.st-warn{color:var(--warn)}.st-open{color:var(--bad)}.st-todo{color:var(--mute)}
 details{margin:10px 0;background:var(--card);border:1px solid var(--line);border-radius:10px}
 summary{cursor:pointer;padding:12px 16px;font-weight:700;color:var(--sub)}
@@ -70,6 +70,11 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 ## CARD — 数値カード（5秒層）
 
 原文にある数値だけ。数値が無い資料ではカードを作らない（言葉をカードに入れない）。最大4枚。
+
+**カードの値は、原文に書かれた1つの値を、原文の表記のまま写す。**
+- 「9割」は「9割」。「90%」に直さない。「およそ」「約」「速報値」も値と一緒に残す
+- 複数の値を足して1枚にしない（内訳が3つあれば、内訳のまま書く。合計を作らない）
+- 差・前月比・ポイント差を作らない。2つの値を並べたい時は、カードを2枚にするか `BAR` を使う
 
 ```html
 <div class="cards">
@@ -123,7 +128,9 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 .none{color:var(--mute);font-style:italic}
 ```
 
-状態記号（この5つだけ使う。記号と言葉を必ず両方書く）: `● 確定` `▲ 懸念` `■ 未確認` `○ 未着手` `× 却下`
+状態記号（この5つだけ使う。記号と言葉を必ず両方書く）: `● 確定` `▲ 懸念` `■ 未確認` `○ 未着手` `× 却下`。「未決」「未定」は `■ 未確認` ではなく `○ 未着手` を使う。
+
+`<span class="st">` の中は **記号と2〜4字の語だけ**（例の形: `■ 未確認`）。説明は span の外に書く。記号と語の間は `&nbsp;` でつなぐ
 
 ---
 

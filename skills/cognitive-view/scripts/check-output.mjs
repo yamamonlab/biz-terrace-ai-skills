@@ -55,7 +55,7 @@ else {
     const q = (row.match(/<td[^>]*class="[^"]*\bq\b[^"]*"[^>]*>([\s\S]*?)<\/td>/i) || [])[1];
     if (!q) continue;
     quoted++;
-    const parts = stripTags(q).split(/…|\.\.\.|〜/).map(squash).filter((p) => p.length >= 4);
+    const parts = stripTags(q).split(/…|\.\.\.|〜|」\s*「|」\s*、\s*「/).map(squash).filter((p) => p.length >= 4);
     const src = squash(source);
     if (parts.length && !parts.every((p) => src.includes(p))) missingQuotes.push(`${id}: ${stripTags(q).trim().slice(0, 50)}`);
   }
@@ -77,7 +77,7 @@ const srcNums = new Set((zen(source).match(/\d[\d,]*(?:\.\d+)?/g) || []).map(nor
 const seen = new Map();
 for (const m of visible.matchAll(/(?<![A-Za-z#])\d[\d,]*(?:\.\d+)?/g)) {
   const n = norm(m[0]);
-  if (srcNums.has(n) || /^F\d+$/.test(visible.slice(Math.max(0, m.index - 1), m.index + m[0].length))) continue;
+  if (n === '0' || srcNums.has(n) || /^F\d+$/.test(visible.slice(Math.max(0, m.index - 1), m.index + m[0].length))) continue;
   // 原文の位置を指す番号（第4段落・3行目）は数値の主張ではない
   if (/^\s*(段落|行目|ページ|頁)/.test(visible.slice(m.index + m[0].length, m.index + m[0].length + 4))) continue;
   if (!seen.has(n)) seen.set(n, visible.slice(Math.max(0, m.index - 16), m.index + m[0].length + 16).trim());
@@ -108,14 +108,28 @@ if (ledgerIds.size) {
   const used = new Set(refs);
   const unused = [...ledgerIds].filter((id) => !used.has(id));
   info.ledgerCoverage = `${ledgerIds.size - unused.length}/${ledgerIds.size}`;
-  if (unused.length / ledgerIds.size > 0.1) warnings.push(`画面に出ていない台帳の事実が1割を超える: ${unused.join(' ')}`);
+  if (unused.length / ledgerIds.size > 0.1) errors.push(`画面に出ていない台帳の事実が1割を超える: ${unused.join(' ')}`);
 }
 
 // ---- 9. アニメーション ----
 const css = (html.match(/<style[\s\S]*?<\/style>/gi) || []).join('\n');
 if (/\binfinite\b/.test(css)) errors.push('アニメーションが無限ループ（infinite）');
-const outside = css.replace(/@media\s*\(\s*prefers-reduced-motion\s*:\s*no-preference\s*\)\s*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g, '');
-if (/(^|[;{\s])animation(-name)?\s*:/.test(outside.replace(/@media\s*print\s*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g, ''))) {
+// @media ブロックを括弧の対応で取り除く（中に @keyframes が入れ子でもよい）
+const stripAt = (text, head) => {
+  let out = '', i = 0;
+  while (i < text.length) {
+    const m = head.exec(text.slice(i));
+    if (!m) { out += text.slice(i); break; }
+    const start = i + m.index;
+    out += text.slice(i, start);
+    let j = text.indexOf('{', start), depth = 0;
+    for (; j < text.length; j++) { if (text[j] === '{') depth++; else if (text[j] === '}' && --depth === 0) break; }
+    i = j + 1;
+  }
+  return out;
+};
+const outside = stripAt(stripAt(css, /@media\s*\(\s*prefers-reduced-motion\s*:\s*no-preference\s*\)/), /@media\s*print\b/);
+if (/(^|[;{\s])animation(-name)?\s*:/.test(outside)) {
   errors.push('アニメーションが prefers-reduced-motion: no-preference の外にある');
 }
 
