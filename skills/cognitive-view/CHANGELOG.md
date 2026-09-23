@@ -42,4 +42,4 @@ v2 therefore reorganises the Skill around fidelity first and presentation second
 
 ### Status
 
-VALIDATED (`scripts/validate.mjs`). EVALUATED status is recorded below once the model-output comparison in `docs/eval-protocol.md` has been run.
+EVALUATED on 2026-09-23 against the pre-registered protocol, with limits: two inputs, three model strengths used as stand-ins for real chat assistants, one to three runs per condition. Numeric fabrication fell from 3/3 weak-model outputs (v1) to 0/4 (v2.1); mid and strong models produced none. Weak models still occasionally add an owner or an interpretive word (2/4); the last owner-field fix was not re-evaluated. Full record: `docs/eval-2026-09-23.md`.
