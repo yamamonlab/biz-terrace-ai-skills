@@ -319,24 +319,25 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 ```html
 <figure class="box" data-f="{{F}}">
   <figcaption>{{何の推移か（単位）}}</figcaption>
-  <svg class="line" viewBox="0 0 600 260" role="img" aria-label="{{推移を1文で}}">
-    <line x1="48" y1="220" x2="580" y2="220" stroke="#9aa3b2"/>
-    <text x="40" y="224" font-size="14" text-anchor="end" fill="#6b7385">0</text>
+  <svg class="line" viewBox="0 0 600 280" role="img" aria-label="{{推移を1文で}}">
+    <!-- 描画領域は y=64〜240。上の y=14〜52 は出来事のラベル専用の帯（点や値ラベルを置かない） -->
+    <line x1="48" y1="240" x2="580" y2="240" stroke="#9aa3b2"/>
+    <text x="40" y="244" font-size="14" text-anchor="end" fill="#6b7385">0</text>
     <polyline class="draw" fill="none" stroke="#2a5bd7" stroke-width="3" points="{{x1,y1 x2,y2 …}}" pathLength="1"/>
     <circle cx="{{x1}}" cy="{{y1}}" r="4" fill="#2a5bd7"/>
     <text x="{{x1}}" y="{{y1-10}}" font-size="14" text-anchor="middle" fill="#1d2330">{{値}}</text>
-    <text x="{{x1}}" y="244" font-size="14" text-anchor="middle" fill="#4a5263">{{時点}}</text>
+    <text x="{{x1}}" y="264" font-size="14" text-anchor="middle" fill="#4a5263">{{時点}}</text>
   </svg>
 </figure>
 ```
 
-**出来事を推移に重ねる（推移と原因を1枚で読ませる）:** 原文が **時点を書いている** 出来事だけ。期間なら薄い網掛け、時点なら縦の破線と短いラベル（10字以内、原文の言葉）。3つまで。出来事と推移の因果を、線の形で言い切らない（「移行後に上がった」は描けるが「移行のせいで上がった」は原文にある時だけ本文で書く）。この形を使ったら、同じ出来事で別に `TIMELINE` を作らない。
+**出来事を推移に重ねる（推移と原因を1枚で読ませる）:** 原文が **時点を書いている** 出来事だけ。期間なら薄い網掛け、時点なら縦の破線と短いラベル（10字以内、原文の言葉）。3つまで。**ラベルは上の帯（y=14〜52）に2段まで置き、点の値ラベルと重ねない。** 帯に収まらない時は、出来事の数を減らすか `TIMELINE` を別に作る。出来事と推移の因果を、線の形で言い切らない（「移行後に上がった」は描けるが「移行のせいで上がった」は原文にある時だけ本文で書く）。この形を使ったら、同じ出来事で別に `TIMELINE` を作らない。
 
 ```html
-    <rect x="{{開始x}}" y="20" width="{{幅}}" height="200" fill="#1d5fbf" opacity=".06"/>
-    <text x="{{開始x+6}}" y="36" font-size="13" fill="#454a54">{{期間の出来事}}</text>
-    <line x1="{{x}}" y1="20" x2="{{x}}" y2="220" stroke="#6f7582" stroke-dasharray="4 4"/>
-    <text x="{{x+6}}" y="52" font-size="13" fill="#454a54">{{時点の出来事}}</text>
+    <rect x="{{開始x}}" y="56" width="{{幅}}" height="184" fill="#1d5fbf" opacity=".06"/>
+    <text x="{{開始x+6}}" y="26" font-size="13" fill="#454a54">{{期間の出来事}}</text>
+    <line x1="{{x}}" y1="44" x2="{{x}}" y2="240" stroke="#6f7582" stroke-dasharray="4 4"/>
+    <text x="{{x+6}}" y="46" font-size="13" fill="#454a54">{{時点の出来事}}</text>
 ```
 
 目盛り線を引く時は、目盛りの数字に `class="tick"` を付ける（照合で目盛りは数値の主張として扱わない）。
@@ -435,6 +436,7 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 .chain{display:flex;align-items:center;gap:0;flex-wrap:wrap}
 .chain .tag{flex:0 0 100%;font-size:.72rem;color:var(--mute);margin-bottom:2px}
 .node.act{border-style:dashed;background:var(--card);font-size:.84rem}
+@media (max-width:600px){.chain{flex-direction:column;flex-wrap:nowrap;align-items:stretch}.chain .tag{flex:none}.chain .arrow{align-self:center;width:2px;height:22px}}
 .brace{font-size:.82rem;color:var(--sub);border-left:2px solid var(--mute);padding-left:10px;margin:10px 0 0}
 ```
 
