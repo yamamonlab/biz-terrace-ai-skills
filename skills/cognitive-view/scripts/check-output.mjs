@@ -28,6 +28,9 @@ for (const bad of ['<script', '<link rel="stylesheet"', "<link rel='stylesheet'"
 }
 if (!/^\s*(<!doctype html>\s*)?<html[\s>]/i.test(html) || !/<\/html>\s*$/i.test(html)) errors.push('HTMLが完結していない（<html>〜</html> でない。途中で切れた可能性）');
 
+const leftover = html.match(/\{\{[^}]{0,40}\}\}/);
+if (leftover) errors.push(`部品の仮置きが残っている: ${leftover[0]}`);
+
 // ---- 2. 見出し ----
 const h1 = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i) || [])[1];
 if (!h1) errors.push('h1 がない');

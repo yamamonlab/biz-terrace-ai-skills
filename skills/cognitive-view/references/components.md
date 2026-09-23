@@ -386,7 +386,7 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
     <div><b>{{立場Aの主体}}</b><p>「{{原文の言葉}}」</p></div>
     <div><b>{{立場Bの主体}}</b><p>「{{原文の言葉}}」</p></div>
   </div>
-  <p class="cf-state"><span class="st st-open">■ {{決着の状態（原文の言葉）}}</span></p>
+  <p class="cf-state"><span class="st st-todo">○&nbsp;未決</span> {{決着の状態を原文の言葉で}}</p>
 </div>
 ```
 ```css
