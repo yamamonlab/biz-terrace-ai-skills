@@ -69,6 +69,7 @@ else {
 // ---- 5. 画面上の数値が原文にあるか ----
 const body = html
   .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+  .replace(/<span class="no">[\s\S]*?<\/span>/gi, ' ')
   .replace(/<details[^>]*class="[^"]*ledger[^"]*"[^>]*>[\s\S]*?<\/details>/i, ' ')
   .replace(/<svg[\s\S]*?<\/svg>/gi, (svg) => (svg.match(/<text[^>]*>[\s\S]*?<\/text>/gi) || []).join(' '));
 const visible = zen(stripTags(body));
@@ -77,7 +78,7 @@ const srcNums = new Set((zen(source).match(/\d[\d,]*(?:\.\d+)?/g) || []).map(nor
 const seen = new Map();
 for (const m of visible.matchAll(/(?<![A-Za-z#])\d[\d,]*(?:\.\d+)?/g)) {
   const n = norm(m[0]);
-  if (n === '0' || srcNums.has(n) || /^F\d+$/.test(visible.slice(Math.max(0, m.index - 1), m.index + m[0].length))) continue;
+  if (n === '0' || /^0\d$/.test(m[0]) || srcNums.has(n) || /^F\d+$/.test(visible.slice(Math.max(0, m.index - 1), m.index + m[0].length))) continue;
   // 原文の位置を指す番号（第4段落・3行目）は数値の主張ではない
   if (/^\s*(段落|行目|ページ|頁)/.test(visible.slice(m.index + m[0].length, m.index + m[0].length + 4))) continue;
   if (!seen.has(n)) seen.set(n, visible.slice(Math.max(0, m.index - 16), m.index + m[0].length + 16).trim());
@@ -96,6 +97,15 @@ for (const w of ['推奨', 'おすすめ', '最有力', '第一候補', '優先�
     const i = visible.indexOf(w);
     warnings.push(`原文に無い評価語: ${w} … 「${visible.slice(Math.max(0, i - 16), i + 20)}」`);
   }
+}
+
+// ---- 7b. 書き手の推測・計算した差（原文に無いもの）----
+for (const w of ['考えられ', 'と思われ', 'だろう', '可能性があ', 'を招いて', 'に違いない', 'と推測']) {
+  const i = visible.indexOf(w);
+  if (i >= 0 && !source.includes(w)) errors.push(`地の文の推測（原文に無い）: 「${visible.slice(Math.max(0, i - 24), i + 12)}」`);
+}
+for (const m of visible.matchAll(/(約|およそ)?\s*\d+(?:\.\d+)?\s*(ポイント|倍|か月間|ヶ月間)/g)) {
+  if (!zen(source).includes(m[0].replace(/\s/g, ''))) errors.push(`計算した差・倍率・期間の疑い（原文に無い表現）: 「${m[0].trim()}」`);
 }
 
 // ---- 8. 台帳番号の付与 ----

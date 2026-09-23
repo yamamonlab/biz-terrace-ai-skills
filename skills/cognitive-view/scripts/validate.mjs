@@ -31,7 +31,7 @@ if (kb(skill) > 16) errors.push(`SKILL.md is ${kb(skill).toFixed(1)}KB (budget 1
 if (kb(comp) > 24) errors.push(`components.md is ${kb(comp).toFixed(1)}KB (budget 24KB)`);
 
 // 2. 忠実さの規則が核にある
-for (const must of ['原文にないものを足さない', '計算しない', '単位を変えない', '担当・期限・日付・年号', '因果・循環・順序', '推奨・優先順位・評価語', '発言者を消さない', '事実台帳', 'data-f']) {
+for (const must of ['原文にないものを足さない', '計算しない', '単位を変えない', '担当・期限・日付・年号', '因果・循環・順序', '推奨・優先順位・評価語', '発言者を消さない', '地の文で推測しない', '事実台帳', 'data-f']) {
   if (!skill.includes(must)) errors.push(`SKILL.md lost a fidelity rule marker: ${must}`);
 }
 
@@ -81,7 +81,7 @@ const bad = run('scripts/fixtures/bad.html');
 if (bad.status !== 1) errors.push('check-output accepts the bad fixture');
 else {
   const found = JSON.parse(bad.stdout).errors.join('\n');
-  for (const expect of ['原文に無い数値: 5', '原文に無い年号', '台帳の引用が原文に無い', 'infinite', 'prefers-reduced-motion']) {
+  for (const expect of ['原文に無い数値: 5', '原文に無い年号', '台帳の引用が原文に無い', 'infinite', 'prefers-reduced-motion', '地の文の推測']) {
     if (!found.includes(expect)) errors.push(`check-output no longer detects: ${expect}`);
   }
 }
