@@ -2,13 +2,13 @@
 
 `SKILL.md` の手順4で使う。**ここにあるのは形だけ。** `{{…}}` を事実台帳の内容で埋める。見本の言葉・数値を中身に使わない。部品にない装飾（影・グラデーション・アイコン・絵文字）を足さない。
 
-部品一覧: `PAGE` `CARD` `TABLE` `SPARK` `BAR` `LINE` `TIMELINE` `FLOW` `CONFLICT` `OPEN` `LEDGER` `ANIMATION`
+部品一覧: `PAGE` `POINTS` `QUOTE` `NOTE` `FIG` `CARD` `TABLE` `SPARK` `BAR` `LINE` `TIMELINE` `FLOW` `CONFLICT` `OPEN` `LEDGER` `ANIMATION`
 
 ---
 
-## PAGE — ページ骨格と共通CSS
+## PAGE — 記事の骨格と文字組み
 
-これをそのまま土台にする。CSSは削ってよいが、`@media` の3つ（狭い画面・印刷・動きを減らす設定）は消さない。
+これをそのまま土台にする。白地・黒文字、アクセントは `--accent` の1色だけ。CSSは削ってよいが、`@media` の3つ（狭い画面・印刷・動きを減らす設定）は消さない。本文の列は読みやすい幅（1行およそ36〜40字）に絞り、図表だけ少し広げる。
 
 ```html
 <!doctype html>
@@ -18,27 +18,37 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{{主題}}</title>
 <style>
-:root{--bg:#f7f8fa;--card:#fff;--ink:#1d2330;--sub:#4a5263;--mute:#6b7385;--line:#dfe3ea;--accent:#2a5bd7;--warn:#b45309;--warnbg:#fff7ed;--bad:#b42318;--ok:#1f7a4d;--bar:#8aa4e6;--none:#c9ced8}
+:root{--bg:#fff;--ink:#1a1c20;--sub:#454a54;--mute:#6f7582;--line:#e3e6eb;--soft:#f5f6f8;--accent:#1d5fbf;--tint:#dce8fa;--warn:#a85a0a;--warnbg:#fdf6ec;--bad:#b42318;--ok:#1f7a4d;--bar:#8fb0e3;--none:#c9ced8;--card:#fff}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 system-ui,-apple-system,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif}
-main{max-width:980px;margin:0 auto;padding:28px 18px 56px}
-h1{font-size:1.5rem;line-height:1.4;margin:0 0 8px}
-.lede{color:var(--sub);margin:0 0 20px}
-h2{font-size:1.15rem;margin:36px 0 12px;padding-top:12px;border-top:1px solid var(--line)}
-h3{font-size:1rem;margin:20px 0 8px}
-.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.95 "Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;letter-spacing:.02em;-webkit-font-smoothing:antialiased}
+main{max-width:880px;margin:0 auto;padding:40px 20px 72px}
+.col{max-width:680px;margin:0 auto}
+.kicker{font-size:.78rem;font-weight:700;letter-spacing:.12em;color:var(--accent);margin:0 0 10px}
+h1{font-size:1.75rem;line-height:1.45;margin:0 0 18px;letter-spacing:.01em}
+.lede{font-size:1.06rem;color:var(--sub);margin:0 0 26px}
+h2{font-size:1.3rem;line-height:1.5;margin:60px 0 18px;display:flex;gap:.6em;align-items:baseline}
+h2 .no{font-size:.9rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+h3{font-size:1.05rem;margin:28px 0 8px}
+p{margin:0 0 1.3em}
+b{font-weight:700}
+b.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+mark{background:linear-gradient(transparent 58%,var(--tint) 58%);color:inherit;padding:0 .1em}
+.box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px}
 .src{font-size:.78rem;color:var(--mute)}
 .num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .st{font-weight:700;overflow-wrap:anywhere}
 .st-ok{color:var(--ok)}.st-warn{color:var(--warn)}.st-open{color:var(--bad)}.st-todo{color:var(--mute)}
-details{margin:10px 0;background:var(--card);border:1px solid var(--line);border-radius:10px}
-summary{cursor:pointer;padding:12px 16px;font-weight:700;color:var(--sub)}
+details{margin:12px 0;border:1px solid var(--line);border-radius:8px}
+summary{cursor:pointer;padding:12px 16px;font-weight:700;color:var(--sub);font-size:.92rem}
 details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 @media (max-width:600px){
-  main{padding:18px 12px 40px}
+  body{font-size:16px;line-height:1.9}
+  main{padding:24px 16px 48px}
+  h1{font-size:1.4rem}
+  h2{font-size:1.15rem;margin-top:44px}
   table.cmp thead{display:none}
   table.cmp,table.cmp tbody,table.cmp tr,table.cmp td{display:block;width:100%}
-  table.cmp tr{border:1px solid var(--line);border-radius:10px;margin:0 0 10px;padding:6px 10px;background:var(--card)}
+  table.cmp tr{border:1px solid var(--line);border-radius:8px;margin:0 0 10px;padding:6px 10px}
   table.cmp td{border:0;padding:4px 0}
   table.cmp td::before{content:attr(data-label);display:block;font-size:.75rem;color:var(--mute)}
 }
@@ -52,24 +62,116 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 </head>
 <body>
 <main>
-  <h1 data-f="{{F}}">{{主題}} — {{現在の状態}}</h1>
-  <p class="lede" data-f="{{F}}">{{2文以内。原文の言葉で}}</p>
-  <!-- CARD ×0〜4 -->
-  <h2>{{読者の問い1への答え}}</h2>
-  <!-- 手順2で選んだ部品 -->
-  <h2>{{読者の問い2への答え}}</h2>
-  <!-- … -->
-  <!-- LEDGER（最後） -->
+  <header class="col">
+    <p class="kicker">{{資料の種類（例の形: 会議メモの解説）}}</p>
+    <h1 data-f="{{F}}">{{主題}} — {{現在の状態}}</h1>
+    <p class="lede" data-f="{{F}}">{{3〜4文。原文の言葉で}}</p>
+    <!-- POINTS -->
+  </header>
+  <section class="col">
+    <h2><span class="no">01</span>{{読者の問い、またはその答えの1文}}</h2>
+    <p data-f="{{F}}">{{段落。1論点・2〜4文}}</p>
+    <p data-f="{{F}}">{{段落}}</p>
+  </section>
+  <!-- 図表は FIG で包み、本文の列の外（少し広い幅）に置いてよい -->
+  <section class="col"><!-- 次の章 --></section>
+  <section class="col"><!-- OPEN と LEDGER --></section>
 </main>
 </body>
 </html>
+```
+
+文字組みの使い分け（これ以外の装飾は足さない）:
+
+| 何に | どうする |
+|---|---|
+| 段落の結論の句 | `<b>`（1段落に1か所まで） |
+| 章で一番読んでほしい1文 | `<mark>`（1章に1か所まで） |
+| 数値 | `<b class="n">{{値と単位}}</b>` |
+| 補足・根拠の弱さ | `NOTE` |
+| 誰かの発言 | `QUOTE`（本文で先に「誰が」を書く） |
+
+---
+
+## POINTS — この記事の要点（冒頭）
+
+3つ。各1文で、本文のどの章に対応するかが分かるように書く。原文にない結論を書かない。
+
+```html
+<aside class="points" data-f="{{F}}">
+  <p class="points-h">この記事の要点</p>
+  <ol>
+    <li data-f="{{F}}">{{要点1。1文}}</li>
+    <li data-f="{{F}}">{{要点2}}</li>
+    <li data-f="{{F}}">{{要点3}}</li>
+  </ol>
+</aside>
+```
+```css
+.points{background:var(--soft);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;margin:0 0 8px}
+.points-h{font-size:.8rem;font-weight:800;color:var(--accent);letter-spacing:.08em;margin:0 0 6px}
+.points ol{margin:0;padding-left:1.4em}
+.points li{margin:4px 0;line-height:1.75}
+.points li::marker{color:var(--accent);font-weight:800}
+```
+
+---
+
+## QUOTE — 発言の引用
+
+原文にある発言だけ。言い換えない。誰の発言かを必ず書く。
+
+```html
+<blockquote class="quote" data-f="{{F}}">
+  <p>「{{原文の言葉そのまま}}」</p>
+  <cite>{{発言した主体}}</cite>
+</blockquote>
+```
+```css
+.quote{margin:8px 0 22px;padding:4px 0 4px 18px;border-left:3px solid var(--accent)}
+.quote p{margin:0;font-size:1.02rem}
+.quote cite{display:block;font-style:normal;font-size:.82rem;color:var(--mute);margin-top:4px}
+```
+
+---
+
+## NOTE — 注記
+
+本文の流れを止めたくない補足（根拠の強さ、定義、例外）。
+
+```html
+<p class="note" data-f="{{F}}"><span>注</span>{{補足。原文の範囲で}}</p>
+```
+```css
+.note{font-size:.88rem;line-height:1.8;color:var(--sub);background:var(--soft);border-radius:6px;padding:10px 14px}
+.note span{font-weight:800;color:var(--accent);margin-right:.6em}
+```
+
+---
+
+## FIG — 図表の枠
+
+図表（`TABLE` `BAR` `LINE` `TIMELINE` `FLOW` `CONFLICT`）は、この枠で包む。上に「何の図か」、下に「この図から読み取れること」を1文。読み取りは原文の範囲で書く。
+
+```html
+<figure class="fig" data-f="{{F}}">
+  <figcaption class="fig-t">{{何の図か（単位）}}</figcaption>
+  <!-- ここに図表の部品 -->
+  <p class="fig-r">{{この図から読み取れること。1文}}</p>
+</figure>
+```
+```css
+.fig{margin:30px 0 34px}
+.fig-t{font-size:.9rem;font-weight:700;margin:0 0 10px}
+.fig-t::before{content:"";display:inline-block;width:.6em;height:.6em;background:var(--accent);margin-right:.5em;border-radius:2px}
+.fig-r{font-size:.9rem;color:var(--sub);margin:10px 0 0}
 ```
 
 ---
 
 ## CARD — 数値カード（5秒層）
 
-原文にある数値だけ。数値が無い資料ではカードを作らない（言葉をカードに入れない）。最大4枚。
+原文にある数値だけ。数値が無い資料ではカードを作らない（言葉をカードに入れない）。最大3枚。数値が記事の中心にある資料で、冒頭の要点の下に置く（無くてもよい）。
 
 **カードの値は、原文に書かれた1つの値を、原文の表記のまま写す。**
 - 「9割」は「9割」。「90%」に直さない。「およそ」「約」「速報値」も値と一緒に残す

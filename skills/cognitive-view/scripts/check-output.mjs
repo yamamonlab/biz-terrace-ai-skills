@@ -133,6 +133,22 @@ if (/(^|[;{\s])animation(-name)?\s*:/.test(outside)) {
   errors.push('アニメーションが prefers-reduced-motion: no-preference の外にある');
 }
 
+// ---- 10. 本文（記事として文章が残っているか）----
+{
+  const mainHtml = body.replace(/<details[\s\S]*?<\/details>/gi, ' ');
+  const isProse = (tag) => !/class="[^"]*(note|fig-r|src|kicker|points)/.test(tag);
+  const paras = [...mainHtml.matchAll(/<p(\s[^>]*)?>([\s\S]*?)<\/p>/gi)].filter((m) => isProse(m[0].slice(0, 80)));
+  const proseChars = paras.map((m) => stripTags(m[2]).trim()).filter((t) => t.length >= 40).join('').length;
+  const allChars = stripTags(mainHtml).replace(/\s/g, '').length || 1;
+  info.proseShare = `${Math.round((proseChars / allChars) * 100)}%`;
+  const sections = mainHtml.split(/<h2[\s>]/i).slice(1);
+  const empty = sections.map((sec, i) => ({ i: i + 1, n: [...sec.matchAll(/<p(\s[^>]*)?>([\s\S]*?)<\/p>/gi)].filter((m) => isProse(m[0].slice(0, 80)) && stripTags(m[2]).trim().length >= 40).length }))
+    .filter((x) => x.n === 0 && !/class="[^"]*\bopen\b/.test(sections[x.i - 1]));
+  info.sections = sections.length;
+  if (sections.length && empty.length) errors.push(`本文の段落が無い章（図表・箇条書きだけの章）: ${empty.map((x) => x.i).join(', ')}番目`);
+  if (proseChars / allChars < 0.3) warnings.push(`本文の割合が低い（${info.proseShare}）。ダッシュボード寄りになっていないか`);
+}
+
 // ---- 結果 ----
 const result = { ok: errors.length === 0, errors, warnings, info };
 if (flag === '--json') console.log(JSON.stringify(result, null, 2));
