@@ -165,7 +165,7 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 
 ## FIG — 図表の枠
 
-図表（`TABLE` `BAR` `LINE` `TIMELINE` `FLOW` `DEPEND` `CONFLICT`）は、この枠で包む。**PCで読む前提**なので、図の枠は本文の列（680px）の外に出し、`main` の幅（最大880px）いっぱいに置く（`<figure class="fig">` を `section.col` の外、`main` の直下に置く）。上に「何の図か」、下に「この図から読み取れること」を1文。読み取りは原文の範囲で書く。
+図表（`TABLE` `BAR` `LINE` `TIMELINE` `FLOW` `DEPEND` `CONFLICT`）は、この枠で包む。**PCで読む前提**なので、図の枠は本文の列（680px）の外に出し、`main` の幅（最大880px）いっぱいに置く（`<figure class="fig">` を `section.col` の外、`main` の直下に置く。`main` はページに1つのまま分けない）。上に「何の図か」、下に「この図から読み取れること」を1文。読み取りは原文の範囲で書く。
 
 ```html
 <figure class="fig" data-f="{{F}}">
@@ -197,8 +197,8 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 <div class="cards">
   <div class="card" data-f="{{F}}">
     <div class="card-k">{{何の値か}}</div>
-    <div class="card-v num">{{原文どおりの値}}<small>{{単位・条件}}</small></div>
-    <div class="card-n">{{いつ・誰の値か。原文の範囲で}}</div>
+    <div class="card-v num">{{原文どおりの値}}<small>{{単位だけ。6字まで}}</small></div>
+    <div class="card-n">{{条件・いつ・誰の値か。原文の範囲で}}</div>
   </div>
 </div>
 ```
@@ -207,7 +207,7 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
 .card-k{font-size:.85rem;color:var(--sub)}
 .card-v{font-size:1.45rem;font-weight:800}
-.card-v small{font-size:.8rem;font-weight:600;color:var(--sub);margin-left:4px}
+.card-v small{font-size:.8rem;font-weight:600;color:var(--sub);margin-left:4px;white-space:normal}
 .card-n{font-size:.82rem;color:var(--mute)}
 ```
 
@@ -494,7 +494,7 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 
 ## CONFLICT — 立場の対立
 
-同じ論点で意見が割れている時。左右に並べ、**誰の意見か** と **決着の状態** を書く。どちらが正しいかは書かない。
+別の人・別の資料で意見が割れ、原文で決着していない時（説明会の前半と後半、本文と追伸のような同じ話し手・同じ資料の言い直しは使わず、本文に今有効な方を書いて「〜を訂正」と添える）。左右に並べ、**誰の意見か** と **決着の状態** を書く。どちらが正しいかは書かない。
 
 ```html
 <div class="box conflict" data-f="{{F}}">

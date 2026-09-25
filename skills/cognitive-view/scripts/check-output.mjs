@@ -164,6 +164,10 @@ if (/(^|[;{\s])animation(-name)?\s*:/.test(outside)) {
     .filter((x) => x.n === 0 && !/class="[^"]*\bopen\b/.test(sections[x.i - 1]));
   info.sections = sections.length;
   if (sections.length && empty.length) errors.push(`本文の段落が無い章（図表・箇条書きだけの章）: ${empty.map((x) => x.i).join(', ')}番目`);
+  if ((html.match(/<main[\s>]/gi) || []).length > 1) warnings.push('<main> が複数ある。図は1つの main の中で section の外に置く');
+  if (sections.length > 6) warnings.push(`章（h2）が${sections.length}本。4〜6本に収め、近い論点は1章にまとめる`);
+  const conflicts = [...mainHtml.matchAll(/<div class="[^"]*\bconflict\b[^"]*"[\s\S]*?<\/div>\s*<\/div>/gi)].map((m) => stripTags(m[0]));
+  for (const c of conflicts) if (/訂正|言い直|正しくは/.test(c)) warnings.push(`対立ブロックに言い直し（訂正）が入っている疑い: 「${c.trim().slice(0, 40)}」`);
   if (proseChars / allChars < 0.3) warnings.push(`本文の割合が低い（${info.proseShare}）。ダッシュボード寄りになっていないか`);
 }
 
