@@ -40,6 +40,20 @@ v2 therefore reorganises the Skill around fidelity first and presentation second
 
 - `references/eval-protocol.md` → `docs/eval-protocol.md`, rewritten to measure fidelity first and to require weak models in every evaluation.
 
+### Fixed after the 2026-09-25 role-based dry run
+
+Five fictional role documents (SE incident, sales handover, AI research report, policy revision, monthly report) were rendered at PC width and inspected as images and with a render check. Record: `docs/eval-2026-09-25.md`.
+
+- Timeline points are placed by formula (`x = 88 + i × 704 ÷ (n − 1)`, up to 7 points), with a per-line character limit derived from the spacing. Eyeballed spacing crowded labels at 6+ points.
+- Box width counts the 12px sub-label line too; a labelled edge segment must be at least the label width + 32 so the label is not hidden under a box.
+- New ledger type `訂正`: a speaker's or document's own restatement is written as the currently valid value with the earlier one noted, not as a `CONFLICT`. `CONFLICT` is for unresolved disagreement between different people or sources.
+- Notation variants of the same value (¥5000 / 5,000円) are one fact; differently-united phrasings (14日以内 / 2週間以内) are not converted and are listed as unconfirmed, not as a conflict.
+- Chapters (`h2`) are capped at 4–6. Uncapped outputs reached 7–10 chapters and 5,800–8,400px at PC width.
+- `CARD` `small` holds the unit only and wraps; conditions go to `card-n`. `FIG` keeps a single `main`.
+- `check-output.mjs` warns on more than 6 `h2`, a correction inside `CONFLICT`, and multiple `main` elements.
+
+Result (one run per condition, sonnet): SVG text collisions 2/4 → 0/6, `h2` 7–10 → 5–6. Fidelity errors from `check-output.mjs` appear before and after (3/4 → 5/6) and are not attributed to this change; see the record.
+
 ### Status
 
 EVALUATED on 2026-09-23 against the pre-registered protocol, with limits: two inputs, three model strengths used as stand-ins for real chat assistants, one to three runs per condition. Numeric fabrication fell from 3/3 weak-model outputs (v1) to 0/4 (v2.1); mid and strong models produced none. Weak models still occasionally add an owner or an interpretive word (2/4); the last owner-field fix was not re-evaluated. Full record: `docs/eval-2026-09-23.md`.
