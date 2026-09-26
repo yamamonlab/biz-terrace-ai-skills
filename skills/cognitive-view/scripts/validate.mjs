@@ -52,9 +52,14 @@ if (/<script/i.test(comp.replace(/`[^`\n]*`/g, ""))) errors.push('components.md 
 
 // 4. 題材の混入: 例の固有名・数値が、実行時ファイルに入っていない（モデルが写すため）
 const examples = ['examples/sample-document.md', 'examples/sample-operations-report.md'].map(read).join('\n');
+// 職種別の長い例（by-role/）は固有名だけを見る。数値は「5,000」「1.2」のような一般的な値が偶然重なるため対象外
+const byRole = fs.existsSync(rel('examples/by-role'))
+  ? fs.readdirSync(rel('examples/by-role')).filter((f) => f.endsWith('.md')).map((f) => read(`examples/by-role/${f}`)).join('\n') : '';
 const runtime = { 'SKILL.md': skill, 'references/components.md': comp, 'references/diagrams.md': diag };
 const properNouns = new Set([
   ...(examples.match(/[ァ-ヶー]{2,}社/g) || []),
+  ...(byRole.match(/\b[A-Z][a-z]+ (?:Desk|Suite|Flow|Hub)\b/g) || []),
+  ...(byRole.match(/[一-龥]{2}(?=さん)/g) || []),
   ...(examples.match(/[東西南北][ァ-ヶー一-龥]{0,3}センター/g) || []),
   ...(examples.match(/[一-龥]{2,}部(?=[はがのと、。「])/g) || []).filter((w) => !['全部', '一部', '内部', '外部', '本部', '細部'].includes(w)),
 ]);

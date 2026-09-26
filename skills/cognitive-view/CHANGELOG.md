@@ -8,6 +8,10 @@ The Skill uses semantic versioning with `cognitive-view-vX.Y.Z` Git tags as the 
 
 Status: see the bottom of this entry (VALIDATED / EVALUATED).
 
+### Added (examples only, 2026-09-26)
+
+- `examples/by-role/`: five longer fictional inputs, one per job type (engineering, sales, planning, back office, management), so participants can try the Skill on a document close to their own work. Inputs only; no change to `SKILL.md` or `references/`. `scripts/validate.mjs` now also checks that their proper nouns never appear in the runtime files.
+
 ### Why this is a rewrite
 
 On 2026-09-23 the released contract (`78ce777`) was run the way event participants would run it — nine generations across three model strengths and two load paths, against criteria registered before generation. Layout held in every run. Fidelity did not: outputs from weaker models added a computed amount that the source never states, relabelled a per-user monthly fee as yearly, invented a year and an owner, and one mid-strength run copied "the four steps form a loop" verbatim from a diagram template whose worked example used the same fictional company as the sample input. The strongest model produced no such errors. See `docs/design.md`.
