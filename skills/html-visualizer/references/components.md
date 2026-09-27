@@ -128,7 +128,7 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 | まだ分かっていないこと（`bd-open`） | `未確認` `未決` `対立` |
 | これから（`bd-next`） | 原文に書かれた予定・宿題・期限だけ。無ければこの列ごと出さない |
 
-各列2〜3項目、1項目は1文（45字まで）。項目の最後に、その章への `<a>`「詳しく ↓」を付ける（リンクの文字に数字を入れない）。
+各列2〜3項目、1項目は1文（45字まで）。**数値は1項目に1つまで、原文の表記と単位のまま**（比較表の値を一覧に並べない。表は本文で見せる）。項目の最後に、その章への `<a>`「詳しく ↓」を付ける（リンクの文字に数字を入れない）。
 
 ```html
 <div class="board">
@@ -208,7 +208,7 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 
 ## TABLE — 比較表
 
-行 = 対象、列 = 観点。**全ての `<td>` に `data-label`（列名）を付ける**（狭い画面でカード表示に切り替わる）。対象名の列は `class="rh"`（折り返さない）。1文字ずつ折り返す列を作らない。セルは短く（目安30字以内）。長い説明は表の下に1文で。原文に記載が無いセルは空欄にせず「記載なし」と書く。
+行 = 対象、列 = 観点。**全ての `<td>` に `data-label`（列名）を付ける**（狭い画面でカード表示に切り替わる）。対象名の列は `class="rh"`（折り返さない）。1文字ずつ折り返す列を作らない。セルは短く（目安30字以内）。長い説明は表の下に1文で。原文に記載が無いセルは空欄にせず「記載なし」と書く。**列は原文が値を書いている観点で作り、空いたセルを計算や推測で埋めない。**
 
 ```html
 <div class="box" style="padding:0;overflow:hidden">
@@ -556,16 +556,13 @@ table.lg .q{color:var(--mute)}
 使ってよい動き:
 ```css
 @media (prefers-reduced-motion:no-preference){
-  /* タイムライン・流れ図: 左（上）から順に現れる */
   .tl li,.flow>.node,.flow>.fork,.flow>.arrow{animation:cv-in .45s ease-out both}
   .tl li:nth-child(2),.flow>:nth-child(2){animation-delay:.15s}
   .tl li:nth-child(3),.flow>:nth-child(3){animation-delay:.3s}
   .tl li:nth-child(4),.flow>:nth-child(4){animation-delay:.45s}
   .tl li:nth-child(5),.flow>:nth-child(5){animation-delay:.6s}
   .tl li:nth-child(n+6),.flow>:nth-child(n+6){animation-delay:.75s}
-  /* 棒: 0から伸びる */
   .bar-t i,.spark i{animation:cv-grow .6s ease-out both}
-  /* 折れ線: 線を引く */
   svg .draw{stroke-dasharray:1;animation:cv-draw 1.2s ease-out both}
 }
 @keyframes cv-in{from{opacity:0;transform:translateY(6px)}}

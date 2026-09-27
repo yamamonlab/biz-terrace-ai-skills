@@ -29,7 +29,7 @@ const diag = read('references/diagrams.md');
 // 1. 実行時に読むファイルの重さ（チャットAIに渡す2本）
 const kb = (s) => Buffer.byteLength(s) / 1024;
 if (kb(skill) > 16) errors.push(`SKILL.md is ${kb(skill).toFixed(1)}KB (budget 16KB)`);
-if (kb(comp) > 30) errors.push(`components.md is ${kb(comp).toFixed(1)}KB (budget 30KB)`);
+if (kb(comp) > 31) errors.push(`components.md is ${kb(comp).toFixed(1)}KB (budget 31KB; raised from 30 in 2026-09 for BOARD and the OPEN table)`);
 if (kb(diag) > 18) errors.push(`diagrams.md is ${kb(diag).toFixed(1)}KB (budget 18KB)`);
 for (const m of diag.matchAll(/<svg viewBox="0 0 (\d+) (\d+)"/g)) if (m[1] !== '880') errors.push(`diagrams.md example is ${m[1]} wide (must be 880)`);
 if (/<script/i.test(diag)) errors.push('diagrams.md contains <script>');
