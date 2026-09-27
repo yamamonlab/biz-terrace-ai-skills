@@ -40,9 +40,9 @@ for (const must of ['原文にないものを足さない', '計算しない', '
 }
 
 // 3. 部品がそろい、アニメーションの決まりが守られている
-for (const id of ['PAGE', 'POINTS', 'QUOTE', 'NOTE', 'FIG', 'BIG', 'CARD', 'TABLE', 'SPARK', 'BAR', 'LINE', 'TIMELINE', 'FLOW', 'DEPEND', 'CONFLICT', 'OPEN', 'LEDGER', 'ANIMATION']) {
+for (const id of ['PAGE', 'BOARD', 'QUOTE', 'NOTE', 'FIG', 'BIG', 'TABLE', 'SPARK', 'BAR', 'LINE', 'TIMELINE', 'FLOW', 'DEPEND', 'CONFLICT', 'OPEN', 'LEDGER', 'ANIMATION']) {
   if (!new RegExp(`^## ${id}\\b`, 'm').test(comp)) errors.push(`components.md is missing component ${id}`);
-  if (!skill.includes(id) && !['PAGE', 'CARD'].includes(id)) errors.push(`SKILL.md never routes to component ${id}`);
+  if (!skill.includes(id) && id !== 'PAGE') errors.push(`SKILL.md never routes to component ${id}`);
 }
 if (/\binfinite\b/.test(comp.replace(/`infinite`/g, ''))) errors.push('components.md contains an infinite animation');
 if (!/@media \(prefers-reduced-motion:no-preference\)/.test(comp)) errors.push('components.md animations are not gated by prefers-reduced-motion');
