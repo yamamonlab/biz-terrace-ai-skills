@@ -1,6 +1,6 @@
-# Releasing Cognitive View
+# Releasing HTML Visualizer
 
-This Skill lives in the `biz-terrace-ai-skills` monorepo. Tags prefixed with `cognitive-view-` are the only semantic version source of truth for Cognitive View.
+This Skill lives in the `biz-terrace-ai-skills` monorepo. Tags prefixed with `html-visualizer-` are the only semantic version source of truth for HTML Visualizer.
 
 ## Release states
 
@@ -20,13 +20,13 @@ Use semantic versioning:
 ## Release procedure
 
 1. Merge changes to `main` through a pull request.
-2. Confirm `node skills/cognitive-view/scripts/validate.mjs` passes in CI.
+2. Confirm `node skills/html-visualizer/scripts/validate.mjs` passes in CI.
 3. For behavior changes, run representative model-output evaluation and record the result.
 4. Update `CHANGELOG.md`.
-5. Create an annotated release tag such as `cognitive-view-v1.0.0`.
+5. Create an annotated release tag such as `html-visualizer-v1.0.0`.
 6. Publish release notes that distinguish deterministic validation from model evaluation.
 7. Downstream consumers should pin a tag or commit rather than following `main` in production or event materials.
 
 ## Event usage
 
-Events and workshops should reference an immutable `cognitive-view-vX.Y.Z` tag or commit SHA, not `main`. This keeps slides, expected outputs, and participant instructions reproducible even while development continues.
+Events and workshops should reference an immutable `html-visualizer-vX.Y.Z` tag or commit SHA, not `main`. This keeps slides, expected outputs, and participant instructions reproducible even while development continues.

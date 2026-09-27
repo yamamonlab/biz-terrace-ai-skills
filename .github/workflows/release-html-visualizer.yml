@@ -1,13 +1,13 @@
-name: Release Cognitive View
+name: Release HTML Visualizer
 
 on:
   push:
     tags:
-      - "cognitive-view-v*"
+      - "html-visualizer-v*"
   workflow_dispatch:
     inputs:
       tag:
-        description: "Existing tag to publish a Release for (e.g. cognitive-view-v1.0.0)"
+        description: "Existing tag to publish a Release for (e.g. html-visualizer-v1.0.0)"
         required: true
         type: string
 
@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node skills/cognitive-view/scripts/validate.mjs
+      - run: node skills/html-visualizer/scripts/validate.mjs
 
   release:
     needs: validate
@@ -41,13 +41,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.tag.outputs.name }}
         run: |
-          notes="skills/cognitive-view/RELEASE_NOTES/${TAG}.md"
+          notes="skills/html-visualizer/RELEASE_NOTES/${TAG}.md"
           if [ ! -f "$notes" ]; then
             echo "missing release notes: $notes" >&2
             exit 1
           fi
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release edit "$TAG" --notes-file "$notes" --title "Cognitive View ${TAG#cognitive-view-}"
+            gh release edit "$TAG" --notes-file "$notes" --title "HTML Visualizer ${TAG#html-visualizer-}"
           else
-            gh release create "$TAG" --notes-file "$notes" --title "Cognitive View ${TAG#cognitive-view-}"
+            gh release create "$TAG" --notes-file "$notes" --title "HTML Visualizer ${TAG#html-visualizer-}"
           fi

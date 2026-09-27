@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Cognitive View の出力HTMLを原文と照合する。外部依存なし。
+// HTML Visualizer の出力HTMLを原文と照合する。外部依存なし。
 // 使い方: node scripts/check-output.mjs <output.html> <source.md|txt> [--json]
 // 終了コード: 0 = エラーなし（警告はあり得る）/ 1 = エラーあり / 2 = 引数不正
 import fs from 'node:fs';
@@ -175,7 +175,7 @@ if (/(^|[;{\s])animation(-name)?\s*:/.test(outside)) {
 const result = { ok: errors.length === 0, errors, warnings, info };
 if (flag === '--json') console.log(JSON.stringify(result, null, 2));
 else {
-  console.log(result.ok ? 'Cognitive View output check: PASS' : 'Cognitive View output check: FAIL');
+  console.log(result.ok ? 'HTML Visualizer output check: PASS' : 'HTML Visualizer output check: FAIL');
   for (const e of errors) console.log(`  ERROR  ${e}`);
   for (const w of warnings) console.log(`  WARN   ${w}`);
   for (const [k, v] of Object.entries(info)) console.log(`  info   ${k}: ${v}`);

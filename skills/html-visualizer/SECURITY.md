@@ -1,6 +1,6 @@
 # Security policy
 
-Cognitive View is a text-based AI behavior contract, but security issues can still arise through generated HTML, unsafe source handling, or instructions that accidentally encourage external actions.
+HTML Visualizer is a text-based AI behavior contract, but security issues can still arise through generated HTML, unsafe source handling, or instructions that accidentally encourage external actions.
 
 ## Supported versions
 

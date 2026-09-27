@@ -1,12 +1,16 @@
 # Changelog
 
-All notable changes to Cognitive View will be documented here.
+All notable changes to HTML Visualizer (formerly Cognitive View) will be documented here.
 
-The Skill uses semantic versioning with `cognitive-view-vX.Y.Z` Git tags as the version source of truth. Release notes for tagged versions are in `RELEASE_NOTES/`.
+The Skill uses semantic versioning with `html-visualizer-vX.Y.Z` Git tags (`cognitive-view-vX.Y.Z` before the rename) as the version source of truth. Release notes for tagged versions are in `RELEASE_NOTES/`.
 
-## Unreleased — intended as `cognitive-view-v2.0.0` (breaking)
+## Unreleased — intended as `html-visualizer-v2.0.0` (breaking)
 
 Status: see the bottom of this entry (VALIDATED / EVALUATED).
+
+### Changed (name only, 2026-09-27)
+
+- Renamed from **Cognitive View** (`skills/cognitive-view/`) to **HTML Visualizer** (`skills/html-visualizer/`). The Skill's contract, references, scripts and examples are unchanged; only names, paths and workflow names moved. Pinned links to `cognitive-view-v1.0.0` or to commits up to `8e8d001` keep working at the old path.
 
 ### Added (examples only, 2026-09-26)
 

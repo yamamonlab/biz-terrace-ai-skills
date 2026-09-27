@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for improving Cognitive View.
+Thank you for improving HTML Visualizer.
 
 ## Change types
 
@@ -28,7 +28,7 @@ Do not mark a change **EVALUATED** unless a model-output comparison was actually
 
 - Keep `main` releasable.
 - Prefer small, reviewable changes.
-- Run `node skills/cognitive-view/scripts/validate.mjs` from the repository root before opening a PR.
+- Run `node skills/html-visualizer/scripts/validate.mjs` from the repository root before opening a PR.
 - Do not add external runtime dependencies unless the capability cannot reasonably remain self-contained.
 - Do not add sample-specific rules to the core contract merely to improve one fixture.
 - Never put example content (names, numbers, sentences) into `references/components.md` or `SKILL.md`; models copy it.

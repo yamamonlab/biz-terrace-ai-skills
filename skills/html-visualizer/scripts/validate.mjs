@@ -1,4 +1,4 @@
-// Cognitive View の Skill ファイル自体を検査する。外部依存なし。
+// HTML Visualizer の Skill ファイル自体を検査する。外部依存なし。
 // 文字列の有無だけでなく、振る舞い（題材の混入・照合スクリプトの効き目）を確かめる。
 import fs from 'node:fs';
 import path from 'node:path';
@@ -96,8 +96,8 @@ else {
 }
 
 if (errors.length) {
-  console.error('Cognitive View validation FAIL');
+  console.error('HTML Visualizer validation FAIL');
   for (const e of errors) console.error(`- ${e}`);
   process.exit(1);
 }
-console.log(`Cognitive View validation PASS (${required.length} files; runtime ${kb(skill).toFixed(1)}KB + ${kb(comp).toFixed(1)}KB)`);
+console.log(`HTML Visualizer validation PASS (${required.length} files; runtime ${kb(skill).toFixed(1)}KB + ${kb(comp).toFixed(1)}KB)`);
