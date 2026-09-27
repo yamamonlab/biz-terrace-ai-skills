@@ -2,13 +2,13 @@
 
 `SKILL.md` の手順4で使う。**ここにあるのは形だけ。** `{{…}}` を事実台帳の内容で埋める。見本の言葉・数値を中身に使わない。部品にない装飾（影・グラデーション・アイコン・絵文字）を足さない。
 
-部品一覧: `PAGE` `POINTS` `QUOTE` `NOTE` `FIG` `BIG` `CARD` `TABLE` `SPARK` `BAR` `LINE` `TIMELINE` `FLOW` `DEPEND` `CONFLICT` `OPEN` `LEDGER` `ANIMATION`
+部品一覧: `PAGE` `BOARD` `QUOTE` `NOTE` `FIG` `BIG` `TABLE` `SPARK` `BAR` `LINE` `TIMELINE` `FLOW` `DEPEND` `CONFLICT` `OPEN` `LEDGER` `ANIMATION`
 
 ---
 
 ## PAGE — 記事の骨格と文字組み
 
-これをそのまま土台にする。白地・黒文字、アクセントは `--accent` の1色だけ。CSSは削ってよいが、`@media` の3つ（狭い画面・印刷・動きを減らす設定）は消さない。本文の列は読みやすい幅（1行およそ36〜40字）に絞り、図表だけ少し広げる。
+これをそのまま土台にする。白地・黒文字、アクセントは `--accent` の1色だけ。CSSは削ってよいが、`@media` の3つ（狭い画面・印刷・動きを減らす設定）は消さない。**PC（幅1280px前後）で読む前提。** 左に章の目次（`toc`）、右に本文。図と表は960px、本文の段落は760px（1行およそ44字）で、**どちらも同じ左端から始める**。
 
 ```html
 <!doctype html>
@@ -21,10 +21,17 @@
 :root{--bg:#fff;--ink:#1a1c20;--sub:#454a54;--mute:#6f7582;--line:#e3e6eb;--soft:#f5f6f8;--accent:#1d5fbf;--tint:#dce8fa;--warn:#a85a0a;--warnbg:#fdf6ec;--bad:#b42318;--ok:#1f7a4d;--bar:#8fb0e3;--none:#c9ced8;--card:#fff}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.95 "Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;letter-spacing:.02em;-webkit-font-smoothing:antialiased}
-main{max-width:928px;margin:0 auto;padding:48px 24px 80px}
-.col{max-width:680px;margin:0 auto}
+.wrap{display:grid;grid-template-columns:190px minmax(0,960px);gap:40px;justify-content:center;padding:0 24px}
+main{min-width:0;padding:48px 0 80px}
+.col{max-width:760px}
+.toc{position:sticky;top:0;align-self:start;padding:56px 0 0;font-size:.84rem;line-height:1.6}
+.toc p{font-size:.74rem;font-weight:800;color:var(--mute);letter-spacing:.08em;margin:0 0 10px}
+.toc ol{margin:0;padding-left:1.3em;color:var(--mute)}
+.toc li{margin:0 0 10px}
+.toc a{color:var(--sub);text-decoration:none}
+@media (max-width:1240px){.wrap{display:block;max-width:1008px;margin:0 auto}.toc{display:none}}
 .kicker{font-size:.78rem;font-weight:700;letter-spacing:.12em;color:var(--accent);margin:0 0 10px}
-h1{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-size:1.8rem;line-height:1.45;margin:0 0 18px;letter-spacing:.01em}
+h1{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-size:1.9rem;max-width:900px;line-height:1.45;margin:0 0 18px;letter-spacing:.01em}
 .lede{font-size:1.06rem;color:var(--sub);margin:0 0 26px}
 h2{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-size:1.35rem;line-height:1.5;margin:60px 0 18px;display:flex;gap:.6em;align-items:baseline}
 h2 .no{font-size:.9rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
@@ -43,7 +50,7 @@ summary{cursor:pointer;padding:12px 16px;font-weight:700;color:var(--sub);font-s
 details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 @media (max-width:600px){
   body{font-size:16px;line-height:1.9}
-  main{padding:24px 16px 48px}
+  .wrap{padding:0 16px}main{padding:24px 0 48px}
   h1{font-size:1.4rem}
   h2{font-size:1.15rem;margin-top:44px}
   table.cmp thead{display:none}
@@ -61,22 +68,26 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 </style>
 </head>
 <body>
+<div class="wrap">
+<nav class="toc"><p>この資料の問い</p><ol><li><a href="#s1">{{1章の問い。16字まで}}</a></li><!-- 章の数だけ --></ol></nav>
 <main>
-  <header class="col">
+  <header>
     <p class="kicker">{{資料の種類（例の形: 会議メモの解説）}}</p>
     <h1 data-f="{{F}}">{{主題}} — {{現在の状態}}</h1>
-    <p class="lede" data-f="{{F}}">{{3〜4文。原文の言葉で}}</p>
-    <!-- POINTS -->
+    <p class="lede col" data-f="{{F}}">{{2〜3文。原文の言葉で}}</p>
+    <!-- BOARD -->
   </header>
-  <section class="col">
+  <section class="col" id="s1">
     <h2><span class="no">01</span>{{読者の問い、またはその答えの1文}}</h2>
     <p data-f="{{F}}">{{段落。1論点・2〜4文}}</p>
     <p data-f="{{F}}">{{段落}}</p>
   </section>
   <!-- 図表は FIG で包み、本文の列の外（少し広い幅）に置いてよい -->
   <section class="col"><!-- 次の章 --></section>
-  <section class="col"><!-- OPEN と LEDGER --></section>
+  <section class="col" id="s5"><!-- 最後の章。本文 → OPEN --></section>
+  <!-- LEDGER（main の最後） -->
 </main>
+</div>
 </body>
 </html>
 ```
@@ -107,26 +118,37 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 
 ---
 
-## POINTS — この記事の要点（冒頭）
+## BOARD — 状況の一覧（冒頭）
 
-3つ。各1文で、本文のどの章に対応するかが分かるように書く。原文にない結論を書かない。
+最初の1画面で全体像を見せる。列は **台帳の種類で機械的に決める**（自分の判断で振り分けない）。
+
+| 列 | 入れてよい台帳の種類 |
+|---|---|
+| 分かっていること（`bd-ok`） | `数値` `事実` `経緯` `比較` `訂正`（今有効な方） |
+| まだ分かっていないこと（`bd-open`） | `未確認` `未決` `対立` |
+| これから（`bd-next`） | 原文に書かれた予定・宿題・期限だけ。無ければこの列ごと出さない |
+
+各列2〜3項目、1項目は1文（45字まで）。**数値は1項目に1つまで、原文の表記と単位のまま**（比較表の値を一覧に並べない。表は本文で見せる）。項目の最後に、その章への `<a>`「詳しく ↓」を付ける（リンクの文字に数字を入れない）。
 
 ```html
-<aside class="points" data-f="{{F}}">
-  <p class="points-h">この記事の要点</p>
-  <ol>
-    <li data-f="{{F}}">{{要点1。1文}}</li>
-    <li data-f="{{F}}">{{要点2}}</li>
-    <li data-f="{{F}}">{{要点3}}</li>
-  </ol>
-</aside>
+<div class="board">
+  <div class="bd bd-ok" data-f="{{F}}"><p class="bd-h">● 分かっていること</p>
+    <ul><li data-f="{{F}}">{{1文}} <a href="#s1">詳しく ↓</a></li></ul></div>
+  <div class="bd bd-open" data-f="{{F}}"><p class="bd-h">■ まだ分かっていないこと</p>
+    <ul><li data-f="{{F}}">{{1文}} <a href="#s4">詳しく ↓</a></li></ul></div>
+  <div class="bd bd-next" data-f="{{F}}"><p class="bd-h">◇ これから</p>
+    <ul><li data-f="{{F}}">{{原文にある予定・宿題・期限}} <a href="#s5">詳しく ↓</a></li></ul></div>
+</div>
 ```
 ```css
-.points{background:var(--soft);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;margin:0 0 8px}
-.points-h{font-size:.8rem;font-weight:800;color:var(--accent);letter-spacing:.08em;margin:0 0 6px}
-.points ol{margin:0;padding-left:1.4em}
-.points li{margin:4px 0;line-height:1.75}
-.points li::marker{color:var(--accent);font-weight:800}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:0 0 8px}
+.bd{border:1px solid var(--line);border-top:4px solid var(--c);border-radius:8px;padding:12px 14px 6px}
+.bd-ok{--c:var(--ok)}.bd-open{--c:var(--bad)}.bd-next{--c:var(--accent)}
+.bd-h{font-size:.86rem;font-weight:800;color:var(--c);margin:0 0 8px}
+.bd ul{margin:0;padding:0;list-style:none}
+.bd li{font-size:.92rem;line-height:1.7;padding:0 0 10px;margin:0 0 10px;border-bottom:1px dashed var(--line)}
+.bd li:last-child{border:0;margin:0}
+.bd a{font-size:.78rem;color:var(--mute);text-decoration:none;white-space:nowrap}
 ```
 
 ---
@@ -165,7 +187,7 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 
 ## FIG — 図表の枠
 
-図表（`TABLE` `BAR` `LINE` `TIMELINE` `FLOW` `DEPEND` `CONFLICT`）は、この枠で包む。**PCで読む前提**なので、図の枠は本文の列（680px）の外に出し、`main` の幅（最大880px）いっぱいに置く（`<figure class="fig">` を `section.col` の外、`main` の直下に置く。`main` はページに1つのまま分けない）。上に「何の図か」、下に「この図から読み取れること」を1文。読み取りは原文の範囲で書く。
+図表（`TABLE` `BAR` `LINE` `TIMELINE` `FLOW` `DEPEND` `CONFLICT`）は、この枠で包む。**PCで読む前提**なので、図の枠は本文の列（760px）の外に出し、`main` の幅（960px）いっぱいに置く。左端は本文と同じ（`<figure class="fig">` を `section.col` の外、`main` の直下に置く。`main` はページに1つのまま分けない）。上に「何の図か」、下に「この図から読み取れること」を1文。読み取りは原文の範囲で書く。
 
 ```html
 <figure class="fig" data-f="{{F}}">
@@ -184,38 +206,9 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 
 ---
 
-## CARD — 数値カード（5秒層）
-
-原文にある数値だけ。数値が無い資料ではカードを作らない（言葉をカードに入れない）。最大3枚。数値が記事の中心にある資料で、冒頭の要点の下に置く（無くてもよい）。
-
-**カードの値は、原文に書かれた1つの値を、原文の表記のまま写す。**
-- 「9割」は「9割」。「90%」に直さない。「およそ」「約」「速報値」も値と一緒に残す
-- 複数の値を足して1枚にしない（内訳が3つあれば、内訳のまま書く。合計を作らない）
-- 差・前月比・ポイント差を作らない。2つの値を並べたい時は、カードを2枚にするか `BAR` を使う
-
-```html
-<div class="cards">
-  <div class="card" data-f="{{F}}">
-    <div class="card-k">{{何の値か}}</div>
-    <div class="card-v num">{{原文どおりの値}}<small>{{単位だけ。6字まで}}</small></div>
-    <div class="card-n">{{条件・いつ・誰の値か。原文の範囲で}}</div>
-  </div>
-</div>
-```
-```css
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:0 0 8px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-.card-k{font-size:.85rem;color:var(--sub)}
-.card-v{font-size:1.45rem;font-weight:800}
-.card-v small{font-size:.8rem;font-weight:600;color:var(--sub);margin-left:4px;white-space:normal}
-.card-n{font-size:.82rem;color:var(--mute)}
-```
-
----
-
 ## TABLE — 比較表
 
-行 = 対象、列 = 観点。**全ての `<td>` に `data-label`（列名）を付ける**（狭い画面でカード表示に切り替わる）。セルは短く（目安30字以内）。長い説明は表の下に1文で。原文に記載が無いセルは空欄にせず「記載なし」と書く。
+行 = 対象、列 = 観点。**全ての `<td>` に `data-label`（列名）を付ける**（狭い画面でカード表示に切り替わる）。対象名の列は `class="rh"`（折り返さない）。1文字ずつ折り返す列を作らない。セルは短く（目安30字以内）。長い説明は表の下に1文で。原文に記載が無いセルは空欄にせず「記載なし」と書く。**列は原文が値を書いている観点で作り、空いたセルを計算や推測で埋めない。**
 
 ```html
 <div class="box" style="padding:0;overflow:hidden">
@@ -223,13 +216,13 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
   <thead><tr><th>{{対象}}</th><th>{{観点A}}</th><th>{{観点B}}</th><th>{{状態}}</th></tr></thead>
   <tbody>
     <tr data-f="{{F}}">
-      <td data-label="{{対象}}"><b>{{対象1}}</b></td>
+      <td data-label="{{対象}}" class="rh"><b>{{対象1}}</b></td>
       <td data-label="{{観点A}}">{{値と単位}}</td>
       <td data-label="{{観点B}}">{{短い記述}}</td>
       <td data-label="{{状態}}"><span class="st st-warn">▲ {{懸念の中身}}</span></td>
     </tr>
     <tr data-f="{{F}}">
-      <td data-label="{{対象}}"><b>{{対象2}}</b></td>
+      <td data-label="{{対象}}" class="rh"><b>{{対象2}}</b></td>
       <td data-label="{{観点A}}"><span class="none">記載なし</span></td>
       <td data-label="{{観点B}}">{{短い記述}}</td>
       <td data-label="{{状態}}"><span class="st st-open">■ 未確認</span></td>
@@ -242,6 +235,7 @@ details>div{padding:4px 16px 14px;border-top:1px solid var(--line)}
 table.cmp{width:100%;border-collapse:collapse;font-size:.92rem}
 table.cmp th,table.cmp td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
 table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
+table.cmp .rh{white-space:nowrap}
 .none{color:var(--mute);font-style:italic}
 ```
 
@@ -368,12 +362,6 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 .tl li.future::before{border-style:dashed;border-color:var(--mute)}
 .tl-when{display:block;font-size:.9rem}
 .tl-what{display:block;font-size:.88rem;color:var(--sub)}
-@media (max-width:600px){
-  .tl{grid-auto-flow:row}
-  .tl::before{left:6px;right:auto;top:0;bottom:0;width:2px;height:auto}
-  .tl li{padding:0 0 0 28px}
-  .tl li::before{top:5px}
-}
 ```
 
 ---
@@ -412,11 +400,6 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 .fork{flex:1.2;display:grid;gap:8px}
 .arrow{flex:0 0 28px;align-self:center;height:2px;background:var(--mute);position:relative}
 .arrow::after{content:"";position:absolute;right:-1px;top:-5px;border:6px solid transparent;border-left:8px solid var(--mute)}
-@media (max-width:600px){
-  .flow{flex-direction:column}
-  .arrow{flex:0 0 22px;width:2px;height:22px;align-self:center}
-  .arrow::after{right:-5px;top:auto;bottom:-6px;border:6px solid transparent;border-top:8px solid var(--mute)}
-}
 ```
 
 **合流（独立した原因が、それぞれの経路を通って1つの結果に至る時）:** `.fork` の各段に小さな連鎖を入れる。原因ごとの段数が違ってよい。
@@ -441,7 +424,6 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 .chain{display:flex;align-items:center;gap:0;flex-wrap:wrap}
 .chain .tag{flex:0 0 100%;font-size:.72rem;color:var(--mute);margin-bottom:2px}
 .node.act{border-style:dashed;background:var(--card);font-size:.84rem}
-@media (max-width:600px){.chain{flex-direction:column;flex-wrap:nowrap;align-items:stretch}.chain .tag{flex:none}.chain .arrow{align-self:center;width:2px;height:22px}}
 .brace{font-size:.82rem;color:var(--sub);border-left:2px solid var(--mute);padding-left:10px;margin:10px 0 0}
 ```
 
@@ -472,7 +454,6 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 .dep-col{flex:1;display:grid;gap:8px}
 .dep-h{font-size:.75rem;font-weight:700;color:var(--mute);margin:0}
 .node.open-n{border-style:dashed}
-@media (max-width:600px){.dep{flex-direction:column;align-items:stretch}.dep .arrow{align-self:center;width:2px;height:22px}}
 ```
 
 ---
@@ -511,41 +492,45 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 .cf-sides{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .cf-sides>div{border-left:4px solid var(--line);padding:4px 10px}
 .cf-sides p{margin:4px 0 0}
-@media (max-width:600px){.cf-sides{grid-template-columns:1fr}}
 ```
 
 ---
 
-## OPEN — 未解決（未確認・未決・宿題）
+## OPEN — 未解決の表（最後の章）
 
-1行に「何が」「状態」「決まると何に効くか（原文にある範囲）」「担当・期限」。
+未確認・未決・宿題を **ここ1か所にまとめる**（途中の章で並べ直さない）。1行 = 1論点。
 
-**担当欄の既定値は「記載なし」。** 原文が「〇〇が△△する」「〇〇による△△」と主語を書いている時だけ、その〇〇を書く。関係しそうな部署を推測して入れない（「A・B（要調整）」のような書き方も推測にあたる）。
+**担当の既定値は「記載なし」。** 原文が「〇〇が△△する」「〇〇による△△」と主語を書いている時だけ、その〇〇を書く。関係しそうな部署を推測して入れない（「A・B（要調整）」も推測にあたる）。
 
 ```html
-<ul class="open" data-f="{{F}}">
-  <li><span class="st st-open">■ 未確認</span> <b>{{何が}}</b> — {{根拠の強さ（例: 口頭のみ）}}<span class="src">決まると: {{原文にある影響}} / 担当: {{原文どおり or 記載なし}}</span></li>
-  <li><span class="st st-todo">○ 未決</span> <b>{{何が}}</b><span class="src">担当: {{未定 or 記載なし}}</span></li>
-</ul>
+<table class="open" data-f="{{F}}">
+  <thead><tr><th>状態</th><th>論点</th><th>根拠・原文のメモ</th><th>宿題・担当</th></tr></thead>
+  <tbody>
+    <tr data-f="{{F}}"><td><span class="st st-open">■&nbsp;未確認</span></td><td><b>{{何が}}</b></td><td>{{根拠の強さ（例: 口頭のみ）}}</td><td>{{原文にある宿題 or 記載なし}}<span class="src">担当 {{原文どおり or 記載なし}}</span></td></tr>
+    <tr data-f="{{F}}"><td><span class="st st-todo">○&nbsp;未決</span></td><td><b>{{何が}}</b></td><td>{{原文の言葉}}</td><td><span class="none">記載なし</span></td></tr>
+  </tbody>
+</table>
 ```
 ```css
-.open{list-style:none;margin:0;padding:0}
-.open li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0 0 8px}
-.open .src{display:block}
+table.open{width:100%;border-collapse:collapse;table-layout:fixed;font-size:.9rem}
+table.open th,table.open td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--line);line-height:1.65}
+table.open th{background:#eef1f6;color:var(--sub);font-size:.8rem}
+table.open th:nth-child(1){width:96px}table.open th:nth-child(2){width:32%}table.open th:nth-child(4){width:24%}
+table.open .src{display:block}
 ```
 
 ---
 
 ## LEDGER — 事実台帳（最後に置く）
 
-手順1の台帳をそのまま載せる。引用欄は **原文をそのまま**（言い換えない）。
+手順1の台帳をそのまま載せる。引用欄は **原文の文字だけ**（言い換えない。注釈は見出しの欄へ）。`main` の最後に書く。
 
 ```html
 <details class="ledger">
   <summary>原文との対応（事実台帳 {{件数}}件）</summary>
   <div>
     <table class="lg">
-      <tr id="{{F1}}"><th>{{F1}}</th><td>{{種類}}</td><td>{{内容}}</td><td class="q">「{{原文そのまま}}」</td></tr>
+      <tr id="{{F1}}"><th>{{F1}}</th><td>{{種類}}</td><td>{{見出し}}</td><td class="q">「{{原文そのまま}}」</td></tr>
     </table>
   </div>
 </details>
@@ -554,7 +539,6 @@ table.cmp th{background:#eef1f6;color:var(--sub);font-size:.85rem}
 table.lg{width:100%;border-collapse:collapse;font-size:.82rem}
 table.lg th,table.lg td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid var(--line)}
 table.lg .q{color:var(--mute)}
-@media (max-width:600px){table.lg td:nth-child(2){display:none}}
 ```
 
 ---
@@ -572,16 +556,13 @@ table.lg .q{color:var(--mute)}
 使ってよい動き:
 ```css
 @media (prefers-reduced-motion:no-preference){
-  /* タイムライン・流れ図: 左（上）から順に現れる */
   .tl li,.flow>.node,.flow>.fork,.flow>.arrow{animation:cv-in .45s ease-out both}
   .tl li:nth-child(2),.flow>:nth-child(2){animation-delay:.15s}
   .tl li:nth-child(3),.flow>:nth-child(3){animation-delay:.3s}
   .tl li:nth-child(4),.flow>:nth-child(4){animation-delay:.45s}
   .tl li:nth-child(5),.flow>:nth-child(5){animation-delay:.6s}
   .tl li:nth-child(n+6),.flow>:nth-child(n+6){animation-delay:.75s}
-  /* 棒: 0から伸びる */
   .bar-t i,.spark i{animation:cv-grow .6s ease-out both}
-  /* 折れ線: 線を引く */
   svg .draw{stroke-dasharray:1;animation:cv-draw 1.2s ease-out both}
 }
 @keyframes cv-in{from{opacity:0;transform:translateY(6px)}}

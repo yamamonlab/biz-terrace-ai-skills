@@ -17,7 +17,8 @@ const warnings = [];
 const info = {};
 
 const zen = (s) => s.replace(/[０-９．，]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0));
-const decode = (s) => s.replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+const NAMED = { mdash: '—', ndash: '–', darr: '↓', uarr: '↑', rarr: '→', larr: '←', hellip: '…', middot: '・', times: '×' };
+const decode = (s) => s.replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16))).replace(/&([a-z]+);/g, (m, n) => NAMED[n] ?? m).replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
 const stripTags = (s) => decode(s.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ');
 const squash = (s) => zen(s).replace(/[\s「」『』"“”]/g, '');
 
@@ -67,6 +68,26 @@ else {
   if (rows.length === 0) errors.push('事実台帳が空');
   if (quoted < rows.length) warnings.push(`引用欄（td.q）の無い台帳行: ${rows.length - quoted}`);
   for (const m of missingQuotes) errors.push(`台帳の引用が原文に無い（言い換え・創作の疑い）: ${m}`);
+}
+
+// ---- 4b. 冒頭の一覧（BOARD）----
+{
+  const board = (html.match(/<div class="board"[\s\S]*?<\/ul>\s*<\/div>\s*<\/div>/i) || [])[0];
+  if (!board) warnings.push('冒頭の一覧（BOARD）が無い');
+  else if (ledgerBlock) {
+    const types = new Map();
+    for (const row of ledgerBlock.match(/<tr[\s\S]*?<\/tr>/gi) || []) {
+      const id = (row.match(/id="([^"]+)"/) || [])[1];
+      const t = stripTags((row.match(/<td[^>]*>([\s\S]*?)<\/td>/i) || [])[1] || '');
+      if (id) types.set(id, t);
+    }
+    const ok = (board.match(/<div class="bd bd-ok"[\s\S]*?<\/ul>/i) || [''])[0];
+    for (const li of ok.match(/<li[^>]*data-f="([^"]*)"/gi) || []) {
+      const ids = li.replace(/.*data-f="([^"]*)".*/i, '$1').split(/\s+/);
+      const open = ids.filter((i) => /未確認|未決|対立/.test(types.get(i) || ''));
+      if (open.length && open.length === ids.length) errors.push(`「分かっていること」の列に未確認・未決・対立だけの項目: ${open.join(' ')}`);
+    }
+  }
 }
 
 // ---- 5. 画面上の数値が原文にあるか ----
@@ -154,7 +175,7 @@ if (/(^|[;{\s])animation(-name)?\s*:/.test(outside)) {
 // ---- 10. 本文（記事として文章が残っているか）----
 {
   const mainHtml = body.replace(/<details[\s\S]*?<\/details>/gi, ' ');
-  const isProse = (tag) => !/class="[^"]*(note|fig-r|src|kicker|points)/.test(tag);
+  const isProse = (tag) => !/class="[^"]*(note|fig-r|src|kicker|points|bd-h)/.test(tag);
   const paras = [...mainHtml.matchAll(/<p(\s[^>]*)?>([\s\S]*?)<\/p>/gi)].filter((m) => isProse(m[0].slice(0, 80)));
   const proseChars = paras.map((m) => stripTags(m[2]).trim()).filter((t) => t.length >= 40).join('').length;
   const allChars = stripTags(mainHtml).replace(/\s/g, '').length || 1;
