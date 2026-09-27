@@ -523,14 +523,14 @@ table.open .src{display:block}
 
 ## LEDGER — 事実台帳（最後に置く）
 
-手順1の台帳をそのまま載せる。列は番号・種類・引用の3つだけ。引用欄は **原文をそのまま**（言い換えない）。`main` の最後に書く。
+手順1の台帳をそのまま載せる。引用欄は **原文の文字だけ**（言い換えない。注釈は見出しの欄へ）。`main` の最後に書く。
 
 ```html
 <details class="ledger">
   <summary>原文との対応（事実台帳 {{件数}}件）</summary>
   <div>
     <table class="lg">
-      <tr id="{{F1}}"><th>{{F1}}</th><td>{{種類}}</td><td class="q">「{{原文そのまま}}」</td></tr>
+      <tr id="{{F1}}"><th>{{F1}}</th><td>{{種類}}</td><td>{{見出し}}</td><td class="q">「{{原文そのまま}}」</td></tr>
     </table>
   </div>
 </details>
