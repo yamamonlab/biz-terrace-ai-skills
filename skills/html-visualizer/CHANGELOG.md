@@ -8,6 +8,17 @@ The Skill uses semantic versioning with `html-visualizer-vX.Y.Z` Git tags (`cogn
 
 Status: see the bottom of this entry (VALIDATED / EVALUATED).
 
+### Changed (overview board, 2026-09-27)
+
+- **The first screen shows the whole picture.** The three-sentence key points (`POINTS`) are replaced by `BOARD`: columns "known / not yet known / next", filled by ledger type rather than by the model's judgement. `check-output.mjs` errors when the "known" column holds only unconfirmed, undecided or disputed facts, and warns when there is no board.
+- **Less repetition.** Body prose no longer restates what a table or figure shows; open items live only in one table at the end (`OPEN` is now a table).
+- **PC-first layout.** Chapter index on the left, tables and figures 960px, body 760px, all on one left edge. Mobile-only CSS is dropped except the table fallback.
+- **Ledger.** The heading column is kept to 15 characters and the quote cell holds only source text. The ledger is written last.
+- **Tables.** Columns follow what the source states; empty cells are "記載なし", never filled by arithmetic or guesswork. `CARD` is removed.
+- `check-output.mjs` decodes numeric character references before checking numbers (they were reported as numbers not in the source).
+- `validate.mjs`: components budget 30KB → 31KB for `BOARD` and the `OPEN` table.
+- Evaluation: `docs/eval-2026-09-27.md` (VALIDATED + limited EVALUATED). First-screen answers 11 → 13 of 18, page height median 5,670 → 4,442px, no regression for mid/strong models; weak-model fabrication remains in both versions.
+
 ### Changed (name only, 2026-09-27)
 
 - Renamed from **Cognitive View** (`skills/cognitive-view/`) to **HTML Visualizer** (`skills/html-visualizer/`). The Skill's contract, references, scripts and examples are unchanged; only names, paths and workflow names moved. Pinned links to `cognitive-view-v1.0.0` or to commits up to `8e8d001` keep working at the old path.
