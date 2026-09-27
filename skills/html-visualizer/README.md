@@ -8,7 +8,7 @@ HTML Visualizer is an open, text-based Skill that turns long documents — meeti
 
 1. **Fact ledger** — every fact in the source is listed with its type and a verbatim quote, before any HTML is written.
 2. **Routing** — facts are grouped and each group gets the representation its relationship calls for, in a fixed order: charts for quantities, a timeline for dates, a table for comparisons, a flow for causality the source actually states, a side-by-side block for disagreements, an open-items block for what is unresolved.
-3. **Three layers** — a 5-second layer (subject, state, source numbers), a structure layer headed by the reader's questions, and a collapsed detail layer that holds the ledger.
+3. **Article layout** — a lead that states the subject and its current state with three key points, body sections headed by the reader's questions where prose carries the facts and a table or diagram appears only where prose is hard to follow, and the ledger collapsed at the end.
 4. **Traceability** — every visible element carries the ledger ids it rests on, so a reader (or a script) can check it against the source.
 
 Animation is used only to show order, trend or stated causality: CSS only, plays once, and off for people who ask for reduced motion.
