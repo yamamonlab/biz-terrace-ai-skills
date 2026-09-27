@@ -13,7 +13,7 @@ Skillごとに `PROVENANCE.json` で正本の所在を宣言します。すべ�
 - 変更はこのリポジトリのPRで行います。
 - private repository側に必要な場合は、公開タグまたはcommit SHAから同期します。
 - イベント・教材・production consumerは `main` ではなくtagまたはSHAをpinします。
-- Cognitive View はこのモードで運用します。
+- HTML Visualizer はこのモードで運用します。
 
 ### Public distribution / mirror
 
@@ -24,15 +24,15 @@ Skillごとに `PROVENANCE.json` で正本の所在を宣言します。すべ�
 - 公開だけのREADME・導入案内はこのリポジトリで管理できます。
 - 既存の Japanese PPTX Skills / event thumbnail Skill は、移行するまでこのモードを維持します。
 
-## Cognitive View の更新
+## HTML Visualizer の更新
 
-1. `skills/cognitive-view/` を編集するbranchを作ります。
-2. `node skills/cognitive-view/scripts/validate.mjs` を実行します。
+1. `skills/html-visualizer/` を編集するbranchを作ります。
+2. `node skills/html-visualizer/scripts/validate.mjs` を実行します。
 3. Behavior変更では、複数ジャンルの代表入力でモデル出力を比較します。
 4. deterministic checksだけなら **VALIDATED**、モデル出力比較まで行った場合だけ **EVALUATED** と記録します。
 5. PRをmainへmergeします。
-6. リリース時は `skills/cognitive-view/RELEASE_NOTES/cognitive-view-vX.Y.Z.md` を追加し、
-   `cognitive-view-vX.Y.Z` tagを付けます。tag pushで `Release Cognitive View` workflowが
+6. リリース時は `skills/html-visualizer/RELEASE_NOTES/html-visualizer-vX.Y.Z.md` を追加し、
+   `html-visualizer-vX.Y.Z` tagを付けます。tag pushで `Release HTML Visualizer` workflowが
    validationを再実行し、そのnotesでReleaseを公開します。
 7. consumer側はtagまたはmerge commit SHAへ更新します。
 8. `main` の保護設定は `docs/BRANCH_PROTECTION.md` に定義しています。

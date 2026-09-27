@@ -1,6 +1,6 @@
 # Examples
 
-Fictional inputs for trying Cognitive View without exposing real business data.
+Fictional inputs for trying HTML Visualizer without exposing real business data.
 
 | File | What it exercises |
 |---|---|
@@ -24,7 +24,7 @@ These are longer than `sample-document.md`; a free-tier chat AI may hit its inpu
 Suggested request:
 
 ```text
-この資料を、短時間で全体像を把握できる Cognitive View にしてください。HTMLで出力してください。
+HTML Visualizer を使って、この資料を短時間で全体像を把握できる形にしてください。HTMLで出力してください。
 ```
 
 Examples are inputs, not rules. Nothing in `SKILL.md` or `references/` may use their wording, numbers or names.

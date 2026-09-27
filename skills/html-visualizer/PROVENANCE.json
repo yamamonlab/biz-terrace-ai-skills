@@ -1,8 +1,8 @@
 {
-  "skill": "cognitive-view",
+  "skill": "html-visualizer",
   "canonical": true,
   "canonical_repository": "yamamonlab/biz-terrace-ai-skills",
-  "canonical_path": "skills/cognitive-view",
+  "canonical_path": "skills/html-visualizer",
   "canonical_since": "cognitive-view-v1.0.0",
   "author": "Itsuki Yamakado (yamamonlab)",
   "community": "Biz-Terrace.ai",
@@ -23,8 +23,16 @@
   ],
   "release_policy": {
     "version_source": "git tag",
-    "tag_pattern": "cognitive-view-vX.Y.Z",
+    "tag_pattern": "html-visualizer-vX.Y.Z",
     "validated": "deterministic checks passed",
     "evaluated": "representative model-output comparison completed"
-  }
+  },
+  "former_names": [
+    {
+      "name": "cognitive-view",
+      "display_name": "Cognitive View",
+      "until": "2026-09-27",
+      "note": "Renamed to html-visualizer. Tags cognitive-view-v1.0.0 and commits up to 8e8d001 keep the old path skills/cognitive-view/."
+    }
+  ]
 }

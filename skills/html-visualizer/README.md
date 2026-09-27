@@ -1,6 +1,6 @@
-# Cognitive View
+# HTML Visualizer
 
-Cognitive View is an open, text-based Skill that turns long documents — meeting notes, reports, long AI outputs — into a single self-contained HTML page a person can understand quickly, **without dropping information**.
+HTML Visualizer is an open, text-based Skill that turns long documents — meeting notes, reports, long AI outputs — into a single self-contained HTML page a person can understand quickly, **without dropping information**.
 
 > Reduce what has to be read, not what is known.
 
@@ -31,22 +31,22 @@ The first rule outranks everything else: **nothing that is not in the source** �
 **Chat assistants** (ChatGPT, Gemini, Copilot, Claude): give them two raw file links — `SKILL.md` and `references/components.md` — plus the document.
 
 ```text
-この資料を、短時間で全体像を把握できる Cognitive View にしてください。HTMLで出力してください。
+HTML Visualizer を使って、この資料を短時間で全体像を把握できる形にしてください。HTMLで出力してください。
 ```
 
 If you can run Node, check the result:
 
 ```bash
-node skills/cognitive-view/scripts/check-output.mjs output.html source.md
+node skills/html-visualizer/scripts/check-output.mjs output.html source.md
 ```
 
 ## Validation and evaluation
 
-`node skills/cognitive-view/scripts/validate.mjs` checks the Skill files; passing it makes a commit **VALIDATED**. A change is **EVALUATED** only after the model-output comparison in `docs/eval-protocol.md` — including weak models — has actually been run.
+`node skills/html-visualizer/scripts/validate.mjs` checks the Skill files; passing it makes a commit **VALIDATED**. A change is **EVALUATED** only after the model-output comparison in `docs/eval-protocol.md` — including weak models — has actually been run.
 
 ## Versioning
 
-Git tags prefixed with `cognitive-view-` are the source of version truth. `v2.0.0` replaced the v1 contract; see `CHANGELOG.md`.
+Git tags prefixed with `html-visualizer-` are the source of version truth. `v2.0.0` replaced the v1 contract; see `CHANGELOG.md`.
 
 ## License
 

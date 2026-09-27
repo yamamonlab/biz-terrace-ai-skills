@@ -4,9 +4,9 @@
 
 作者の開発環境から、他の人も使える部分を配布用に取り出しています。ハーネス全体や個人の設定をインストールする必要はありません。
 
-## Cognitive View
+## HTML Visualizer
 
-[Skillを読む](skills/cognitive-view/SKILL.md) / [README](skills/cognitive-view/README.md) / [配布来歴](skills/cognitive-view/PROVENANCE.json)
+[Skillを読む](skills/html-visualizer/SKILL.md) / [README](skills/html-visualizer/README.md) / [配布来歴](skills/html-visualizer/PROVENANCE.json)
 
 長いAI出力・会議記録・調査レポートを、情報を削らずに「読まないと分からない状態」から「見れば全体像がつかめる状態」へ再構成するSkillです。
 
@@ -43,9 +43,9 @@ Luma・connpass・SNSのイベント画像を、内容に合った文字アー�
 
 Skillと参照ファイルを読めるAIに、次のように依頼してください。
 
-### Cognitive View
+### HTML Visualizer
 
-> `skills/cognitive-view/`をフォルダごと読み、`examples/sample-document.md`を対象に「この資料を、短時間で全体像を把握できる Cognitive View にしてください。HTMLで出力してください。」と依頼してください。
+> `skills/html-visualizer/`をフォルダごと読み、`examples/sample-document.md`を対象に「HTML Visualizer を使って、この資料を短時間で全体像を把握できる形にしてください。HTMLで出力してください。」と依頼してください。
 
 ### イベントサムネイル
 
@@ -62,7 +62,7 @@ Skillと参照ファイルを読めるAIに、次のように依頼してくだ�
 
 このリポジトリをダウンロードし、使いたいSkillのディレクトリを**フォルダごと**利用環境のSkill配置先へ登録します。各Skillは`SKILL.md`以外のreferenceを段階的に読むため、`SKILL.md`だけを単独コピーしないでください。
 
-- `skills/cognitive-view/`
+- `skills/html-visualizer/`
 - `skills/zg-event-thumbnail-design/`
 - `skills/japanese-pptx-skills/`
 

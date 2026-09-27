@@ -2,10 +2,10 @@
   "repository": "yamamonlab/biz-terrace-ai-skills",
   "policy": "Each skill declares canonical status in its own PROVENANCE.json.",
   "skills": {
-    "cognitive-view": {
-      "path": "skills/cognitive-view",
+    "html-visualizer": {
+      "path": "skills/html-visualizer",
       "canonical": true,
-      "provenance": "skills/cognitive-view/PROVENANCE.json"
+      "provenance": "skills/html-visualizer/PROVENANCE.json"
     },
     "japanese-pptx-skills": {
       "path": "skills/japanese-pptx-skills",
