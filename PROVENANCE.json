@@ -3,9 +3,9 @@
   "policy": "Each skill declares canonical status in its own PROVENANCE.json.",
   "skills": {
     "html-visualizer": {
-      "path": "skills/html-visualizer",
-      "canonical": true,
-      "provenance": "skills/html-visualizer/PROVENANCE.json"
+      "moved_to": "yamamonlab/html-visualizer",
+      "moved_on": "2026-09-29",
+      "last_commit_here": "92510937954c75699bdd2ec185dc7b6d27496d05"
     },
     "japanese-pptx-skills": {
       "path": "skills/japanese-pptx-skills",

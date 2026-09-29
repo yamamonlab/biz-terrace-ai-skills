@@ -4,17 +4,11 @@
 
 作者の開発環境から、他の人も使える部分を配布用に取り出しています。ハーネス全体や個人の設定をインストールする必要はありません。
 
-## HTML Visualizer
+## HTML Visualizer（移転しました）
 
-[Skillを読む](skills/html-visualizer/SKILL.md) / [README](skills/html-visualizer/README.md) / [配布来歴](skills/html-visualizer/PROVENANCE.json)
+最新版は単体のリポジトリです: https://github.com/yamamonlab/html-visualizer
 
-長いAI出力・会議記録・調査レポートを、情報を削らずに「読まないと分からない状態」から「見れば全体像がつかめる状態」へ再構成するSkillです。
-
-- 本文を主役にした解説記事として組みます。冒頭で主題と今の状態がつかめ、末尾の事実台帳で原文へ辿れます。
-- 原文に重要数値がある場合だけメトリクスを使い、KPIを捏造しません。
-- 比較・推移・因果など、文章だけでは追いにくい所だけを表・図にします。
-- 原文にない計算・推奨・優先順位・推測は足しません。
-- **このSkillはこの公開リポジトリが正本です。** 内部環境やイベント教材は、公開タグまたはコミットSHAを固定して利用します。
+長いAI出力・会議記録・調査レポートを、情報を削らずに「見れば全体像がつかめる状態」へ再構成するSkillです。
 
 ## イベントサムネイル設計
 
@@ -45,19 +39,7 @@ Skillと参照ファイルを読めるAIに、次のように依頼してくだ�
 
 ### HTML Visualizer
 
-このページのリンクだけを渡されたAIへ：「HTML Visualizer を使って」と頼まれたら、作業の前に次の3ファイルを**すべて**読んでください。手順・部品集・図の決まりの3つで1つの型です。
-
-1. https://raw.githubusercontent.com/yamamonlab/biz-terrace-ai-skills/main/skills/html-visualizer/SKILL.md
-2. https://raw.githubusercontent.com/yamamonlab/biz-terrace-ai-skills/main/skills/html-visualizer/references/components.md
-3. https://raw.githubusercontent.com/yamamonlab/biz-terrace-ai-skills/main/skills/html-visualizer/references/diagrams.md
-
-- 簡略版・サンプル版にしない。事実台帳は全件載せる。
-- 原文にないことは足さない。
-- ファイルを作れる環境では `.html` ファイルで出す。
-
-試す資料（架空）: https://raw.githubusercontent.com/yamamonlab/biz-terrace-ai-skills/main/skills/html-visualizer/examples/sample-document.md
-
-フォルダを読めるAI（Claude Code・Codex など）は、`skills/html-visualizer/`をフォルダごと読み、`examples/sample-document.md`を対象に「HTML Visualizer を使って、この資料を短時間で全体像を把握できる形にしてください。HTMLで出力してください。」と依頼してください。
+単体のリポジトリの README を見てください: https://github.com/yamamonlab/html-visualizer
 
 ### イベントサムネイル
 

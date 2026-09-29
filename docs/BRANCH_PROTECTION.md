@@ -1,6 +1,8 @@
 # Branch protection / ruleset (main)
 
-This repository is the public canonical source for `skills/html-visualizer/`.
+> 2026-09-29: HTML Visualizer moved to `yamamonlab/html-visualizer`. The required check below applied to it; apply the same settings there. Keep force-push and deletion protection here so pinned links to past commits stay valid.
+
+This repository was the public canonical source for `skills/html-visualizer/`.
 The settings below are **not** expressible as files — an org/repo admin applies
 them in GitHub Settings → Rules → Rulesets (or Settings → Branches).
 
