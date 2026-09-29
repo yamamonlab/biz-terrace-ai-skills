@@ -45,7 +45,19 @@ Skillと参照ファイルを読めるAIに、次のように依頼してくだ�
 
 ### HTML Visualizer
 
-> `skills/html-visualizer/`をフォルダごと読み、`examples/sample-document.md`を対象に「HTML Visualizer を使って、この資料を短時間で全体像を把握できる形にしてください。HTMLで出力してください。」と依頼してください。
+このページのリンクだけを渡されたAIへ：「HTML Visualizer を使って」と頼まれたら、作業の前に次の3ファイルを**すべて**読んでください。手順・部品集・図の決まりの3つで1つの型です。
+
+1. https://raw.githubusercontent.com/yamamonlab/biz-terrace-ai-skills/main/skills/html-visualizer/SKILL.md
+2. https://raw.githubusercontent.com/yamamonlab/biz-terrace-ai-skills/main/skills/html-visualizer/references/components.md
+3. https://raw.githubusercontent.com/yamamonlab/biz-terrace-ai-skills/main/skills/html-visualizer/references/diagrams.md
+
+- 簡略版・サンプル版にしない。事実台帳は全件載せる。
+- 原文にないことは足さない。
+- ファイルを作れる環境では `.html` ファイルで出す。
+
+試す資料（架空）: https://raw.githubusercontent.com/yamamonlab/biz-terrace-ai-skills/main/skills/html-visualizer/examples/sample-document.md
+
+フォルダを読めるAI（Claude Code・Codex など）は、`skills/html-visualizer/`をフォルダごと読み、`examples/sample-document.md`を対象に「HTML Visualizer を使って、この資料を短時間で全体像を把握できる形にしてください。HTMLで出力してください。」と依頼してください。
 
 ### イベントサムネイル
 
