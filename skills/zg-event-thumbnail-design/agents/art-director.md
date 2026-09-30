@@ -14,6 +14,8 @@
 
 ## Output
 
+全案作成の承認は各案に有効。参照意図がmethod-onlyなら外観を継承せず、融合箇所と今回の配色理由をBriefに明記する。訂正時は承認済み作業を保持する。
+
 次の項目を持つProduction Briefと、必要な派生版の構成方針を出力する。
 
 - `selected_concept`、`selection_source`、`communication_goal`

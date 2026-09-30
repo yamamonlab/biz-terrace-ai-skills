@@ -11,13 +11,24 @@ event_value:
   timely_reason: ""
   business_value: ""
   audience: ""
+listing_title: "" # 掲載用の題名。参照用で、画像には載せない
+headline_source: user # user | listing-title | approved-proposal
 exact_text:
   headline: ""
+  subline: ""
+  tag: ""
   event_name: ""
   datetime: ""
   venue: ""
   format: ""
   organizer: ""
+display_constraints:
+  min_display_width_px: null # 掲載面の最小表示幅（CSS px）。分かる場合だけ入れる。nullならQAは120として扱う
+  list_treatment: "" # 例: 一覧で彩度を落とす
+  square_required: false
+series:
+  past_families: [] # シリーズの過去回の系統
+  family: "" # 今回の系統と選んだ理由
 lettering_grammar:
   semantic_anchor: ""
   transformations: []
@@ -49,7 +60,8 @@ generation_handoff:
 
 ## 制作上の確認
 
-- 正式タイトルは勝手に言い換えず、日時・場所・形式は確定情報だけ載せます。
+- 画像の見出し（`exact_text.headline`）は掲載用の題名（`listing_title`）と別の値を取れます。見出しを提案して承認を受けた場合は`headline_source: approved-proposal`とします。承認された見出しは言い換えず、日時・場所・形式は確定情報だけ載せます。
+- 見出しは既製の書体を置くのではなく、字そのものを手で組みます。
 - 文字表現は「意味→視覚的な動作→字に融合する箇所」を1〜3個に絞ります。フォント指定だけでは不十分です。
 - 参照の制作思想と外観を分け、元イベントのコピーや固有モチーフを持ち込みません。
 - 1:1は別レイアウトです。16:9の中央cropで代替しません。
