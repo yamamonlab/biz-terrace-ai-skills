@@ -1,12 +1,12 @@
 {
   "distribution": "biz-terrace-ai-skills",
-  "version": "0.1.0",
-  "released_on": "2026-09-12",
+  "version": "0.2.0",
+  "released_on": "2026-09-30",
   "author": "Itsuki Yamakado (yamamonlab)",
   "community": "Biz-Terrace.ai",
   "source": {
     "repository": "yamamon-lab",
-    "commit": "ae6ac0b42e049b122eb7a93f37e03a601f1623f1",
+    "commit": "bd9114227de2fc5d16f4842d71d0c148aad95e25",
     "path": "skills/zg-event-thumbnail-design",
     "access": "maintainer source; consumers do not need access",
     "selection": "committed snapshot only; working-tree changes excluded"
@@ -14,50 +14,50 @@
   "files": [
     {
       "path": "skills/zg-event-thumbnail-design/SKILL.md",
-      "source_sha256": "b8f6f42df32807f7fa6e0d0decc287f10300ed8f332fb1550a96655944c2c036",
-      "distribution_sha256": "da74d7cabdfdbea3916546bee04eed930439bfb80fb2c1fdf3e2da2b9bbfa3f8",
+      "source_sha256": "e47cca3a74cba0fa90b4f388302c1532d4b405ac33d944826f17e23bbed29304",
+      "distribution_sha256": "89ca36f9a87197d02cb14be8bb12453b1d64a009ad4c715343de5808273cb68d",
       "mode": "portable-adaptation"
     },
     {
       "path": "skills/zg-event-thumbnail-design/agents/art-director.md",
-      "source_sha256": "ae120fab8636a85807f302c23fa51e3b04f3fa6a02ccf702a9379c855335656d",
-      "distribution_sha256": "ae120fab8636a85807f302c23fa51e3b04f3fa6a02ccf702a9379c855335656d",
+      "source_sha256": "d6e8d65870a9a70dcb592dbaf19da56161b4e96da948753412f0e74139b75c2e",
+      "distribution_sha256": "d6e8d65870a9a70dcb592dbaf19da56161b4e96da948753412f0e74139b75c2e",
       "mode": "unchanged"
     },
     {
       "path": "skills/zg-event-thumbnail-design/agents/concept-strategist.md",
-      "source_sha256": "7b31fd88f7714d3b6d48ee014a622f452e19ffed753c0dbb68056e223cd29553",
-      "distribution_sha256": "7b31fd88f7714d3b6d48ee014a622f452e19ffed753c0dbb68056e223cd29553",
-      "mode": "unchanged"
+      "source_sha256": "441a031d9f73bff9966108c0f9ce07daacbf2a3430bc504dc447796d253cded4",
+      "distribution_sha256": "581931eb3774a6cac7c241264ad979c30428417f302baf4aff2859ced211e75a",
+      "mode": "portable-adaptation"
     },
     {
       "path": "skills/zg-event-thumbnail-design/agents/thumbnail-qa.md",
-      "source_sha256": "ecac4a6315621a4fabc1156f20f3666c093911bca40645b65d2b68f71e4a226f",
-      "distribution_sha256": "ecac4a6315621a4fabc1156f20f3666c093911bca40645b65d2b68f71e4a226f",
+      "source_sha256": "9d9cd59c3be2ecd806385e0ac32ad8be3cacb517cde2e2d3878150d91607875c",
+      "distribution_sha256": "9d9cd59c3be2ecd806385e0ac32ad8be3cacb517cde2e2d3878150d91607875c",
       "mode": "unchanged"
     },
     {
       "path": "skills/zg-event-thumbnail-design/references/concept-direction-template.md",
-      "source_sha256": "c3ab5b5a8fa9d5578dcd0b26c7d9e97c005f904863605a27641cf4c94e7e3f52",
-      "distribution_sha256": "c3ab5b5a8fa9d5578dcd0b26c7d9e97c005f904863605a27641cf4c94e7e3f52",
+      "source_sha256": "84300018779edc23dd835d7a8dd1e3866d97606fd4c8e1f12d1a5b75e56df1cb",
+      "distribution_sha256": "84300018779edc23dd835d7a8dd1e3866d97606fd4c8e1f12d1a5b75e56df1cb",
       "mode": "unchanged"
     },
     {
       "path": "skills/zg-event-thumbnail-design/references/evaluation-cases.md",
-      "source_sha256": "85ca741b25677c1f1be3d3b56efe3f28f4a517cf301c54749f532812d02d5a4a",
-      "distribution_sha256": "9063b00a60c3a7c064b690b2ec939aa36027cf7a5cc3f25601e9f74fb764db9e",
+      "source_sha256": "869b7cced768f23fa22b8ec527b9b9e5f9f7a3751b98af8c8890bf8eb4425a12",
+      "distribution_sha256": "67483d1cf3ea3439975a386b617655ac64ec316118de3b6472b9b95d7c53ebe5",
       "mode": "portable-adaptation"
     },
     {
       "path": "skills/zg-event-thumbnail-design/references/production-brief.md",
-      "source_sha256": "453b2b362fe344439119d5e4be521eb0c94a1389c373668413aa123768f6005d",
-      "distribution_sha256": "84e9268e4064f224a921c339756777727797bc35eed70e4881af2c8c09e1d050",
+      "source_sha256": "ca077d8ebd72bca0ac5f71e5492567c194434d44836d2cf9429e1cdde9aaaf56",
+      "distribution_sha256": "6e92a9a19823d0f8dc17fce2b1295a5be56a58b404c0991af7596b35a786bea7",
       "mode": "portable-adaptation"
     },
     {
       "path": "skills/zg-event-thumbnail-design/references/qa-checklist.md",
-      "source_sha256": "a2f3c6bffe8dd728e3379f9929d47106c380a8f94a4c626c618c37e54e058f43",
-      "distribution_sha256": "58045a17f94294f8d9e972a0f0d6980cce6befc828474ab52bff70c160aaef7a",
+      "source_sha256": "cc003f9e094b4162b7c64e09619f70401ff2a84c6d9440009093ffc0b261cd8b",
+      "distribution_sha256": "90c9d98a099eb8169941c292c8a73834c871006635f82d226a668374d0016539",
       "mode": "portable-adaptation"
     }
   ],
@@ -72,7 +72,9 @@
     "Portable entry point and production/QA records replace image-gen CLI and artifact-root requirements.",
     "Keep Concept/Selection/Production/QA gates and role resources.",
     "Add explicit no-image-tool and unverified-artifact states.",
-    "Standalone title/reference and multi-selection guidance is made explicit; not a runtime projection."
+    "0.2.0: separate the listing title from the image headline, add series/display-width checks, the hand-lettering standard, stricter text-as-art QA, and cheaper-model-first guidance from canonical bd91142.",
+    "0.2.0: concept-strategist drops the reference to the internal feedback record, which is not distributed.",
+    "Not a runtime projection."
   ],
   "canonical_runtime_changes": "none",
   "canonical": false,
