@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astra Mascot"
+  short_description: "Create and maintain Biz-Terrace.ai Astra mascot assets"
+  default_prompt: "Use $astra-mascot to create or update Astra while preserving the canonical character identity."
