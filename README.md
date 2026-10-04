@@ -21,6 +21,17 @@ Luma・connpass・SNSのイベント画像を、内容に合った文字アー�
 - 検索向けの長い題名はそのまま載せず、短い見出しを提案して承認を受けます。
 - 未確定の日付や料金は補わず、生成後は文字と実寸比率を確認します。スマートフォンで縮んだ大きさでも読めるかを実物で確かめます。
 
+## Astra Mascot
+
+[Skillを読む](skills/astra-mascot/SKILL.md)
+
+Biz-Terrace.ai の公式ピクセルマスコット **Astra（アストラ）** を、canonical identityを崩さずに制作・アニメーション化・spritesheet化するSkillです。
+
+- 公式HP、イベント、SNS、スライド向けのscene差分を作れます。
+- 承認済みmasterを参照し、毎回別キャラへ漂流しないようにします。
+- pixel animationはframe生成とatlas組み立てを分け、geometryをdeterministicに検証します。
+- Codex互換petは通常sceneとは別trackとして扱い、strict contractを通過したものだけ互換と呼びます。
+
 ## Japanese PPTX Skills
 
 [Skillを読む](skills/japanese-pptx-skills/SKILL.md)
@@ -46,6 +57,10 @@ Skillと参照ファイルを読めるAIに、次のように依頼してくだ�
 
 
 > `skills/zg-event-thumbnail-design/SKILL.md`と、各段階で指定された参照ファイルを読んでください。オンライン勉強会のサムネイルを作りたいです。正式タイトルは「AIで会議の記録を仕事につなげる」。対象は議事録を担当する人です。日時は未定なので入れません。まず方向性を3案ください。画像生成は案を選んでからにしてください。
+
+### Astra Mascot
+
+> `skills/astra-mascot/SKILL.md` と必要なreferenceを読んでください。Biz-Terrace.aiのAstraで、公式HP用の「考え中」アニメーションとスライド用透過PNGを作り、canonical identityとgeometryをQAしてください。
 
 ### Japanese PPTX Skills
 
