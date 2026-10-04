@@ -1,0 +1,23 @@
+{
+  "distribution": "biz-terrace-ai-skills",
+  "version": "0.1.0",
+  "released_on": "2026-10-04",
+  "author": "Itsuki Yamakado (yamamonlab)",
+  "community": "Biz-Terrace.ai",
+  "canonical": true,
+  "provenance_mode": "public-canonical-skill",
+  "asset_canonical": {
+    "repository": "yamamonlab/community-labs",
+    "path": "biz-terrace-ai/06_community_system/astra",
+    "access": "private canonical assets"
+  },
+  "references": [
+    {
+      "name": "OpenAI Hatch Pet",
+      "repository": "openai/skills",
+      "path": "skills/.curated/hatch-pet",
+      "license": "Apache-2.0",
+      "usage": "workflow and interoperability reference; no source or artwork vendored"
+    }
+  ]
+}
